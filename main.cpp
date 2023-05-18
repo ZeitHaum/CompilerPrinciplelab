@@ -12,6 +12,7 @@
 
 using std::string;
 using std::vector;
+#define debug_reach() std::cerr<<"successfully reach "<<__LINE__<<"!\n"
 
 /**
  * commad line:

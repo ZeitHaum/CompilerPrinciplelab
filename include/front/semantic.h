@@ -27,30 +27,32 @@ namespace frontend
 {
 
 // definition of symbol table entry
-struct STE {
+struct STE {//符号
     ir::Operand operand;
     vector<int> dimension;
 };
 
 using map_str_ste = map<string, STE>;
 // definition of scope infomation
-struct ScopeInfo {
+struct ScopeInfo {//作用域
     int cnt;
-    string name;
+    // string name; 暂时无用，舍弃.
     map_str_ste table;
+    ScopeInfo(int c):cnt(c){}
 };
 
 // surpport lib functions
 map<std::string,ir::Function*>* get_lib_funcs();
 
 // definition of symbol table
-struct SymbolTable{
-    vector<ScopeInfo> scope_stack;
+struct SymbolTable{//符号表
+    std::vector<ScopeInfo> scope_stack;
     map<std::string,ir::Function*> functions;
 
     /**
      * @brief enter a new scope, record the infomation in scope stacks
      * @param node: a Block node, entering a new Block means a new name scope
+     * 进入新作用域时, 向符号表中添加 ScopeInfo, 相当于压栈
      */
     void add_scope(Block*);
 
@@ -92,9 +94,10 @@ struct SymbolTable{
 
 // singleton class
 struct Analyzer {
-    int tmp_cnt;
-    vector<ir::Instruction*> g_init_inst;
-    SymbolTable symbol_table;
+    // int tmp_cnt; Unused
+    vector<ir::Instruction*> g_init_inst;//存储global函数语句的集合
+    SymbolTable symbol_table;//符号表
+    ir::Program anlyzed_p;
 
     /**
      * @brief constructor
@@ -107,6 +110,40 @@ struct Analyzer {
     // reject copy & assignment
     Analyzer(const Analyzer&) = delete;
     Analyzer& operator=(const Analyzer&) = delete;
+
+    //def anlyzd function
+    void analyzeAstNode(frontend::AstNode* root);
+    void analyzeCompUnit(frontend::CompUnit* root);
+    void analyzeDecl(frontend::Decl* root);
+    void analyzeFuncDef(frontend::FuncDef* root);    
+    void analyzeConstDecl(frontend::ConstDecl* root);
+    void analyzeBType(frontend::BType* root);
+    void analyzeConstDef(frontend::ConstDef* root);
+    void analyzeConstInitVal(frontend::ConstInitVal* root);
+    void analyzeVarDecl(frontend::VarDecl* root);
+    void analyzeVarDef(frontend::VarDef* root);
+    void analyzeInitVal(frontend::InitVal* root);
+    ir::Type analyzeFuncType(frontend::FuncType* root);
+    void analyzeFuncFParam(frontend::FuncFParam* root);
+    void analyzeFuncFParams(frontend::FuncFParams* root);
+    void analyzeBlock(frontend::Block* root,ir::Function& func);
+    void analyzeBlockItem(frontend::BlockItem* root,ir::Function& func);
+    void analyzeStmt(frontend::Stmt* root);
+    void analyzeExp(frontend::Exp* root);
+    void analyzeCond(frontend::Cond* root);
+    void analyzeLVal(frontend::LVal* root);
+    void analyzeNumber(frontend::Number* root);
+    void analyzePrimaryExp(frontend::PrimaryExp* root);
+    void analyzeUnaryExp(frontend::UnaryExp* root);
+    void analyzeUnaryOp(frontend::UnaryOp* root);
+    void analyzeFuncRParams(frontend::FuncRParams* root);
+    void analyzeMulExp(frontend::MulExp* root);
+    void analyzeAddExp(frontend::AddExp* root);
+    void analyzeRelExp(frontend::RelExp* root);
+    void analyzeEqExp(frontend::EqExp* root);
+    void analyzeLAndExp(frontend::LAndExp* root);
+    void analyzeLOrExp(frontend::LOrExp* root);
+    void analyzeConstExp(frontend::ConstExp* root);
 };
 
 } // namespace frontend

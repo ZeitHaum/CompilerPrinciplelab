@@ -9,6 +9,7 @@
 #define TODO assert(0 && "TODO");
 #define DEBUG_EXEC_BRIEF  1
 #define DEBUG_EXEC_DETAIL 1
+#define debug_reach() std::cerr<<"successfully reach "<<__LINE__<<"!\n"
 
 using ir::Type;
 
@@ -157,7 +158,7 @@ int ir::Executor::run() {
     while (cxt_stack.size()) {
         exec_ir();
     }
-    
+
     return main_func_retval._val.ival;
 }
 
