@@ -17,11 +17,11 @@ using ir::Operator;
 #define error() assert(0 && "Semantic anlysis error!")
 #define def_analyze(type) void frontend::Analyzer::analyze##type(type* root)
 #define def_analyze_withret(type,returntype) returntype frontend::Analyzer::analyze##type(type* root)
-#define def_analyze_withfunc(type) void frontend::Analyzer::analyze##type(type* root,ir::Function& func)
-#define def_analyze_withfunc_withret(type,returntype) returntype frontend::Analyzer::analyze##type(type* root,ir::Function& func)
 #define BEGIN_PTR_INIT() int b_ptr = 0;//begin_ptr
 #define parse_bptr(type,name) if(b_ptr>=root->children.size()){error();} type* node_##name = (type*)root->children[b_ptr++]
 #define parse_bptr_declared(type,name) if(b_ptr>=root->children.size()){error();} node_##name = (type*)root->children[b_ptr++]
+#define new_func() if(this->func!=nullptr){error();} this->func = new Function()
+#define add_func() this->anlyzed_p.addFunction(*func); this->func = nullptr
 #define cur_node_is(type_) ( (root->children[b_ptr]->type) == type_)
 #define debug_reach() std::cerr<<"successfully reach "<<__LINE__<<"!\n"
 #define warning_todo() std::cerr<<"This work is not complete in line "<<__LINE__<<"\n"
@@ -173,31 +173,31 @@ def_analyze(FuncDef){
     parse_bptr(Block,block);
     
     //生成函数定义IR
-    ir::Function func = ir::Function();
+    new_func();
     ir::Type func_type = analyzeFuncType(node_functype);
-    func.returnType = func_type;
-    func.name = node_funcname->token.value;
+    func->returnType = func_type;
+    func->name = node_funcname->token.value;
     //生成函数参数
     if(node_funcfparams!=nullptr){
         TODO()
     }
     //main函数需要执行先加载global
-    if(func.name=="main"){
+    if(func->name=="main"){
         //TODO
         warning_todo();
     }
     //生成函数语句
-    analyzeBlock(node_block,func);
+    analyzeBlock(node_block);
     //检测main函数是否有返回值
-    if(func.name=="main"){
-        if(func.InstVec.empty() || func.InstVec.back()->op!=Operator::_return){
+    if(func->name=="main"){
+        if(func->InstVec.empty() || func->InstVec.back()->op!=Operator::_return){
             //添加返回0
             Instruction* ret0_ins = new Instruction(Operand("0",ir::Type::IntLiteral),Operand(),Operand(),ir::Operator::_return);
-            func.addInst(ret0_ins);
+            func->addInst(ret0_ins);
         }
     }
     //将Function添加到program中
-    this->anlyzed_p.addFunction(func);
+    add_func();
 }
 
 //11. FuncType -> 'void' | 'int' | 'float'
@@ -234,17 +234,17 @@ def_analyze(FuncFParams){
 }
 
 //14. Block -> '{' { BlockItem } '}'
-def_analyze_withfunc(Block){
+def_analyze(Block){
     BEGIN_PTR_INIT()   
     b_ptr++;//忽略'{'
     while(cur_node_is(NodeType::BLOCKITEM)){
         parse_bptr(BlockItem,blockitem);
-        analyzeBlockItem(node_blockitem,func);
+        analyzeBlockItem(node_blockitem);
     }
 }
 
 //15. BlockItem -> Decl | Stmt
-def_analyze_withfunc(BlockItem){
+def_analyze(BlockItem){
     TODO()
 }
 
@@ -373,10 +373,10 @@ def_analyze(AstNode){
         analyzeFuncFParams((FuncFParams*)root);
     }
     else if(root->type==NodeType::BLOCK){
-        error();
+        analyzeBlock((Block*)root);
     }
     else if(root->type==NodeType::BLOCKITEM){
-        error();
+        analyzeBlockItem((BlockItem*)root);
     }
     else if(root->type==NodeType::STMT){
         analyzeStmt((Stmt*)root);

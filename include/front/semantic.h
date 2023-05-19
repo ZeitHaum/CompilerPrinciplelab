@@ -98,6 +98,7 @@ struct Analyzer {
     vector<ir::Instruction*> g_init_inst;//存储global函数语句的集合
     SymbolTable symbol_table;//符号表
     ir::Program anlyzed_p;
+    ir::Function* func = nullptr;//空指针表示global
 
     /**
      * @brief constructor
@@ -126,8 +127,8 @@ struct Analyzer {
     ir::Type analyzeFuncType(frontend::FuncType* root);
     void analyzeFuncFParam(frontend::FuncFParam* root);
     void analyzeFuncFParams(frontend::FuncFParams* root);
-    void analyzeBlock(frontend::Block* root,ir::Function& func);
-    void analyzeBlockItem(frontend::BlockItem* root,ir::Function& func);
+    void analyzeBlock(frontend::Block* root);
+    void analyzeBlockItem(frontend::BlockItem* root);
     void analyzeStmt(frontend::Stmt* root);
     void analyzeExp(frontend::Exp* root);
     void analyzeCond(frontend::Cond* root);
