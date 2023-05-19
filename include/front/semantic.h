@@ -48,6 +48,7 @@ map<std::string,ir::Function*>* get_lib_funcs();
 struct SymbolTable{//符号表
     std::vector<ScopeInfo> scope_stack;
     map<std::string,ir::Function*> functions;
+    map<std::string,frontend::STE> global_symbol;
 
     /**
      * @brief enter a new scope, record the infomation in scope stacks
@@ -74,21 +75,21 @@ struct SymbolTable{//符号表
      * @param id: origin id 
      * @return string: new name with scope infomations
      */
-    string get_scoped_name(string id) const;
+    string get_scoped_name(string id) ;
 
     /**
      * @brief get the right operand with the input name
      * @param id identifier name
      * @return Operand 
      */
-    ir::Operand get_operand(string id) const;
+    ir::Operand get_operand(string id) ;
 
     /**
      * @brief get the right ste with the input name
      * @param id identifier name
      * @return STE 
      */
-    STE get_ste(string id) const;
+    STE get_ste(string id) ;
 };
 
 
@@ -112,6 +113,8 @@ struct Analyzer {
     Analyzer(const Analyzer&) = delete;
     Analyzer& operator=(const Analyzer&) = delete;
 
+    ir::Type var_to_literal(ir::Type t);
+    
     //def anlyzd function
     void analyzeAstNode(frontend::AstNode* root);
     void analyzeCompUnit(frontend::CompUnit* root);

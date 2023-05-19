@@ -22,9 +22,12 @@ using ir::Operator;
 #define parse_bptr_declared(type,name) if(b_ptr>=root->children.size()){error();} node_##name = (type*)root->children[b_ptr++]
 #define new_func() if(this->func!=nullptr){error();} this->func = new Function()
 #define add_func() this->anlyzed_p.addFunction(*func); this->func = nullptr
+#define ANALYZE_CHILD() for(auto child:root->children){analyzeAstNode(child);}
 #define cur_node_is(type_) ( (root->children[b_ptr]->type) == type_)
+#define cur_termtoken_is(type_) (cur_node_is(NodeType::TERMINAL) && ((Term*)root->children[b_ptr])->token.type==type_)
 #define debug_reach() std::cerr<<"successfully reach "<<__LINE__<<"!\n"
 #define warning_todo() std::cerr<<"This work is not complete in line "<<__LINE__<<"\n"
+#define ASSERT_NULLFUNC() if(this->func==nullptr){assert(0 && "NULL FUNC!");}
 
 map<std::string,ir::Function*>* frontend::get_lib_funcs() {
     static map<std::string,ir::Function*> lib_funcs = {
@@ -41,6 +44,17 @@ map<std::string,ir::Function*>* frontend::get_lib_funcs() {
     };
     return &lib_funcs;
 }
+
+ir::Type frontend::Analyzer::var_to_literal(ir::Type t){
+    if(t==ir::Type::Float){
+        return ir::Type::FloatLiteral;
+    }
+    else if(t==ir::Type::Int){
+        return ir::Type::IntLiteral;
+    }
+    error();
+}
+
 
 //进入新作用域时, 向符号表中添加 ScopeInfo, 相当于压栈
 void frontend::SymbolTable::add_scope(Block* node) {
@@ -65,7 +79,7 @@ void frontend::SymbolTable::exit_scope() {
 }
 
 //输入一个变量名, 返回其在当前作用域下重命名后IR operand的名字 (相当于加后缀)
-string frontend::SymbolTable::get_scoped_name(string id) const {
+string frontend::SymbolTable::get_scoped_name(string id) {
     //获取top cnt
     if(scope_stack.empty()){
         error();
@@ -75,26 +89,31 @@ string frontend::SymbolTable::get_scoped_name(string id) const {
 }
 
 //输入一个变量名, 在符号表中寻找最近的同名变量, 返回对应的 Operand(注意，此 Operand 的 name 是重命名后的)
-Operand frontend::SymbolTable::get_operand(string id) const {
+Operand frontend::SymbolTable::get_operand(string id)  {
     //遍历栈
     for(int i = this->scope_stack.size()-1;i>=0;i--){
         if((scope_stack[i]).table.count(id)!=0){
-            frontend::map_str_ste tmp_map =  (scope_stack[i]).table;
-            return tmp_map[id].operand;
+            return  (scope_stack[i]).table[id].operand;
         }
+    }
+    if(this->global_symbol.count(id)!=0){
+        return global_symbol[id].operand;
     }
     error();
     return {};
 }
 
 //输入一个变量名, 在符号表中寻找最近的同名变量, 返回 STE
-frontend::STE frontend::SymbolTable::get_ste(string id) const {
+frontend::STE frontend::SymbolTable::get_ste(string id) {
     //遍历栈
     for(int i = this->scope_stack.size()-1;i>=0;i--){
         if((scope_stack[i]).table.count(id)!=0){
             frontend::map_str_ste tmp_map =  (scope_stack[i]).table;
             return tmp_map[id];
         }
+    }
+    if(this->global_symbol.count(id)!=0){
+        return global_symbol[id];
     }
     error();
     return {};
@@ -115,12 +134,12 @@ ir::Program frontend::Analyzer::get_ir_program(CompUnit* root) {
 
 //1. CompUnit -> (Decl | FuncDef) [CompUnit]
 def_analyze(CompUnit){
-    for(auto child:root->children){analyzeAstNode(child);}
+    ANALYZE_CHILD()
 }
 
 //2. Decl -> ConstDecl | VarDecl
 def_analyze(Decl){
-    for(auto child:root->children){analyzeAstNode(child);}
+    ANALYZE_CHILD()
 }
 
 //3. ConstDecl -> 'const' BType ConstDef { ',' ConstDef } ';'
@@ -177,6 +196,8 @@ def_analyze(FuncDef){
     ir::Type func_type = analyzeFuncType(node_functype);
     func->returnType = func_type;
     func->name = node_funcname->token.value;
+    //存入符号表
+    this->symbol_table.functions[func->name] = func;
     //生成函数参数
     if(node_funcfparams!=nullptr){
         TODO()
@@ -235,22 +256,55 @@ def_analyze(FuncFParams){
 
 //14. Block -> '{' { BlockItem } '}'
 def_analyze(Block){
-    BEGIN_PTR_INIT()   
+    //创建符号表 
+    ASSERT_NULLFUNC()
+    BEGIN_PTR_INIT()  
+    this->symbol_table.add_scope(root);
     b_ptr++;//忽略'{'
     while(cur_node_is(NodeType::BLOCKITEM)){
         parse_bptr(BlockItem,blockitem);
         analyzeBlockItem(node_blockitem);
     }
+    //符号表出栈
+    this->symbol_table.exit_scope();
 }
 
 //15. BlockItem -> Decl | Stmt
 def_analyze(BlockItem){
-    TODO()
+    ASSERT_NULLFUNC()
+    ANALYZE_CHILD()
 }
 
 //16. Stmt -> LVal '=' Exp ';' | Block | 'if' '(' Cond ')' Stmt [ 'else' Stmt ] | 'while' '(' Cond ')' Stmt | 'break' ';' | 'continue' ';' | 'return' [Exp] ';' | [Exp] ';'
 def_analyze(Stmt){
-    TODO()
+    //FIRST,根据子节点类型分情况讨论
+    BEGIN_PTR_INIT()
+    ASSERT_NULLFUNC()
+    if(cur_termtoken_is(TokenType::RETURNTK)){
+        //parse
+        b_ptr++;//跳过return
+        Exp* node_exp = nullptr;
+        if(cur_node_is(NodeType::EXP)){
+            parse_bptr_declared(Exp,exp);
+        }
+        //处理return 语句
+        ir::Instruction* ret_ins = new Instruction();
+        ret_ins->op = ir::Operator::_return;
+        if(node_exp==nullptr){
+            if(this->func->returnType!=ir::Type::null){
+                //自动填充值0
+                ret_ins->op1.name = "0";
+                ret_ins->op1.type = var_to_literal(this->func->returnType);
+            }
+        }
+        else{
+            TODO()
+        }
+        func->addInst(ret_ins);
+    }
+    else{
+        TODO()
+    }
 }
 
 //17. Exp -> AddExp
