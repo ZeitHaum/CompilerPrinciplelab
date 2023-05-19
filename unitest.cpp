@@ -30,6 +30,6 @@ int main(){
     // std::vector<int> a{1,2,3};
     // int ap = 0;
     // std::cout<<a[ap++];
-    std::cout<<intstring_to_float("31");
+    std::cout<<2.0f + 1;
     return 0;
 }

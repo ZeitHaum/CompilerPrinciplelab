@@ -112,12 +112,19 @@ struct Analyzer {
     // reject copy & assignment
     Analyzer(const Analyzer&) = delete;
     Analyzer& operator=(const Analyzer&) = delete;
+    
 
     //类型转换类函数
     ir::Type var_to_literal(ir::Type t);
     std::string floatstring_to_int(std::string s);
     std::string intstring_to_float(std::string s);
     ir::Operand sync_literal_type(ir::Operand op,ir::Type to_type);
+    void sync_literalop_type(ir::Operand& op1,ir::Operand& op2);//float隐式转换为int
+    int Atoi(std::string s);//进制转换,仅限整数
+
+    //Operand运算
+    std::string add_string(std::string s1,std::string s2, frontend::TokenType addop, ir::Type addtype);
+    ir::Operand add_literal(ir::Operand op1,ir::Operand op2, frontend::TokenType addop);
 
 
     //def anlyzd function

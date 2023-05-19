@@ -12,6 +12,9 @@ bin/*
 # script files
 script/*
 
+#zip
+*.zip
+
 # test framework
 test/output/*
 test/__pycache__/*
