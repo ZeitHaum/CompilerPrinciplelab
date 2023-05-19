@@ -30,6 +30,10 @@ int main(){
     // std::vector<int> a{1,2,3};
     // int ap = 0;
     // std::cout<<a[ap++];
-    std::cout<<2.0f + 1;
+    int a = 1;
+    int ar[2]{2,4};
+    ar[1] = 3;
+    int arr[ar[1]]{0,1,2};
+    std::cout<<arr[2];
     return 0;
 }

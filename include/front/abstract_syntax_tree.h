@@ -241,8 +241,9 @@ struct Stmt: AstNode{
 
 struct Exp: AstNode{
     bool is_computable = false;
-    string v;
-    Type t;
+    // string v;
+    // Type t;
+    ir::Operand op;
 
     /**
      * @brief constructor
@@ -254,6 +255,7 @@ struct Cond: AstNode{
     bool is_computable = false;
     string v;
     Type t;
+    ir::Operand op;
 
     /**
      * @brief constructor
@@ -263,9 +265,8 @@ struct Cond: AstNode{
 
 struct LVal: AstNode{
     bool is_computable = false;
-    string v;
-    Type t;
-    int i;  // array index, legal if t is IntPtr or FloatPtr
+    ir::Operand op;
+    vector<int> ind;  // array index, legal if t is IntPtr or FloatPtr
 
     /**
      * @brief constructor
@@ -275,8 +276,9 @@ struct LVal: AstNode{
 
 struct Number: AstNode{
     bool is_computable = true;
-    string v;
-    Type t;
+    // string v;
+    // Type t;
+    ir::Operand op;
 
     /**
      * @brief constructor
@@ -286,8 +288,9 @@ struct Number: AstNode{
 
 struct PrimaryExp: AstNode{
     bool is_computable = false;
-    string v;
-    Type t;
+    // string v;
+    // Type t;
+    ir::Operand op;
     
     /**
      * @brief constructor
@@ -297,8 +300,9 @@ struct PrimaryExp: AstNode{
 
 struct UnaryExp: AstNode{
     bool is_computable = false;
-    string v;
-    Type t;
+    // string v;
+    // Type t;
+    ir::Operand op;
 
     /**
      * @brief constructor
@@ -324,8 +328,9 @@ struct FuncRParams: AstNode{
 
 struct MulExp: AstNode{
     bool is_computable = false;
-    string v;
-    Type t;
+    // string v;
+    // Type t;
+    ir::Operand op;
 
     /**
      * @brief constructor
@@ -335,8 +340,9 @@ struct MulExp: AstNode{
 
 struct AddExp: AstNode{
     bool is_computable = false;
-    string v;
-    Type t;
+    // string v;
+    // Type t;
+    ir::Operand op;
 
     /**
      * @brief constructor
@@ -346,8 +352,9 @@ struct AddExp: AstNode{
 
 struct RelExp: AstNode{
     bool is_computable = false;
-    string v;
-    Type t = Type::Int;
+    // string v;
+    // Type t = Type::Int;
+    ir::Operand op;
 
     /**
      * @brief constructor
@@ -357,8 +364,9 @@ struct RelExp: AstNode{
 
 struct EqExp: AstNode{
     bool is_computable = false;
-    string v;
-    Type t = Type::Int;
+    // string v;
+    // Type t = Type::Int;
+    ir::Operand op;
 
     /**
      * @brief constructor
@@ -368,8 +376,9 @@ struct EqExp: AstNode{
 
 struct LAndExp: AstNode{
     bool is_computable = false;
-    string v;
-    Type t = Type::Int;
+    // string v;
+    // Type t = Type::Int;
+    ir::Operand op;
 
     /**
      * @brief constructor
@@ -379,8 +388,9 @@ struct LAndExp: AstNode{
 
 struct LOrExp: AstNode{
     bool is_computable = false;
-    string v;
-    Type t = Type::Int;
+    // string v;
+    // Type t = Type::Int;
+    ir::Operand op;
 
     /**
      * @brief constructor
@@ -390,8 +400,9 @@ struct LOrExp: AstNode{
 
 struct ConstExp: AstNode{
     bool is_computable = true;
-    string v;
-    Type t ;
+    // string v;
+    // Type t ;
+    ir::Operand op;
 
     /**
      * @brief constructor

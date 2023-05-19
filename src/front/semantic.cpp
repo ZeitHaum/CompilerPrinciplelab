@@ -17,15 +17,20 @@ using ir::Operator;
 #define error() assert(0 && "Semantic anlysis error!")
 #define def_analyze(type) void frontend::Analyzer::analyze##type(type* root)
 #define def_analyze_withret(type,returntype) returntype frontend::Analyzer::analyze##type(type* root)
+#define def_analyze_withparams(type,params) void frontend::Analyzer::analyze##type(type* root,params)
+#define def_analyze_withretparams(type,returntype,params) returntype frontend::Analyzer::analyze##type(type* root,params)
 #define BEGIN_PTR_INIT() int b_ptr = 0;//begin_ptr
 #define parse_bptr(type,name) if(b_ptr>=root->children.size()){error();} type* node_##name = (type*)root->children[b_ptr++]
 #define parse_bptr_declared(type,name) if(b_ptr>=root->children.size()){error();} node_##name = (type*)root->children[b_ptr++]
 #define new_func() if(this->func!=nullptr){error();} this->func = new Function()
 #define add_func() this->anlyzed_p.addFunction(*func); this->func = nullptr
+#define ADD_INST(new_inst) if(this->func==nullptr){this->g_init_inst.push_back(new_inst);} else{this->func->addInst(new_inst);}
 #define ANALYZE_CHILD() for(auto child:root->children){analyzeAstNode(child);}
 #define cur_node_is(type_) ( (root->children[b_ptr]->type) == type_)
 #define cur_termtoken_is(type_) (cur_node_is(NodeType::TERMINAL) && ((Term*)root->children[b_ptr])->token.type==type_)
 #define literal_check(type_) (type_ == ir::Type::FloatLiteral || type_ == ir::Type::IntLiteral)
+#define ptr_check(type_) (type_ == ir::Type::FloatPtr || type_ == ir::Type::IntPtr)
+#define root_exp_assign(name) root->is_computable = name->is_computable;root->op = name->op
 #define debug_reach() std::cerr<<"successfully reach "<<__LINE__<<"!\n"
 #define warning_todo() std::cerr<<"This work is not complete in line "<<__LINE__<<"\n"
 #define ASSERT_NULLFUNC() if(this->func==nullptr){assert(0 && "NULL FUNC!");}
@@ -232,6 +237,20 @@ ir::Operand frontend::Analyzer::add_literal(Operand op1,Operand op2, frontend::T
     return {add_string(op1.name,op2.name,addop,op1.type),op1.type};
 }
 
+//获取默认Operand
+ir::Operand frontend::Analyzer::get_default_opeand(ir::Type t){
+    if(t==ir::Type::null){
+        return {};
+    }
+    else if(t == Type::FloatLiteral){
+        return {"0.0", Type::FloatLiteral};
+    }
+    else if(t == Type::IntLiteral){
+        return {"0", Type::IntLiteral};
+    }
+    error();
+}
+
 
 //进入新作用域时, 向符号表中添加 ScopeInfo, 相当于压栈
 void frontend::SymbolTable::add_scope(Block* node) {
@@ -259,7 +278,7 @@ void frontend::SymbolTable::exit_scope() {
 string frontend::SymbolTable::get_scoped_name(string id) {
     //获取top cnt
     if(scope_stack.empty()){
-        error();
+        return id;//global.
     }
     const int top_cnt = this->scope_stack.back().cnt;
     return id+"_"+std::to_string(top_cnt);
@@ -296,14 +315,23 @@ frontend::STE frontend::SymbolTable::get_ste(string id) {
     return {};
 }
 
+//存入符号
+void frontend::SymbolTable::add_ste(std::string id,STE ste){
+    //判断是否属于global
+    if(this->scope_stack.empty()){
+        //global
+        this->global_symbol[id] = ste;
+    }
+    else{
+        this->scope_stack.back().table[id] = ste; 
+    }
+}
+
 frontend::Analyzer::Analyzer():symbol_table() {
     
 }
 
 ir::Program frontend::Analyzer::get_ir_program(CompUnit* root) {
-    // if(typeid(root)==typeid(CompUnit)){
-    //     debug_reach();
-    // }
     analyzeCompUnit(root);
     return this->anlyzed_p;
 }
@@ -321,37 +349,115 @@ def_analyze(Decl){
 
 //3. ConstDecl -> 'const' BType ConstDef { ',' ConstDef } ';'
 def_analyze(ConstDecl){
-    todo()
+    todo();
 }
 
 //4. BType -> 'int' | 'float'
-def_analyze(BType){
-    todo()
+def_analyze_withret(BType,frontend::TokenType){
+    BEGIN_PTR_INIT()
+    parse_bptr(Term, t);
+    return node_t->token.type;
 }
 
 //5. ConstDef -> Ident { '[' ConstExp ']' } '=' ConstInitVal
 def_analyze(ConstDef){
-    todo()
+    todo();
 }
 
 //6. ConstInitVal -> ConstExp | '{' [ ConstInitVal { ',' ConstInitVal } ] '}'
 def_analyze(ConstInitVal){
-    todo()
+    todo();
 }
 
 //7. VarDecl -> BType VarDef { ',' VarDef } ';'
 def_analyze(VarDecl){
-    todo()
+    BEGIN_PTR_INIT()
+    parse_bptr(BType,btype);
+    TokenType tt = analyzeBType(node_btype);
+    parse_bptr(VarDef,v);
+    analyzeVarDef(node_v,tt);
+    while(b_ptr<root->children.size() && cur_termtoken_is(TokenType::COMMA)){
+        b_ptr++;//跳过','
+        parse_bptr(VarDef,v_sub);
+        analyzeVarDef(node_v_sub,tt);
+    }
 }
 
 //8. VarDef -> Ident { '[' ConstExp ']' } [ '=' InitVal ]
-def_analyze(VarDef){
-    todo()
+def_analyze_withparams(VarDef,frontend::TokenType token_type){
+    BEGIN_PTR_INIT()
+    parse_bptr(Term,ident);
+    frontend::STE def_ste;
+    //确定oprand.name
+    def_ste.operand.name = this->symbol_table.get_scoped_name(node_ident->token.value);
+    int alloc_size = 0;
+    while(b_ptr<root->children.size() && cur_termtoken_is(TokenType::LBRACK)){
+        //确定alloc_size和dimension
+        todo();
+    }
+    //生成定义IR
+    ir::Instruction* def_inst = new Instruction();
+    //初始化变量
+    if(alloc_size==0){
+        if(token_type==TokenType::INTTK){
+            def_ste.operand.type = ir::Type::Int;
+            def_inst->op = ir::Operator::def;
+            def_inst->op1 = get_default_opeand(ir::Type::IntLiteral);
+        }
+        else if(token_type==TokenType::FLOATTK){
+            def_ste.operand.type = ir::Type::Float;
+            def_inst->op = ir::Operator::fdef;
+            def_inst->op1 = get_default_opeand(ir::Type::FloatLiteral);
+        }
+        else{
+            error();
+        }
+    }
+    else{
+        //声明数组，alloc
+        todo();
+    }
+
+    //将符号存入字典中
+    this->symbol_table.add_ste(node_ident->token.value,def_ste);
+    def_inst->des = def_ste.operand;
+    ADD_INST(def_inst);
+
+    //def和initVal分离
+    //赋值语句.
+    if(b_ptr<root->children.size() && cur_termtoken_is(TokenType::ASSIGN)){
+        b_ptr++;//跳过'='
+        parse_bptr(InitVal,initval);
+        analyzeInitVal(node_initval,def_ste);
+    }
 }
 
 //9. InitVal -> Exp | '{' [ InitVal { ',' InitVal } ] '}'
-def_analyze(InitVal){
-    todo()
+def_analyze_withparams(InitVal,frontend::STE ste){
+    BEGIN_PTR_INIT()
+    if(cur_termtoken_is(TokenType::LBRACE)){
+        if(ste.dimension.empty()){
+            error();
+        }
+        todo();
+    }
+    else if(cur_node_is(NodeType::EXP)){
+        parse_bptr(Exp,e);
+        analyzeExp(node_e);
+        if(ste.dimension.empty()){
+            Instruction* mov_inst = new Instruction();
+            mov_inst->op = ir::Operator::mov;
+            mov_inst->op1 = node_e->op;
+            mov_inst->des = ste.operand;
+            ADD_INST(mov_inst);
+        }
+        else{
+            todo();//数组偏移赋值
+        }
+    }
+    else{
+        error();
+    }
 }
 
 //10. FuncDef -> FuncType Ident '(' [FuncFParams] ')' Block
@@ -377,7 +483,7 @@ def_analyze(FuncDef){
     this->symbol_table.functions[func->name] = func;
     //生成函数参数
     if(node_funcfparams!=nullptr){
-        todo()
+        todo();
     }
     //main函数需要执行先加载global
     if(func->name=="main"){
@@ -391,7 +497,7 @@ def_analyze(FuncDef){
         if(func->InstVec.empty() || func->InstVec.back()->op!=Operator::_return){
             //添加返回0
             Instruction* ret0_ins = new Instruction(Operand("0",ir::Type::IntLiteral),Operand(),Operand(),ir::Operator::_return);
-            func->addInst(ret0_ins);
+            ADD_INST(ret0_ins);
         }
     }
     //将Function添加到program中
@@ -423,12 +529,12 @@ def_analyze_withret(FuncType,ir::Type){
 
 //12. FuncFParam -> BType Ident ['[' ']' { '[' Exp ']' }]
 def_analyze(FuncFParam){
-    todo()
+    todo();
 }
 
 //13. FuncFParams -> FuncFParam { ',' FuncFParam }
 def_analyze(FuncFParams){
-    todo()
+    todo();
 }
 
 //14. Block -> '{' { BlockItem } '}'
@@ -458,6 +564,7 @@ def_analyze(Stmt){
     BEGIN_PTR_INIT()
     ASSERT_NULLFUNC()
     if(cur_termtoken_is(TokenType::RETURNTK)){
+        //'return' [Exp] ';'
         ASSERT_WRONGRET()
         //parse
         b_ptr++;//跳过return
@@ -477,164 +584,213 @@ def_analyze(Stmt){
         }
         else{
             ASSERT_WRONGRET_WITHOUTNULL()
-            Operand ret_ins_op1 = analyzeExp(node_exp);
-            sync_literal_type(ret_ins_op1,var_to_literal(func->returnType));
-            ret_ins->op1 = ret_ins_op1;
+            analyzeExp(node_exp);
+            if(node_exp->is_computable){
+                sync_literal_type(node_exp->op,var_to_literal(func->returnType));
+            }
+            else{
+                //同步变量类型
+                todo();
+            }
+            ret_ins->op1 = node_exp->op;
         }
         func->addInst(ret_ins);
     }
+    else if(cur_node_is(NodeType::LVAL)){
+        //LVal '=' Exp ';'
+        parse_bptr(LVal,lv);
+        b_ptr++;//跳过 '='
+        parse_bptr(Exp,e);
+        analyzeLVal(node_lv);
+        analyzeExp(node_e);
+        if(!ptr_check(node_lv->op.type) && node_lv->ind.empty()){
+            //变量赋值
+            Instruction* mov_inst = new Instruction();
+            mov_inst->des = node_lv->op;
+            mov_inst->op = ir::Operator::mov;
+            mov_inst->op1 = node_e->op;
+            ADD_INST(mov_inst);
+        }
+        else if(ptr_check(node_lv->op.type) && !(node_lv->ind.empty())){
+            //数组赋值
+            todo();
+        }
+        else{
+            error();
+        }
+    }
     else{
-        todo()
+        todo();
     }
 }
 
 //17. Exp -> AddExp
-def_analyze_withret(Exp,ir::Operand){
+def_analyze(Exp){
     BEGIN_PTR_INIT()
     parse_bptr(AddExp,addexp);
-    return analyzeAddExp(node_addexp);
+    analyzeAddExp(node_addexp);
+    root_exp_assign(node_addexp);
 }
 
 //18. Cond -> LOrExp
 def_analyze(Cond){
-    todo()
+    todo();
 }
 
 //19. LVal -> Ident {'[' Exp ']'}
 def_analyze(LVal){
-    todo()
+    BEGIN_PTR_INIT()
+    parse_bptr(Term,ident);
+    //从符号表中找到op
+    root->op = this->symbol_table.get_operand(node_ident->token.value);
+    if(ptr_check(root->op.type)){
+        while(b_ptr<root->children.size() && cur_termtoken_is(TokenType::LBRACK)){
+            //数组赋值
+            todo();
+        }
+    }
+    else{
+        if(b_ptr!=root->children.size()){
+            error();
+        }
+    }
 }
 
 //20. Number -> IntConst | floatConst
-def_analyze_withret(Number,ir::Operand){
+def_analyze(Number){
     BEGIN_PTR_INIT()
     parse_bptr(Term,t);
+    root->is_computable = true;
     if(node_t->token.type==TokenType::INTLTR){
-        return ir::Operand(node_t->token.value,ir::Type::IntLiteral);
+        root->op =  ir::Operand(node_t->token.value,ir::Type::IntLiteral);
     }   
     else if(node_t->token.type==TokenType::FLOATLTR){
-        return ir::Operand(node_t->token.value,ir::Type::FloatLiteral);
+        root->op =  ir::Operand(node_t->token.value,ir::Type::FloatLiteral);
     }
     else{
         error();
     }
-    error();
-    return {};
 }
 
 //21. PrimaryExp -> '(' Exp ')' | LVal | Number
-def_analyze_withret(PrimaryExp,ir::Operand){
+def_analyze(PrimaryExp){
     //parse,First
     BEGIN_PTR_INIT()
     if(cur_node_is(NodeType::TERMINAL)){
         //'(' Exp ')' 
-        todo()
+        todo();
     }
     else if(cur_node_is(NodeType::LVAL)){
         //LVal
-        todo()
+        todo();
     }
     else if(cur_node_is(NodeType::NUMBER)){
         //Number
         parse_bptr(Number,n);
-        return analyzeNumber(node_n);
+        analyzeNumber(node_n);
+        root_exp_assign(node_n);
     }
     else{
         error();
     }
-    error();
-    return {};
 }
 
 //22. UnaryExp -> PrimaryExp | Ident '(' [FuncRParams] ')' | UnaryOp UnaryExp
-def_analyze_withret(UnaryExp,ir::Operand){
+def_analyze(UnaryExp){
     //parse,FIRST
     BEGIN_PTR_INIT()
     if(cur_node_is(NodeType::PRIMARYEXP)){
         //PrimaryExp
         parse_bptr(PrimaryExp,p);
-        return analyzePrimaryExp(node_p);
+        analyzePrimaryExp(node_p);
+        root_exp_assign(node_p);
     }
     else if(cur_node_is(NodeType::TERMINAL)){
         //Ident '(' [FuncRParams] ')'
-        todo()
+        todo();
     }
     else if(cur_node_is(NodeType::UNARYOP)){
         //UnaryOp UnaryExp
-        todo()
+        todo();
     }
     else{
         error();
     }
-    error();
-    return {};
 }
 
 //23. UnaryOp -> '+' | '-' | '!'
 def_analyze(UnaryOp){
-    todo()
+    todo();
 }
 
 //24. FuncRParams -> Exp { ',' Exp }
 def_analyze(FuncRParams){
-    todo()
+    todo();
 }
 
 //25. MulExp -> UnaryExp { ('*' | '/' | '%') UnaryExp }
-def_analyze_withret(MulExp,ir::Operand){
+def_analyze(MulExp){
     //parse
     BEGIN_PTR_INIT()
     parse_bptr(UnaryExp,unaryexp_);
-    Operand ret_op = analyzeUnaryExp(node_unaryexp_);
+    analyzeUnaryExp(node_unaryexp_);
+    root_exp_assign(node_unaryexp_);
     while(b_ptr<root->children.size()){
         parse_bptr(Term,mulop);
         parse_bptr(UnaryExp,ue_sub);
-        Operand ret_op_sub = analyzeUnaryExp(node_ue_sub);
-        //添加到ret_op上
-        todo()
+        analyzeUnaryExp(node_ue_sub);
+        root->is_computable = root->is_computable && node_ue_sub->is_computable;
+        //添加到ret_op上,分is_computable情况讨论
+        todo();
     }
-    return ret_op;
 }
 
 //26. AddExp -> MulExp { ('+' | '-') MulExp }
-def_analyze_withret(AddExp,ir::Operand){
+def_analyze(AddExp){
     //parse
     BEGIN_PTR_INIT()
     parse_bptr(MulExp,mulexp_);
-    Operand ret_op = analyzeMulExp(node_mulexp_);
+    analyzeMulExp(node_mulexp_);
+    root_exp_assign(node_mulexp_);
     while(b_ptr<root->children.size()){
         parse_bptr(Term,addop);
         parse_bptr(MulExp,mulexp_sub);
-        Operand ret_op_sub = analyzeMulExp(node_mulexp_sub);
+        analyzeMulExp(node_mulexp_sub);
         //添加到ret_op上
-        ret_op = add_literal(ret_op,ret_op_sub,node_addop->token.type);
+        root->is_computable = root->is_computable && node_mulexp_sub->is_computable;
+        if(root->is_computable){
+            root->op = add_literal(root->op,node_mulexp_sub->op,node_addop->token.type);
+        }    
+        else{
+            //添加指令
+            todo();
+        }
     }
-    return ret_op;
 }
 
 //27. RelExp -> AddExp { ('<' | '>' | '<=' | '>=') AddExp }
 def_analyze(RelExp){
-    todo()
+    todo();
 }
 
 //28. EqExp -> RelExp { ('==' | '!=') RelExp }
 def_analyze(EqExp){
-    todo()
+    todo();
 }
 
 //29. LAndExp -> EqExp [ '&&' LAndExp ]
 def_analyze(LAndExp){
-    todo()
+    todo();
 }
 
 //30. LOrExp -> LAndExp [ '||' LOrExp ]
 def_analyze(LOrExp){
-    todo()
+    todo();
 }
 
 //31. ConstExp -> AddExp
 def_analyze(ConstExp){
-    todo()
+    todo();
 }
 
 //根据AstNodeType 选择分析函数
@@ -667,10 +823,10 @@ def_analyze(AstNode){
         analyzeVarDecl((VarDecl*)root);
     }
     else if(root->type==NodeType::VARDEF){
-        analyzeVarDef((VarDef*)root);
+        error();
     }
     else if(root->type==NodeType::INITVAL){
-        analyzeInitVal((InitVal*)root);
+        error();
     }
     else if(root->type==NodeType::FUNCTYPE){
         analyzeFuncType((FuncType*)root);

@@ -90,8 +90,12 @@ struct SymbolTable{//符号表
      * @return STE 
      */
     STE get_ste(string id) ;
-};
 
+    /*
+    添加符号
+    */
+    void add_ste(std::string id,STE ste);
+};
 
 // singleton class
 struct Analyzer {
@@ -125,6 +129,7 @@ struct Analyzer {
     //Operand运算
     std::string add_string(std::string s1,std::string s2, frontend::TokenType addop, ir::Type addtype);
     ir::Operand add_literal(ir::Operand op1,ir::Operand op2, frontend::TokenType addop);
+    ir::Operand get_default_opeand(ir::Type t);
 
 
     //def anlyzd function
@@ -133,28 +138,28 @@ struct Analyzer {
     void analyzeDecl(frontend::Decl* root);
     void analyzeFuncDef(frontend::FuncDef* root);    
     void analyzeConstDecl(frontend::ConstDecl* root);
-    void analyzeBType(frontend::BType* root);
+    frontend::TokenType analyzeBType(frontend::BType* root);
     void analyzeConstDef(frontend::ConstDef* root);
     void analyzeConstInitVal(frontend::ConstInitVal* root);
     void analyzeVarDecl(frontend::VarDecl* root);
-    void analyzeVarDef(frontend::VarDef* root);
-    void analyzeInitVal(frontend::InitVal* root);
+    void analyzeVarDef(frontend::VarDef* root,TokenType token_type);
+    void analyzeInitVal(frontend::InitVal* root, frontend::STE ste);
     ir::Type analyzeFuncType(frontend::FuncType* root);
     void analyzeFuncFParam(frontend::FuncFParam* root);
     void analyzeFuncFParams(frontend::FuncFParams* root);
     void analyzeBlock(frontend::Block* root);
     void analyzeBlockItem(frontend::BlockItem* root);
     void analyzeStmt(frontend::Stmt* root);
-    ir::Operand analyzeExp(frontend::Exp* root);
+    void analyzeExp(frontend::Exp* root);
     void analyzeCond(frontend::Cond* root);
     void analyzeLVal(frontend::LVal* root);
-    ir::Operand analyzeNumber(frontend::Number* root);
-    ir::Operand analyzePrimaryExp(frontend::PrimaryExp* root);
-    ir::Operand analyzeUnaryExp(frontend::UnaryExp* root);
+    void analyzeNumber(frontend::Number* root);
+    void analyzePrimaryExp(frontend::PrimaryExp* root);
+    void analyzeUnaryExp(frontend::UnaryExp* root);
     void analyzeUnaryOp(frontend::UnaryOp* root);
     void analyzeFuncRParams(frontend::FuncRParams* root);
-    ir::Operand analyzeMulExp(frontend::MulExp* root);
-    ir::Operand analyzeAddExp(frontend::AddExp* root);
+    void analyzeMulExp(frontend::MulExp* root);
+    void analyzeAddExp(frontend::AddExp* root);
     void analyzeRelExp(frontend::RelExp* root);
     void analyzeEqExp(frontend::EqExp* root);
     void analyzeLAndExp(frontend::LAndExp* root);
