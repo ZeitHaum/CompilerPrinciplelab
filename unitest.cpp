@@ -16,9 +16,20 @@ void global(){
     std::cout<<"3\n";
 }
 
+std::string floatstring_to_int(std::string s){
+    int ftoi = (int)std::stof(s);
+    return std::to_string(ftoi);
+}
+
+std::string intstring_to_float(std::string s){
+    float itof = (float)std::stoi(s);
+    return std::to_string(itof);
+}
+
 int main(){
-    std::vector<int> a{1,2,3};
-    int ap = 0;
-    std::cout<<a[ap++];
+    // std::vector<int> a{1,2,3};
+    // int ap = 0;
+    // std::cout<<a[ap++];
+    std::cout<<intstring_to_float("31");
     return 0;
 }

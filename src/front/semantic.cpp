@@ -25,9 +25,12 @@ using ir::Operator;
 #define ANALYZE_CHILD() for(auto child:root->children){analyzeAstNode(child);}
 #define cur_node_is(type_) ( (root->children[b_ptr]->type) == type_)
 #define cur_termtoken_is(type_) (cur_node_is(NodeType::TERMINAL) && ((Term*)root->children[b_ptr])->token.type==type_)
+#define literal_check(type_) (type_ == ir::Type::FloatLiteral || type_ == ir::Type::IntLiteral)
 #define debug_reach() std::cerr<<"successfully reach "<<__LINE__<<"!\n"
 #define warning_todo() std::cerr<<"This work is not complete in line "<<__LINE__<<"\n"
 #define ASSERT_NULLFUNC() if(this->func==nullptr){assert(0 && "NULL FUNC!");}
+#define ASSERT_WRONGRET() if(!(this->func->returnType==ir::Type::Int || this->func->returnType==ir::Type::Float || this->func->returnType==ir::Type::null)){error();}
+#define ASSERT_WRONGRET_WITHOUTNULL() if(!(this->func->returnType==ir::Type::Int || this->func->returnType==ir::Type::Float)){error();}
 
 map<std::string,ir::Function*>* frontend::get_lib_funcs() {
     static map<std::string,ir::Function*> lib_funcs = {
@@ -45,6 +48,44 @@ map<std::string,ir::Function*>* frontend::get_lib_funcs() {
     return &lib_funcs;
 }
 
+
+//字符串转换
+std::string  frontend::Analyzer::floatstring_to_int(std::string s){
+    int ftoi = (int)std::stof(s);
+    return std::to_string(ftoi);
+}
+std::string  frontend::Analyzer::intstring_to_float(std::string s){
+    float itof = (float)std::stoi(s);
+    return std::to_string(itof);
+}
+
+//同步字面量类型
+ir::Operand  frontend::Analyzer::sync_literal_type(Operand op,ir::Type to_type){
+    if(!literal_check(op.type) || !literal_check(to_type)){
+        error();
+    }   
+    if(op.type==to_type){
+        //DO NOTHING
+        return op;
+    }
+    else{
+        if(op.type==ir::Type::FloatLiteral && to_type==ir::Type::IntLiteral){
+            op.name = floatstring_to_int(op.name);
+        }
+        else if(op.type==ir::Type::IntLiteral && to_type==ir::Type::FloatLiteral){
+            op.name = intstring_to_float(op.name);
+        }
+        else{
+            error();
+        }
+        op.type = to_type;
+        return op;
+    }
+    error();
+    return {};
+}
+
+//类型映射
 ir::Type frontend::Analyzer::var_to_literal(ir::Type t){
     if(t==ir::Type::Float){
         return ir::Type::FloatLiteral;
@@ -281,6 +322,7 @@ def_analyze(Stmt){
     BEGIN_PTR_INIT()
     ASSERT_NULLFUNC()
     if(cur_termtoken_is(TokenType::RETURNTK)){
+        ASSERT_WRONGRET()
         //parse
         b_ptr++;//跳过return
         Exp* node_exp = nullptr;
@@ -298,7 +340,10 @@ def_analyze(Stmt){
             }
         }
         else{
-            TODO()
+            ASSERT_WRONGRET_WITHOUTNULL()
+            Operand ret_ins_op1 = analyzeExp(node_exp);
+            sync_literal_type(ret_ins_op1,var_to_literal(func->returnType));
+            ret_ins->op1 = ret_ins_op1;
         }
         func->addInst(ret_ins);
     }
@@ -308,8 +353,10 @@ def_analyze(Stmt){
 }
 
 //17. Exp -> AddExp
-def_analyze(Exp){
-    TODO()
+def_analyze_withret(Exp,ir::Operand){
+    BEGIN_PTR_INIT()
+    parse_bptr(AddExp,addexp);
+    return analyzeAddExp(node_addexp);
 }
 
 //18. Cond -> LOrExp
@@ -323,18 +370,68 @@ def_analyze(LVal){
 }
 
 //20. Number -> IntConst | floatConst
-def_analyze(Number){
-    TODO()
+def_analyze_withret(Number,ir::Operand){
+    BEGIN_PTR_INIT()
+    parse_bptr(Term,t);
+    if(node_t->token.type==TokenType::INTLTR){
+        return ir::Operand(node_t->token.value,ir::Type::IntLiteral);
+    }   
+    else if(node_t->token.type==TokenType::FLOATLTR){
+        return ir::Operand(node_t->token.value,ir::Type::FloatLiteral);
+    }
+    else{
+        error();
+    }
+    error();
+    return {};
 }
 
 //21. PrimaryExp -> '(' Exp ')' | LVal | Number
-def_analyze(PrimaryExp){
-    TODO()
+def_analyze_withret(PrimaryExp,ir::Operand){
+    //parse,First
+    BEGIN_PTR_INIT()
+    if(cur_node_is(NodeType::TERMINAL)){
+        //'(' Exp ')' 
+        TODO()
+    }
+    else if(cur_node_is(NodeType::LVAL)){
+        //LVal
+        TODO()
+    }
+    else if(cur_node_is(NodeType::NUMBER)){
+        //Number
+        parse_bptr(Number,n);
+        return analyzeNumber(node_n);
+    }
+    else{
+        error();
+    }
+    error();
+    return {};
 }
 
 //22. UnaryExp -> PrimaryExp | Ident '(' [FuncRParams] ')' | UnaryOp UnaryExp
-def_analyze(UnaryExp){
-    TODO()
+def_analyze_withret(UnaryExp,ir::Operand){
+    //parse,FIRST
+    BEGIN_PTR_INIT()
+    if(cur_node_is(NodeType::PRIMARYEXP)){
+        //PrimaryExp
+        parse_bptr(PrimaryExp,p);
+        return analyzePrimaryExp(node_p);
+    }
+    else if(cur_node_is(NodeType::TERMINAL)){
+        //Ident '(' [FuncRParams] ')'
+        TODO()
+    }
+    else if(cur_node_is(NodeType::UNARYOP)){
+        //UnaryOp UnaryExp
+        TODO()
+    }
+    else{
+        error();
+    }
+    error();
+    return {};
 }
 
 //23. UnaryOp -> '+' | '-' | '!'
@@ -348,13 +445,35 @@ def_analyze(FuncRParams){
 }
 
 //25. MulExp -> UnaryExp { ('*' | '/' | '%') UnaryExp }
-def_analyze(MulExp){
-    TODO()
+def_analyze_withret(MulExp,ir::Operand){
+    //parse
+    BEGIN_PTR_INIT()
+    parse_bptr(UnaryExp,unaryexp_);
+    Operand ret_op = analyzeUnaryExp(node_unaryexp_);
+    while(b_ptr<root->children.size()){
+        parse_bptr(Term,mulop);
+        parse_bptr(UnaryExp,ue_sub);
+        Operand ret_op_sub = analyzeUnaryExp(node_ue_sub);
+        //添加到ret_op上
+        TODO()
+    }
+    return ret_op;
 }
 
 //26. AddExp -> MulExp { ('+' | '-') MulExp }
-def_analyze(AddExp){
-    TODO()
+def_analyze_withret(AddExp,ir::Operand){
+    //parse
+    BEGIN_PTR_INIT()
+    parse_bptr(MulExp,mulexp_);
+    Operand ret_op = analyzeMulExp(node_mulexp_);
+    while(b_ptr<root->children.size()){
+        parse_bptr(Term,addop);
+        parse_bptr(MulExp,mulexp_sub);
+        Operand ret_op_sub = analyzeMulExp(node_mulexp_sub);
+        //添加到ret_op上
+        TODO()
+    }
+    return ret_op;
 }
 
 //27. RelExp -> AddExp { ('<' | '>' | '<=' | '>=') AddExp }

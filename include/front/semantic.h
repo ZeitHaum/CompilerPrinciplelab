@@ -113,8 +113,13 @@ struct Analyzer {
     Analyzer(const Analyzer&) = delete;
     Analyzer& operator=(const Analyzer&) = delete;
 
+    //类型转换类函数
     ir::Type var_to_literal(ir::Type t);
-    
+    std::string floatstring_to_int(std::string s);
+    std::string intstring_to_float(std::string s);
+    ir::Operand sync_literal_type(ir::Operand op,ir::Type to_type);
+
+
     //def anlyzd function
     void analyzeAstNode(frontend::AstNode* root);
     void analyzeCompUnit(frontend::CompUnit* root);
@@ -133,16 +138,16 @@ struct Analyzer {
     void analyzeBlock(frontend::Block* root);
     void analyzeBlockItem(frontend::BlockItem* root);
     void analyzeStmt(frontend::Stmt* root);
-    void analyzeExp(frontend::Exp* root);
+    ir::Operand analyzeExp(frontend::Exp* root);
     void analyzeCond(frontend::Cond* root);
     void analyzeLVal(frontend::LVal* root);
-    void analyzeNumber(frontend::Number* root);
-    void analyzePrimaryExp(frontend::PrimaryExp* root);
-    void analyzeUnaryExp(frontend::UnaryExp* root);
+    ir::Operand analyzeNumber(frontend::Number* root);
+    ir::Operand analyzePrimaryExp(frontend::PrimaryExp* root);
+    ir::Operand analyzeUnaryExp(frontend::UnaryExp* root);
     void analyzeUnaryOp(frontend::UnaryOp* root);
     void analyzeFuncRParams(frontend::FuncRParams* root);
-    void analyzeMulExp(frontend::MulExp* root);
-    void analyzeAddExp(frontend::AddExp* root);
+    ir::Operand analyzeMulExp(frontend::MulExp* root);
+    ir::Operand analyzeAddExp(frontend::AddExp* root);
     void analyzeRelExp(frontend::RelExp* root);
     void analyzeEqExp(frontend::EqExp* root);
     void analyzeLAndExp(frontend::LAndExp* root);
