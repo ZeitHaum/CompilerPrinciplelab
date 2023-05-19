@@ -99,7 +99,7 @@ struct SymbolTable{//符号表
 
 // singleton class
 struct Analyzer {
-    // int tmp_cnt; Unused
+    int tmp_cnt = 0; //临时变量_编号
     vector<ir::Instruction*> g_init_inst;//存储global函数语句的集合
     SymbolTable symbol_table;//符号表
     ir::Program anlyzed_p;
@@ -117,9 +117,14 @@ struct Analyzer {
     Analyzer(const Analyzer&) = delete;
     Analyzer& operator=(const Analyzer&) = delete;
     
+    //获取临时变量名称
+    std::string get_tmp_name(){
+        return "tmp" + std::to_string(this->tmp_cnt++);
+    }
 
     //类型转换类函数
     ir::Type var_to_literal(ir::Type t);
+    ir::Type literal_to_var(ir::Type t);
     std::string floatstring_to_int(std::string s);
     std::string intstring_to_float(std::string s);
     ir::Operand sync_literal_type(ir::Operand op,ir::Type to_type);
@@ -129,8 +134,11 @@ struct Analyzer {
     //Operand运算
     std::string add_string(std::string s1,std::string s2, frontend::TokenType addop, ir::Type addtype);
     ir::Operand add_literal(ir::Operand op1,ir::Operand op2, frontend::TokenType addop);
+    ir::Operand add_var(ir::Operand op1,ir::Operand op2,frontend::TokenType addop);
     ir::Operand get_default_opeand(ir::Type t);
-
+    ir::Operand op_to_var(ir::Operand liter_op);
+    ir::Operand sync_var_type(ir::Operand op, ir::Type to_type);
+    void sync_varop_type(ir::Operand& op1, ir::Operand& op2);
 
     //def anlyzd function
     void analyzeAstNode(frontend::AstNode* root);

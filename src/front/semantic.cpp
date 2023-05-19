@@ -24,12 +24,56 @@ using ir::Operator;
 #define parse_bptr_declared(type,name) if(b_ptr>=root->children.size()){error();} node_##name = (type*)root->children[b_ptr++]
 #define new_func() if(this->func!=nullptr){error();} this->func = new Function()
 #define add_func() this->anlyzed_p.addFunction(*func); this->func = nullptr
+//ADD_INST 注意:不会做任何合法性检查
 #define ADD_INST(new_inst) if(this->func==nullptr){this->g_init_inst.push_back(new_inst);} else{this->func->addInst(new_inst);}
+#define ADD_INST_DEF(name,op1_,des_) Instruction* name = new Instruction();  name->op1 = op1_;    name->des = des_;   name->op = ir::Operator::def;ADD_INST(name) if(this->func==nullptr){this->anlyzed_p.globalVal.push_back({des_});}
+#define ADD_INST_FDEF(name,op1_,des_) Instruction* name = new Instruction();  name->op1 = op1_;    name->des = des_;   name->op = ir::Operator::fdef;ADD_INST(name) if(this->func==nullptr){this->anlyzed_p.globalVal.push_back({des_});}
+#define ADD_INST_MOV(name,op1_,des_) Instruction* name = new Instruction();  name->op1 = op1_;    name->des = des_;   name->op = ir::Operator::mov;ADD_INST(name)
+#define ADD_INST_FMOV(name,op1_,des_) Instruction* name = new Instruction();  name->op1 = op1_;    name->des = des_;   name->op = ir::Operator::fmov;ADD_INST(name)
+#define ADD_INST_ADD(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::add;ADD_INST(name)
+#define ADD_INST_ADDI(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::addi;ADD_INST(name)
+#define ADD_INST_FADD(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::fadd;ADD_INST(name)
+#define ADD_INST_SUB(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::sub;ADD_INST(name)
+#define ADD_INST_SUBI(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::subi;ADD_INST(name)
+#define ADD_INST_FSUB(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::fsub;ADD_INST(name)
+#define ADD_INST_MUL(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::mul;ADD_INST(name)
+#define ADD_INST_FMUL(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::fmul;ADD_INST(name)
+#define ADD_INST_DIV(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::div;ADD_INST(name)
+#define ADD_INST_FDIV(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::fdiv;ADD_INST(name)
+#define ADD_INST_MOD(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::mod;ADD_INST(name)
+#define ADD_INST_LSS(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::lss;ADD_INST(name)
+#define ADD_INST_FLSS(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::flss;ADD_INST(name)
+#define ADD_INST_LEQ(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::leq;ADD_INST(name)
+#define ADD_INST_FLEQ(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::fleq;ADD_INST(name)
+#define ADD_INST_GTR(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::gtr;ADD_INST(name)
+#define ADD_INST_FGTR(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::fgtr;ADD_INST(name)
+#define ADD_INST_GEQ(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::geq;ADD_INST(name)
+#define ADD_INST_FGEQ(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::fgeq;ADD_INST(name)
+#define ADD_INST_EQ(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::eq;ADD_INST(name)
+#define ADD_INST_FEQ(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::feq;ADD_INST(name)
+#define ADD_INST_NEQ(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::neq;ADD_INST(name)
+#define ADD_INST_FNEQ(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::fneq;ADD_INST(name)
+#define ADD_INST__NOT(name,op1_,des_) Instruction* name = new Instruction();  name->op1 = op1_;    name->des = des_;   name->op = ir::Operator::_not;ADD_INST(name)
+#define ADD_INST__AND(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::_and;ADD_INST(name)
+#define ADD_INST__OR(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::_or;ADD_INST(name)
+#define ADD_INST_ALLOC(name,op1_,des_) Instruction* name = new Instruction();  name->op1 = op1_;    name->des = des_;   name->op = ir::Operator::alloc;ADD_INST(name)
+#define ADD_INST_LOAD(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::load;ADD_INST(name)
+#define ADD_INST_STORE(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::store;ADD_INST(name)
+#define ADD_INST_GETPTR(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::getptr;ADD_INST(name)
+#define ADD_INST_CVT_I2F(name,op1_,des_) Instruction* name = new Instruction();  name->op1 = op1_;    name->des = des_;   name->op = ir::Operator::cvt_i2f;ADD_INST(name)
+#define ADD_INST_CVT_F2I(name,op1_,des_) Instruction* name = new Instruction();  name->op1 = op1_;    name->des = des_;   name->op = ir::Operator::cvt_f2i;ADD_INST(name)
+#define ADD_INST_RETURN(name,op1_) Instruction* name = new Instruction();  name->op1 = op1_;     name->op = ir::Operator::_return;ADD_INST(name)
+#define ADD_INST_GOTO(name,op1_,des_) Instruction* name = new Instruction();  name->op1 = op1_;    name->des = des_;   name->op = ir::Operator::goto;ADD_INST(name)
+#define ADD_INST_UNUSE(name) Instruction* name = new Instruction();     name->op = ir::Operator::unuse;ADD_INST(name)
+// #define ADD_INST_CALL()  未实现
+#define ADD_INST_AUTOTYPE(name,type,inst_name,params) 
 #define ANALYZE_CHILD() for(auto child:root->children){analyzeAstNode(child);}
 #define cur_node_is(type_) ( (root->children[b_ptr]->type) == type_)
 #define cur_termtoken_is(type_) (cur_node_is(NodeType::TERMINAL) && ((Term*)root->children[b_ptr])->token.type==type_)
 #define literal_check(type_) (type_ == ir::Type::FloatLiteral || type_ == ir::Type::IntLiteral)
 #define ptr_check(type_) (type_ == ir::Type::FloatPtr || type_ == ir::Type::IntPtr)
+#define int_check(type_) (type_ == ir::Type::Int || type_ == ir::Type::IntLiteral)
+#define float_check(type_) (type_ == ir::Type::Float || type_ == ir::Type::FloatLiteral)
 #define root_exp_assign(name) root->is_computable = name->is_computable;root->op = name->op
 #define debug_reach() std::cerr<<"successfully reach "<<__LINE__<<"!\n"
 #define warning_todo() std::cerr<<"This work is not complete in line "<<__LINE__<<"\n"
@@ -37,7 +81,9 @@ using ir::Operator;
 #define ASSERT_WRONGRET() if(!(this->func->returnType==ir::Type::Int || this->func->returnType==ir::Type::Float || this->func->returnType==ir::Type::null)){error();}
 #define ASSERT_WRONGRET_WITHOUTNULL() if(!(this->func->returnType==ir::Type::Int || this->func->returnType==ir::Type::Float)){error();}
 
+
 map<std::string,ir::Function*>* frontend::get_lib_funcs() {
+
     static map<std::string,ir::Function*> lib_funcs = {
         {"getint", new Function("getint", Type::Int)},
         {"getch", new Function("getch", Type::Int)},
@@ -101,6 +147,16 @@ ir::Type frontend::Analyzer::var_to_literal(ir::Type t){
     error();
 }
 
+ir::Type frontend::Analyzer::literal_to_var(ir::Type t){
+    if(t==ir::Type::FloatLiteral){
+        return ir::Type::Float;
+    }
+    else if(t==ir::Type::IntLiteral){
+        return ir::Type::Int;
+    }
+    error();
+}
+
 //隐式转换int 为 float
 void frontend::Analyzer::sync_literalop_type(ir::Operand& op1,ir::Operand& op2){
     if(!literal_check(op1.type) || !literal_check(op2.type)){
@@ -111,17 +167,18 @@ void frontend::Analyzer::sync_literalop_type(ir::Operand& op1,ir::Operand& op2){
     }
     else{
         if(op1.type==ir::Type::IntLiteral && op2.type==ir::Type::FloatLiteral){
-            op2 = sync_literal_type(op2,ir::Type::IntLiteral);
+            op2 = sync_literal_type(op2,ir::Type::FloatLiteral);
             return;
         }
         else if(op1.type==ir::Type::FloatLiteral && op2.type==ir::Type::IntLiteral){
-            op1 = sync_literal_type(op1,ir::Type::IntLiteral);
+            op1 = sync_literal_type(op1,ir::Type::FloatLiteral);
             return;
         }
         error();
     }
     error();
 }
+
 
 //Operand 运算
 //进制转换,仅限整数
@@ -237,6 +294,44 @@ ir::Operand frontend::Analyzer::add_literal(Operand op1,Operand op2, frontend::T
     return {add_string(op1.name,op2.name,addop,op1.type),op1.type};
 }
 
+//变量加法
+ir::Operand frontend::Analyzer::add_var(Operand op1, Operand op2, frontend::TokenType addop){
+    if(!(addop==TokenType::PLUS || addop==TokenType::MINU)){
+        error();
+    }
+    if(literal_check(op1.type) || literal_check(op2.type)){
+        error();
+    }
+    sync_varop_type(op1,op2);
+    Operand tmp_op = {get_tmp_name(),op1.type};
+    if(addop==TokenType::PLUS){
+        if(op1.type==ir::Type::Int){
+            ADD_INST_ADD(add1,op1,op2,tmp_op);
+        }
+        else if(op1.type==ir::Type::Float) {
+            ADD_INST_FADD(add2,op1,op2,tmp_op);
+        }
+        else{
+            error();
+        }
+    }
+    else if(addop==TokenType::MINU){
+        if(op1.type==ir::Type::Int){
+            ADD_INST_SUB(add1,op1,op2,tmp_op);
+        }
+        else if(op1.type==ir::Type::Float) {
+            ADD_INST_FSUB(add2,op1,op2,tmp_op);
+        }
+        else{
+            error();
+        }
+    }
+    else{
+        error();
+    }
+    return tmp_op;
+}
+
 //获取默认Operand
 ir::Operand frontend::Analyzer::get_default_opeand(ir::Type t){
     if(t==ir::Type::null){
@@ -249,6 +344,66 @@ ir::Operand frontend::Analyzer::get_default_opeand(ir::Type t){
         return {"0", Type::IntLiteral};
     }
     error();
+}
+
+ir::Operand frontend::Analyzer::op_to_var(Operand literal_op){
+    if(!literal_check(literal_op.type)){
+        //DONOTHING
+        return literal_op;
+    }
+    Operand tmp_op; 
+    if(int_check(literal_op.type)){
+        tmp_op = Operand(get_tmp_name(),ir::Type::Int);
+        ADD_INST_DEF(t,literal_op,tmp_op)
+    }
+    else if(float_check(literal_op.type)){
+        tmp_op = Operand(get_tmp_name(),ir::Type::Float);
+        ADD_INST_FDEF(t,literal_op,tmp_op)
+    }
+    else{
+        error();
+    }
+    return tmp_op;
+}
+
+//变量对齐
+ir::Operand frontend::Analyzer::sync_var_type(ir::Operand op, ir::Type to_type){
+    if(literal_check(op.type)||literal_check(to_type)){
+        error();
+    }
+    if(to_type== op.type){
+        //DO NOTHING
+        return op;
+    }
+    Operand tmp_op = Operand(get_tmp_name(),to_type);
+    if(to_type==ir::Type::Float){
+        ADD_INST_CVT_I2F(cvif,op,tmp_op);
+    }
+    else if(to_type==ir::Type::Int){
+        ADD_INST_CVT_F2I(cvif,op,tmp_op);
+    }
+    else{
+        error();
+    }
+    return tmp_op;
+}
+
+void frontend::Analyzer::sync_varop_type(ir::Operand& op1, ir::Operand& op2){
+    if(op1.type !=op2.type){
+        Operand tmp_op = Operand(get_tmp_name(),ir::Type::Float);
+        if(float_check(op1.type)){
+            op2 = sync_var_type(op2,ir::Type::Float);
+        }
+        else if(float_check(op2.type)){
+            op1 = sync_var_type(op1,ir::Type::Float);
+        }
+        else{
+            error();
+        }
+    }
+    else{
+        //DoNOTHING
+    }
 }
 
 
@@ -278,7 +433,7 @@ void frontend::SymbolTable::exit_scope() {
 string frontend::SymbolTable::get_scoped_name(string id) {
     //获取top cnt
     if(scope_stack.empty()){
-        return id;//global.
+        return id + "_";//global,加下划线区分临时变量
     }
     const int top_cnt = this->scope_stack.back().cnt;
     return id+"_"+std::to_string(top_cnt);
@@ -395,19 +550,15 @@ def_analyze_withparams(VarDef,frontend::TokenType token_type){
         //确定alloc_size和dimension
         todo();
     }
-    //生成定义IR
-    ir::Instruction* def_inst = new Instruction();
     //初始化变量
     if(alloc_size==0){
         if(token_type==TokenType::INTTK){
             def_ste.operand.type = ir::Type::Int;
-            def_inst->op = ir::Operator::def;
-            def_inst->op1 = get_default_opeand(ir::Type::IntLiteral);
+            ADD_INST_DEF(t1,get_default_opeand(ir::Type::IntLiteral),def_ste.operand)
         }
         else if(token_type==TokenType::FLOATTK){
             def_ste.operand.type = ir::Type::Float;
-            def_inst->op = ir::Operator::fdef;
-            def_inst->op1 = get_default_opeand(ir::Type::FloatLiteral);
+            ADD_INST_FDEF(t1,get_default_opeand(ir::Type::FloatLiteral),def_ste.operand)
         }
         else{
             error();
@@ -417,12 +568,8 @@ def_analyze_withparams(VarDef,frontend::TokenType token_type){
         //声明数组，alloc
         todo();
     }
-
     //将符号存入字典中
     this->symbol_table.add_ste(node_ident->token.value,def_ste);
-    def_inst->des = def_ste.operand;
-    ADD_INST(def_inst);
-
     //def和initVal分离
     //赋值语句.
     if(b_ptr<root->children.size() && cur_termtoken_is(TokenType::ASSIGN)){
@@ -445,11 +592,15 @@ def_analyze_withparams(InitVal,frontend::STE ste){
         parse_bptr(Exp,e);
         analyzeExp(node_e);
         if(ste.dimension.empty()){
-            Instruction* mov_inst = new Instruction();
-            mov_inst->op = ir::Operator::mov;
-            mov_inst->op1 = node_e->op;
-            mov_inst->des = ste.operand;
-            ADD_INST(mov_inst);
+            if(int_check(node_e->op.type)){
+                ADD_INST_MOV(t,node_e->op,ste.operand)
+            }
+            else if(float_check(node_e->op.type)){
+                ADD_INST_FMOV(t,node_e->op,ste.operand)
+            }
+            else{
+                error();
+            }
         }
         else{
             todo();//数组偏移赋值
@@ -487,8 +638,17 @@ def_analyze(FuncDef){
     }
     //main函数需要执行先加载global
     if(func->name=="main"){
-        //TODO
-        warning_todo();
+        //添加global Func.
+        Function* global = new Function();
+        for(auto ins: g_init_inst){
+            global->addInst(ins);
+        }
+        global->name = "global";
+        global->returnType = ir::Type::null;
+        global->addInst(new Instruction({},{},{},ir::Operator::_return));
+        this->anlyzed_p.addFunction(*global);
+        ir::CallInst* callins =  new ir::CallInst(ir::Operand("global",ir::Type::null),{});
+        func->addInst((Instruction*)callins);
     }
     //生成函数语句
     analyzeBlock(node_block);
@@ -496,8 +656,7 @@ def_analyze(FuncDef){
     if(func->name=="main"){
         if(func->InstVec.empty() || func->InstVec.back()->op!=Operator::_return){
             //添加返回0
-            Instruction* ret0_ins = new Instruction(Operand("0",ir::Type::IntLiteral),Operand(),Operand(),ir::Operator::_return);
-            ADD_INST(ret0_ins);
+            ADD_INST_RETURN(t,get_default_opeand(ir::Type::IntLiteral))
         }
     }
     //将Function添加到program中
@@ -585,12 +744,15 @@ def_analyze(Stmt){
         else{
             ASSERT_WRONGRET_WITHOUTNULL()
             analyzeExp(node_exp);
-            if(node_exp->is_computable){
-                sync_literal_type(node_exp->op,var_to_literal(func->returnType));
+            if(node_exp->is_computable && literal_check(node_exp->op.type)){
+                node_exp->op =  sync_literal_type(node_exp->op,var_to_literal(func->returnType));
+            }
+            else if(!node_exp->is_computable && !literal_check(node_exp->op.type)){
+                //同步变量类型
+                node_exp->op =  sync_var_type(node_exp->op,func->returnType);
             }
             else{
-                //同步变量类型
-                todo();
+                error();
             }
             ret_ins->op1 = node_exp->op;
         }
@@ -605,11 +767,15 @@ def_analyze(Stmt){
         analyzeExp(node_e);
         if(!ptr_check(node_lv->op.type) && node_lv->ind.empty()){
             //变量赋值
-            Instruction* mov_inst = new Instruction();
-            mov_inst->des = node_lv->op;
-            mov_inst->op = ir::Operator::mov;
-            mov_inst->op1 = node_e->op;
-            ADD_INST(mov_inst);
+            if(int_check(node_e->op.type)){
+                ADD_INST_MOV(t,node_e->op,node_lv->op);
+            }
+            else if(float_check(node_e->op.type)){
+                ADD_INST_FMOV(t,node_e->op,node_lv->op);
+            }
+            else{
+                error();
+            }
         }
         else if(ptr_check(node_lv->op.type) && !(node_lv->ind.empty())){
             //数组赋值
@@ -642,10 +808,11 @@ def_analyze(LVal){
     BEGIN_PTR_INIT()
     parse_bptr(Term,ident);
     //从符号表中找到op
-    root->op = this->symbol_table.get_operand(node_ident->token.value);
+    root->is_computable = false;
+    Operand ident_op = this->symbol_table.get_operand(node_ident->token.value);
     if(ptr_check(root->op.type)){
         while(b_ptr<root->children.size() && cur_termtoken_is(TokenType::LBRACK)){
-            //数组赋值
+            //数组寻值,临时变量,计算偏移
             todo();
         }
     }
@@ -653,6 +820,7 @@ def_analyze(LVal){
         if(b_ptr!=root->children.size()){
             error();
         }
+        root->op = ident_op;
     }
 }
 
@@ -682,7 +850,9 @@ def_analyze(PrimaryExp){
     }
     else if(cur_node_is(NodeType::LVAL)){
         //LVal
-        todo();
+        parse_bptr(LVal,lv);
+        analyzeLVal(node_lv);
+        root_exp_assign(node_lv);
     }
     else if(cur_node_is(NodeType::NUMBER)){
         //Number
@@ -762,8 +932,11 @@ def_analyze(AddExp){
             root->op = add_literal(root->op,node_mulexp_sub->op,node_addop->token.type);
         }    
         else{
-            //添加指令
-            todo();
+            //添加定义指令,禁用立即数加法
+            root->op =  op_to_var(root->op);
+            node_mulexp_sub->op = op_to_var(node_mulexp_sub->op);
+            //加法
+            root->op = add_var(root->op,node_mulexp_sub->op,node_addop->token.type);
         }
     }
 }
