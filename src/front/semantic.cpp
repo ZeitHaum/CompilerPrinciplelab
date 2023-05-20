@@ -56,7 +56,7 @@ using ir::Operator;
 #define ADD_INST__NOT(name,op1_,des_) Instruction* name = new Instruction();  name->op1 = op1_;    name->des = des_;   name->op = ir::Operator::_not;ADD_INST(name)
 #define ADD_INST__AND(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::_and;ADD_INST(name)
 #define ADD_INST__OR(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::_or;ADD_INST(name)
-#define ADD_INST_ALLOC(name,op1_,des_) Instruction* name = new Instruction();  name->op1 = op1_;    name->des = des_;   name->op = ir::Operator::alloc;ADD_INST(name)
+#define ADD_INST_ALLOC(name,op1_,des_) Instruction* name = new Instruction();  name->op1 = op1_;    name->des = des_;   name->op = ir::Operator::alloc;ADD_INST(name) if(this->func==nullptr){this->anlyzed_p.globalVal.push_back({des_});}
 #define ADD_INST_LOAD(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::load;ADD_INST(name)
 #define ADD_INST_STORE(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::store;ADD_INST(name)
 #define ADD_INST_GETPTR(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::getptr;ADD_INST(name)
@@ -170,6 +170,19 @@ ir::Type frontend::Analyzer::ptr_to_var(ir::Type t){
     }
     else if(t==ir::Type::IntPtr){
         return ir::Type::Int;
+    }
+    error();
+}
+
+ir::Operand frontend::Analyzer::sync_to_int(ir::Operand op){
+    if(int_check(op.type)){
+        return op;
+    }
+    if(op.type==ir::Type::Float){
+        return sync_var_type(op,ir::Type::Int);
+    }
+    else if(op.type==ir::Type::FloatLiteral){
+        return sync_literal_type(op,ir::Type::IntLiteral);
     }
     error();
 }
@@ -543,6 +556,35 @@ int frontend::Analyzer::get_offset(std::vector<int>& dim, std::vector<int>& inde
     return ret;
 }
 
+ir::Operand frontend::Analyzer::int_to_literal(int x){
+    return {std::to_string(x),ir::Type::IntLiteral};
+}
+
+Operand frontend::Analyzer::get_offset_op(std::vector<int>& dim,std::vector<Operand>& ind){
+    bool is_all_literal = true;
+    for(int i = 0;i<ind.size();i++){
+        is_all_literal = is_all_literal && literal_check(ind[i].type); 
+    }
+    vector<int> int_id;
+    if(is_all_literal){
+        for(int i = 0;i<ind.size();i++){
+            int_id.push_back(intstring_to_int(ind[i].name));
+        }
+        return {std::to_string(get_offset(dim,int_id)),ir::Type::IntLiteral};
+    }
+    Operand off_op = {get_tmp_name(),ir::Type::Int};
+    ADD_INST_DEF(init_off_op,ind.back(),off_op);
+    int off_per_dim = 1;
+    for(int i  = dim.size()-1;i>=1;i--){
+        off_per_dim*= dim[i];
+        Operand now_off = {get_tmp_name(),ir::Type::Int};
+        ind[i-1] = sync_to_int(ind[i-1]);
+        ADD_INST_MUL(mul_, op_to_var(ind[i-1]), op_to_var(int_to_literal(off_per_dim)),now_off);
+        ADD_INST_ADD(ad_,off_op,now_off,off_op);
+    }
+    return off_op;
+}
+
 
 //1. CompUnit -> (Decl | FuncDef) [CompUnit]
 def_analyze(CompUnit){
@@ -556,7 +598,17 @@ def_analyze(Decl){
 
 //3. ConstDecl -> 'const' BType ConstDef { ',' ConstDef } ';'
 def_analyze(ConstDecl){
-    todo();
+    BEGIN_PTR_INIT()
+    b_ptr++;//跳过'const'
+    parse_bptr(BType,btype);
+    TokenType tt = analyzeBType(node_btype);
+    parse_bptr(ConstDef,c);
+    analyzeConstDef(node_c,tt);
+    while(b_ptr<root->children.size() && cur_termtoken_is(TokenType::COMMA)){
+        b_ptr++;//跳过','
+        parse_bptr(ConstDef,c_sub);
+        analyzeConstDef(node_c_sub,tt);
+    }
 }
 
 //4. BType -> 'int' | 'float'
@@ -567,13 +619,192 @@ def_analyze_withret(BType,frontend::TokenType){
 }
 
 //5. ConstDef -> Ident { '[' ConstExp ']' } '=' ConstInitVal
-def_analyze(ConstDef){
-    todo();
+def_analyze_withparams(ConstDef,TokenType token_type){
+    BEGIN_PTR_INIT()
+    parse_bptr(Term,ident);
+    frontend::STE def_ste;
+    //确定operand.name
+    def_ste.operand.name = this->symbol_table.get_scoped_name(node_ident->token.value);
+    //数组,和VARDEF 一致
+    while(b_ptr<root->children.size() && cur_termtoken_is(TokenType::LBRACK)){
+        //确定alloc_size和dimension
+        b_ptr++;//跳过'['
+        parse_bptr(ConstExp,ce);
+        analyzeConstExp(node_ce);
+        b_ptr++;//跳过']'
+        //必须计算出值
+        if(!node_ce->is_computable || !literal_check(node_ce->op.type)){
+            error();
+        }
+        Operand dim_op = node_ce->op;
+        dim_op = sync_literal_type(dim_op,ir::Type::IntLiteral);
+        int dim = intstring_to_int(dim_op.name);
+        if(dim<=0){
+            error();
+        }
+        def_ste.dimension.push_back(dim);
+    }
+    if(b_ptr>root->children.size()){
+        error();
+    }
+    //初始化变量
+    if(def_ste.dimension.empty()){
+        if(token_type==TokenType::INTTK){
+            def_ste.operand.type = ir::Type::Int;
+            ADD_INST_DEF(t1,get_default_opeand(ir::Type::IntLiteral),def_ste.operand)
+        }
+        else if(token_type==TokenType::FLOATTK){
+            def_ste.operand.type = ir::Type::Float;
+            ADD_INST_FDEF(t1,get_default_opeand(ir::Type::FloatLiteral),def_ste.operand)
+        }
+        else{
+            error();
+        }
+    }
+    else{
+        //声明数组，alloc
+        Operand sz = {std::to_string(get_alloc_size(def_ste.dimension)),ir::Type::IntLiteral};
+        if(token_type==TokenType::INTTK){
+            def_ste.operand.type = ir::Type::IntPtr;
+        }
+        else if(token_type==TokenType::FLOATTK){
+            def_ste.operand.type = ir::Type::FloatPtr;
+        }
+        else{
+            error();
+        }
+        ADD_INST_ALLOC(al,sz,def_ste.operand);
+    }
+    if(def_ste.dimension.empty()){
+        //值在ConstInitVal添加
+        def_ste.is_const = true;
+    }
+    else{
+        //DONOTHING
+        //数组声明const 无效
+    }
+    //添加
+    if(b_ptr>=root->children.size()){
+        error();
+    }
+    //def和initVal分离
+    //赋值语句.
+    b_ptr++;//跳过'='
+    parse_bptr(ConstInitVal,const_initval);
+    analyzeConstInitVal(node_const_initval,def_ste);
+    //将符号存入字典中
+    this->symbol_table.add_ste(node_ident->token.value,def_ste);
 }
 
 //6. ConstInitVal -> ConstExp | '{' [ ConstInitVal { ',' ConstInitVal } ] '}'
-def_analyze(ConstInitVal){
-    todo();
+def_analyze_withparams(ConstInitVal,frontend::STE& ste){
+    BEGIN_PTR_INIT()
+    if(cur_termtoken_is(TokenType::LBRACE)){
+        if(ste.dimension.empty()){
+            error();
+        }
+        if(root->parent->type==NodeType::CONSTINITVAL){
+            //嵌套{{{}}}
+            todo();
+        }
+        //只考虑单行嵌套
+        b_ptr++;//跳过'{'
+        if(cur_node_is(NodeType::CONSTINITVAL)){
+            parse_bptr(ConstInitVal,civ_);
+            analyzeConstInitVal(node_civ_,ste);
+        }
+        while(b_ptr<root->children.size() && cur_termtoken_is(TokenType::COMMA)){
+            b_ptr++;//跳过','
+            parse_bptr(ConstInitVal,civ);
+            analyzeConstInitVal(node_civ,ste);
+        }
+        //补齐vector;
+        while(root->arr_init_ops.size()!=get_alloc_size(ste.dimension)){
+            if(ste.operand.type==ir::Type::FloatPtr){
+                root->arr_init_ops.push_back(get_default_opeand(ir::Type::FloatLiteral));
+            }
+            else if(ste.operand.type==ir::Type::IntPtr){
+                root->arr_init_ops.push_back(get_default_opeand(ir::Type::IntLiteral));
+            }
+            else{
+                error();
+            }
+        }
+        //添加store指令
+        for(int i = 0;i<root->arr_init_ops.size();i++){
+            Operand off_op = {std::to_string(i),ir::Type::IntLiteral};
+            if(literal_check(root->arr_init_ops[i].type)){
+                root->arr_init_ops[i] = op_to_var(root->arr_init_ops[i]);
+            }
+            ADD_INST_STORE(store_ins,ste.operand,off_op,root->arr_init_ops[i]);
+        }
+    }
+    else if(cur_node_is(NodeType::CONSTEXP)){
+        parse_bptr(ConstExp,e);
+        analyzeConstExp(node_e);
+        if(ste.dimension.empty()){
+            if(!node_e->is_computable){
+                error();
+            }
+            if(!ste.is_const){
+                error();
+            }
+            if(int_check(node_e->op.type)){
+                ADD_INST_MOV(t,node_e->op,ste.operand)
+            }
+            else if(float_check(node_e->op.type)){
+                ADD_INST_FMOV(t,node_e->op,ste.operand)
+            }
+            else{
+                error();
+            }
+            //给ste添加值
+            ste.constVal.name = node_e->op.name;
+            ste.constVal.type = node_e->op.type;
+        }
+        else if(!ste.dimension.empty()){
+            //必须从CONSTINITVal走下来
+            if(root->parent->type!=NodeType::CONSTINITVAL){
+                error();
+            }
+            //类型对齐
+            Operand ep_op = node_e->op;
+            if(ep_op.type==ir::Type::null){
+                error();
+            }
+            //同步类型
+            if(int_check(ep_op.type) && ste.operand.type==ir::Type::FloatPtr){
+                if(literal_check(ep_op.type)){
+                    ep_op = sync_literal_type(ep_op,ir::Type::FloatLiteral);
+                }
+                else if(!literal_check(ep_op.type)){
+                    ep_op = sync_var_type(ep_op,ir::Type::Float);
+                }
+                else{
+                    error();
+                }
+            }
+            else if(float_check(ep_op.type) && ste.operand.type == ir::Type::IntPtr){
+                if(literal_check(ep_op.type)){
+                    ep_op = sync_literal_type(ep_op,ir::Type::IntLiteral);
+                }
+                else if(!literal_check(ep_op.type)){
+                    ep_op = sync_var_type(ep_op,ir::Type::Int);
+                }
+                else{
+                    error();
+                }
+            }
+            //添加到父亲结点的op list中
+            ((ConstInitVal*)root->parent)->arr_init_ops.push_back(ep_op);
+        }
+        else{   
+            error();
+        }
+    }
+    else{
+        error();
+    }
 }
 
 //7. VarDecl -> BType VarDef { ',' VarDef } ';'
@@ -588,6 +819,7 @@ def_analyze(VarDecl){
         parse_bptr(VarDef,v_sub);
         analyzeVarDef(node_v_sub,tt);
     }
+    
 }
 
 //8. VarDef -> Ident { '[' ConstExp ']' } [ '=' InitVal ]
@@ -596,6 +828,7 @@ def_analyze_withparams(VarDef,frontend::TokenType token_type){
     parse_bptr(Term,ident);
     frontend::STE def_ste;
     //确定oprand.name
+    def_ste.is_const = false;
     def_ste.operand.name = this->symbol_table.get_scoped_name(node_ident->token.value);
     while(b_ptr<root->children.size() && cur_termtoken_is(TokenType::LBRACK)){
         //确定alloc_size和dimension
@@ -646,8 +879,6 @@ def_analyze_withparams(VarDef,frontend::TokenType token_type){
         }
         ADD_INST_ALLOC(al,sz,def_ste.operand);
     }
-    //将符号存入字典中
-    this->symbol_table.add_ste(node_ident->token.value,def_ste);
     //def和initVal分离
     //赋值语句.
     if(b_ptr<root->children.size() && cur_termtoken_is(TokenType::ASSIGN)){
@@ -655,6 +886,8 @@ def_analyze_withparams(VarDef,frontend::TokenType token_type){
         parse_bptr(InitVal,initval);
         analyzeInitVal(node_initval,def_ste);
     }
+    //将符号存入字典中
+    this->symbol_table.add_ste(node_ident->token.value,def_ste);
 }
 
 //9. InitVal -> Exp | '{' [ InitVal { ',' InitVal } ] '}'
@@ -913,6 +1146,9 @@ def_analyze(Stmt){
         parse_bptr(Exp,e);
         analyzeLVal(node_lv);
         analyzeExp(node_e);
+        if(node_lv->is_computable){
+            error();
+        }
         if(!ptr_check(node_lv->op.type) && node_lv->ind.empty()){
             //变量赋值
             if(literal_check(node_e->op.type)){
@@ -976,23 +1212,26 @@ def_analyze(LVal){
             parse_bptr(Exp,ep);
             b_ptr++;//跳过']'
             analyzeExp(node_ep);
-            if(!node_ep->is_computable){
-                error();
-            }
-            node_ep->op = sync_literal_type(node_ep->op,ir::Type::IntLiteral);
-            root->ind.push_back(intstring_to_int(node_ep->op.name));
+            node_ep->op =  sync_to_int(node_ep->op);
+            root->ind.push_back(node_ep->op);
         }
-        int off_set = get_offset(indent_ste.dimension,root->ind);
-        root->off_op = {std::to_string(off_set),ir::Type::IntLiteral};
+        root->off_op = get_offset_op(indent_ste.dimension,root->ind);
         Operand tmp_op = {get_tmp_name(),ptr_to_var(ident_op.type)};
         root->op = tmp_op;
         root->arr_ste = indent_ste;
     }
     else{
-        if(b_ptr!=root->children.size()){
-            error();
+        if(indent_ste.is_const==true){
+            //CONST
+            root->is_computable = true;
+            root->op = indent_ste.constVal;
         }
-        root->op = ident_op;
+        else{
+            if(b_ptr!=root->children.size()){
+                error();
+            }
+            root->op = ident_op;
+        }
     }
 }
 
@@ -1166,10 +1405,10 @@ def_analyze(AstNode){
         analyzeBType((BType*)root);
     }
     else if(root->type==NodeType::CONSTDEF){
-        analyzeConstDef((ConstDef*)root);
+        error();
     }
     else if(root->type==NodeType::CONSTINITVAL){
-        analyzeConstInitVal((ConstInitVal*)root);
+        error();
     }
     else if(root->type==NodeType::VARDECL){
         analyzeVarDecl((VarDecl*)root);

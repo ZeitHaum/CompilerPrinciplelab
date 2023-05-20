@@ -34,6 +34,8 @@ namespace frontend {
 struct STE {//符号
     ir::Operand operand;
     vector<int> dimension;
+    bool is_const;
+    ir::Operand constVal;
 };
 
 // enumerate for node type
@@ -164,7 +166,7 @@ struct ConstDef: AstNode{
 struct ConstInitVal: AstNode{
     string v;
     Type t;
-
+    std::vector<ir::Operand> arr_init_ops;
     /**
      * @brief constructor
      */
@@ -276,7 +278,7 @@ struct LVal: AstNode{
     ir::Operand op;
     ir::Operand off_op;
     frontend::STE arr_ste;
-    vector<int> ind;  // array index, legal if t is IntPtr or FloatPtr
+    vector<ir::Operand> ind;  // array index, legal if t is IntPtr or FloatPtr
 
     /**
      * @brief constructor

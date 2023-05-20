@@ -31,6 +31,7 @@ using std::vector;
  */
 
 int main(int argc, char** argv) {
+    // assert(0);
     assert((argc == 5 || argc == 6) && "command line should be: compiler <src_filename> -step -o <output_filename> [opt]");
     string src = argv[1];
     string step = argv[2];

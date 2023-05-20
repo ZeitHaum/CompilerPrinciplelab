@@ -133,8 +133,11 @@ struct Analyzer {
     ir::Operand op_to_var(ir::Operand liter_op);
     ir::Operand sync_var_type(ir::Operand op, ir::Type to_type);
     void sync_varop_type(ir::Operand& op1, ir::Operand& op2);
+    ir::Operand sync_to_int(ir::Operand op);
+    ir::Operand int_to_literal(int x);
 
     //数组类运算
+    ir::Operand get_offset_op(std::vector<int>& dim, std::vector<ir::Operand>& ind);
     int get_offset(std::vector<int>& dim, std::vector<int>& index);
     int get_alloc_size(std::vector<int>&dim);
 
@@ -145,8 +148,8 @@ struct Analyzer {
     void analyzeFuncDef(frontend::FuncDef* root);    
     void analyzeConstDecl(frontend::ConstDecl* root);
     frontend::TokenType analyzeBType(frontend::BType* root);
-    void analyzeConstDef(frontend::ConstDef* root);
-    void analyzeConstInitVal(frontend::ConstInitVal* root);
+    void analyzeConstDef(frontend::ConstDef* root, TokenType tokentype);
+    void analyzeConstInitVal(frontend::ConstInitVal* root, frontend::STE& ste);
     void analyzeVarDecl(frontend::VarDecl* root);
     void analyzeVarDef(frontend::VarDef* root,TokenType token_type);
     void analyzeInitVal(frontend::InitVal* root, frontend::STE& ste);
