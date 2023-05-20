@@ -77,6 +77,7 @@ using ir::Operator;
 #define root_exp_assign(name) root->is_computable = name->is_computable;root->op = name->op
 #define debug_reach() std::cerr<<"successfully reach "<<__LINE__<<"!\n"
 #define warning_todo() std::cerr<<"This work is not complete in line "<<__LINE__<<"\n"
+#define ptr_to_literval(type) (var_to_literal(ptr_to_var(type)))
 #define ASSERT_NULLFUNC() if(this->func==nullptr){assert(0 && "NULL FUNC!");}
 #define ASSERT_WRONGRET() if(!(this->func->returnType==ir::Type::Int || this->func->returnType==ir::Type::Float || this->func->returnType==ir::Type::null)){error();}
 #define ASSERT_WRONGRET_WITHOUTNULL() if(!(this->func->returnType==ir::Type::Int || this->func->returnType==ir::Type::Float)){error();}
@@ -99,6 +100,12 @@ map<std::string,ir::Function*>* frontend::get_lib_funcs() {
     return &lib_funcs;
 }
 
+int frontend::Analyzer::intstring_to_int(std::string s){
+    return this->Atoi(s);
+}
+float frontend::Analyzer::floatstring_to_float(std::string s){
+    return std::stof(s);
+}
 
 //字符串转换
 std::string  frontend::Analyzer::floatstring_to_int(std::string s){
@@ -106,7 +113,7 @@ std::string  frontend::Analyzer::floatstring_to_int(std::string s){
     return std::to_string(ftoi);
 }
 std::string  frontend::Analyzer::intstring_to_float(std::string s){
-    float itof = (float)std::stoi(s);
+    float itof = (float)(this->Atoi(s));
     return std::to_string(itof);
 }
 
@@ -152,6 +159,16 @@ ir::Type frontend::Analyzer::literal_to_var(ir::Type t){
         return ir::Type::Float;
     }
     else if(t==ir::Type::IntLiteral){
+        return ir::Type::Int;
+    }
+    error();
+}
+
+ir::Type frontend::Analyzer::ptr_to_var(ir::Type t){
+    if(t==ir::Type::FloatPtr){
+        return ir::Type::Float;
+    }
+    else if(t==ir::Type::IntPtr){
         return ir::Type::Int;
     }
     error();
@@ -491,6 +508,41 @@ ir::Program frontend::Analyzer::get_ir_program(CompUnit* root) {
     return this->anlyzed_p;
 }
 
+std::string frontend::Analyzer::get_tmp_name(){
+    return "tmp" + std::to_string(this->tmp_cnt++);
+}
+
+int frontend::Analyzer::get_alloc_size(std::vector<int>& dim){
+    if(dim.size()==0){
+        return 0;
+    }
+    int ret = 1;
+    for(int i = 0;i<dim.size();i++){
+        if(dim[i]<=0){
+            error();
+        }
+        ret*=dim[i];
+    }
+    return ret;
+}
+
+//数组运算,计算总偏移量
+int frontend::Analyzer::get_offset(std::vector<int>& dim, std::vector<int>& index){
+    if(dim.size()!=index.size()){error();}
+    for(int i = 0;i<dim.size();i++){
+        if(index[i]>=dim[i]){
+            error();
+        }
+    }
+    int off_per_dim = 1;
+    int ret = index.back() * off_per_dim;
+    for(int i = dim.size()-1;i>=1;i--){
+        off_per_dim*=dim[i];
+        ret+= index[i-1] * off_per_dim;
+    }
+    return ret;
+}
+
 
 //1. CompUnit -> (Decl | FuncDef) [CompUnit]
 def_analyze(CompUnit){
@@ -545,13 +597,29 @@ def_analyze_withparams(VarDef,frontend::TokenType token_type){
     frontend::STE def_ste;
     //确定oprand.name
     def_ste.operand.name = this->symbol_table.get_scoped_name(node_ident->token.value);
-    int alloc_size = 0;
     while(b_ptr<root->children.size() && cur_termtoken_is(TokenType::LBRACK)){
         //确定alloc_size和dimension
-        todo();
+        b_ptr++;//跳过'['
+        parse_bptr(ConstExp,ce);
+        analyzeConstExp(node_ce);
+        b_ptr++;//跳过']'
+        //必须计算出值
+        if(!node_ce->is_computable || !literal_check(node_ce->op.type)){
+            error();
+        }
+        Operand dim_op = node_ce->op;
+        dim_op = sync_literal_type(dim_op,ir::Type::IntLiteral);
+        int dim = intstring_to_int(dim_op.name);
+        if(dim<=0){
+            error();
+        }
+        def_ste.dimension.push_back(dim);
+    }
+    if(b_ptr>root->children.size()){
+        error();
     }
     //初始化变量
-    if(alloc_size==0){
+    if(def_ste.dimension.empty()){
         if(token_type==TokenType::INTTK){
             def_ste.operand.type = ir::Type::Int;
             ADD_INST_DEF(t1,get_default_opeand(ir::Type::IntLiteral),def_ste.operand)
@@ -566,7 +634,17 @@ def_analyze_withparams(VarDef,frontend::TokenType token_type){
     }
     else{
         //声明数组，alloc
-        todo();
+        Operand sz = {std::to_string(get_alloc_size(def_ste.dimension)),ir::Type::IntLiteral};
+        if(token_type==TokenType::INTTK){
+            def_ste.operand.type = ir::Type::IntPtr;
+        }
+        else if(token_type==TokenType::FLOATTK){
+            def_ste.operand.type = ir::Type::FloatPtr;
+        }
+        else{
+            error();
+        }
+        ADD_INST_ALLOC(al,sz,def_ste.operand);
     }
     //将符号存入字典中
     this->symbol_table.add_ste(node_ident->token.value,def_ste);
@@ -580,13 +658,47 @@ def_analyze_withparams(VarDef,frontend::TokenType token_type){
 }
 
 //9. InitVal -> Exp | '{' [ InitVal { ',' InitVal } ] '}'
-def_analyze_withparams(InitVal,frontend::STE ste){
+def_analyze_withparams(InitVal,frontend::STE& ste){
     BEGIN_PTR_INIT()
     if(cur_termtoken_is(TokenType::LBRACE)){
         if(ste.dimension.empty()){
             error();
         }
-        todo();
+        if(root->parent->type==NodeType::INITVAL){
+            //嵌套{{{}}}
+            todo();
+        }
+        //只考虑单行嵌套
+        b_ptr++;//跳过'{'
+        if(cur_node_is(NodeType::INITVAL)){
+            parse_bptr(InitVal,iv_);
+            analyzeInitVal(node_iv_,ste);
+        }
+        while(b_ptr<root->children.size() && cur_termtoken_is(TokenType::COMMA)){
+            b_ptr++;//跳过','
+            parse_bptr(InitVal,iv);
+            analyzeInitVal(node_iv,ste);
+        }
+        //补齐vector;
+        while(root->arr_init_ops.size()!=get_alloc_size(ste.dimension)){
+            if(ste.operand.type==ir::Type::FloatPtr){
+                root->arr_init_ops.push_back(get_default_opeand(ir::Type::FloatLiteral));
+            }
+            else if(ste.operand.type==ir::Type::IntPtr){
+                root->arr_init_ops.push_back(get_default_opeand(ir::Type::IntLiteral));
+            }
+            else{
+                error();
+            }
+        }
+        //添加store指令
+        for(int i = 0;i<root->arr_init_ops.size();i++){
+            Operand off_op = {std::to_string(i),ir::Type::IntLiteral};
+            if(literal_check(root->arr_init_ops[i].type)){
+                root->arr_init_ops[i] = op_to_var(root->arr_init_ops[i]);
+            }
+            ADD_INST_STORE(store_ins,ste.operand,off_op,root->arr_init_ops[i]);
+        }
     }
     else if(cur_node_is(NodeType::EXP)){
         parse_bptr(Exp,e);
@@ -602,8 +714,44 @@ def_analyze_withparams(InitVal,frontend::STE ste){
                 error();
             }
         }
-        else{
-            todo();//数组偏移赋值
+        else if(!ste.dimension.empty()){
+            //必须从InitVal走下来
+            if(root->parent->type!=NodeType::INITVAL){
+                error();
+            }
+            //类型对齐
+            Operand ep_op = node_e->op;
+            if(ep_op.type==ir::Type::null){
+                error();
+            }
+            //同步类型
+            if(int_check(ep_op.type) && ste.operand.type==ir::Type::FloatPtr){
+                if(literal_check(ep_op.type)){
+                    ep_op = sync_literal_type(ep_op,ir::Type::FloatLiteral);
+                }
+                else if(!literal_check(ep_op.type)){
+                    ep_op = sync_var_type(ep_op,ir::Type::Float);
+                }
+                else{
+                    error();
+                }
+            }
+            else if(float_check(ep_op.type) && ste.operand.type == ir::Type::IntPtr){
+                if(literal_check(ep_op.type)){
+                    ep_op = sync_literal_type(ep_op,ir::Type::IntLiteral);
+                }
+                else if(!literal_check(ep_op.type)){
+                    ep_op = sync_var_type(ep_op,ir::Type::Int);
+                }
+                else{
+                    error();
+                }
+            }
+            //添加到父亲结点的op list中
+            ((InitVal*)root->parent)->arr_init_ops.push_back(ep_op);
+        }
+        else{   
+            error();
         }
     }
     else{
@@ -767,19 +915,29 @@ def_analyze(Stmt){
         analyzeExp(node_e);
         if(!ptr_check(node_lv->op.type) && node_lv->ind.empty()){
             //变量赋值
-            if(int_check(node_e->op.type)){
+            if(literal_check(node_e->op.type)){
+                node_e->op = sync_literal_type(node_e->op,var_to_literal(node_lv->op.type));
+            }
+            else{
+                node_e->op = sync_var_type(node_e->op,node_lv->op.type);
+            }
+            if(int_check(node_lv->op.type)){
                 ADD_INST_MOV(t,node_e->op,node_lv->op);
             }
-            else if(float_check(node_e->op.type)){
+            else if(float_check(node_lv->op.type)){
                 ADD_INST_FMOV(t,node_e->op,node_lv->op);
             }
             else{
                 error();
             }
         }
-        else if(ptr_check(node_lv->op.type) && !(node_lv->ind.empty())){
+        else if(!(node_lv->ind.empty())){
             //数组赋值
-            todo();
+            if(literal_check(node_e->op.type)){
+                node_e->op = op_to_var(node_e->op);
+            }
+            node_e->op = sync_var_type(node_e->op,ptr_to_var(node_lv->arr_ste.operand.type));
+            ADD_INST_STORE(st,node_lv->arr_ste.operand,node_lv->off_op,node_e->op);
         }
         else{
             error();
@@ -807,14 +965,28 @@ def_analyze(Cond){
 def_analyze(LVal){
     BEGIN_PTR_INIT()
     parse_bptr(Term,ident);
-    //从符号表中找到op
     root->is_computable = false;
+    //从符号表中找到STE和OP
+    STE indent_ste = this->symbol_table.get_ste(node_ident->token.value);
     Operand ident_op = this->symbol_table.get_operand(node_ident->token.value);
-    if(ptr_check(root->op.type)){
+    if(ptr_check(ident_op.type)){
         while(b_ptr<root->children.size() && cur_termtoken_is(TokenType::LBRACK)){
             //数组寻值,临时变量,计算偏移
-            todo();
+            b_ptr++;//跳过'['
+            parse_bptr(Exp,ep);
+            b_ptr++;//跳过']'
+            analyzeExp(node_ep);
+            if(!node_ep->is_computable){
+                error();
+            }
+            node_ep->op = sync_literal_type(node_ep->op,ir::Type::IntLiteral);
+            root->ind.push_back(intstring_to_int(node_ep->op.name));
         }
+        int off_set = get_offset(indent_ste.dimension,root->ind);
+        root->off_op = {std::to_string(off_set),ir::Type::IntLiteral};
+        Operand tmp_op = {get_tmp_name(),ptr_to_var(ident_op.type)};
+        root->op = tmp_op;
+        root->arr_ste = indent_ste;
     }
     else{
         if(b_ptr!=root->children.size()){
@@ -852,6 +1024,10 @@ def_analyze(PrimaryExp){
         //LVal
         parse_bptr(LVal,lv);
         analyzeLVal(node_lv);
+        if(!node_lv->ind.empty()){
+            //添加load,创建临时变量
+            ADD_INST_LOAD(load,node_lv->arr_ste.operand,node_lv->off_op,node_lv->op);
+        }
         root_exp_assign(node_lv);
     }
     else if(cur_node_is(NodeType::NUMBER)){
@@ -963,7 +1139,10 @@ def_analyze(LOrExp){
 
 //31. ConstExp -> AddExp
 def_analyze(ConstExp){
-    todo();
+    BEGIN_PTR_INIT()
+    parse_bptr(AddExp, ad);
+    analyzeAddExp(node_ad);
+    root_exp_assign(node_ad);
 }
 
 //根据AstNodeType 选择分析函数

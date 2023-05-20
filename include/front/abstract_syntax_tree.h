@@ -29,6 +29,13 @@ using std::string;
 
 namespace frontend {
 
+
+// definition of symbol table entry
+struct STE {//符号
+    ir::Operand operand;
+    vector<int> dimension;
+};
+
 // enumerate for node type
 enum class NodeType {
     TERMINAL,       // terminal lexical unit
@@ -184,6 +191,7 @@ struct VarDef: AstNode{
 
 struct InitVal: AstNode{
     bool is_computable = false;
+    std::vector<ir::Operand> arr_init_ops;
     string v;
     Type t;
 
@@ -266,6 +274,8 @@ struct Cond: AstNode{
 struct LVal: AstNode{
     bool is_computable = false;
     ir::Operand op;
+    ir::Operand off_op;
+    frontend::STE arr_ste;
     vector<int> ind;  // array index, legal if t is IntPtr or FloatPtr
 
     /**

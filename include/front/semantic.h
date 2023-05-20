@@ -23,16 +23,9 @@ using std::map;
 using std::string;
 using std::vector;
 
-namespace frontend
-{
+namespace frontend {
 
-// definition of symbol table entry
-struct STE {//符号
-    ir::Operand operand;
-    vector<int> dimension;
-};
-
-using map_str_ste = map<string, STE>;
+using map_str_ste = map<string, frontend::STE>;
 // definition of scope infomation
 struct ScopeInfo {//作用域
     int cnt;
@@ -118,13 +111,14 @@ struct Analyzer {
     Analyzer& operator=(const Analyzer&) = delete;
     
     //获取临时变量名称
-    std::string get_tmp_name(){
-        return "tmp" + std::to_string(this->tmp_cnt++);
-    }
+    std::string get_tmp_name();
 
     //类型转换类函数
     ir::Type var_to_literal(ir::Type t);
     ir::Type literal_to_var(ir::Type t);
+    ir::Type ptr_to_var(ir::Type t);
+    int intstring_to_int(std::string s);
+    float floatstring_to_float(std::string s);
     std::string floatstring_to_int(std::string s);
     std::string intstring_to_float(std::string s);
     ir::Operand sync_literal_type(ir::Operand op,ir::Type to_type);
@@ -140,6 +134,10 @@ struct Analyzer {
     ir::Operand sync_var_type(ir::Operand op, ir::Type to_type);
     void sync_varop_type(ir::Operand& op1, ir::Operand& op2);
 
+    //数组类运算
+    int get_offset(std::vector<int>& dim, std::vector<int>& index);
+    int get_alloc_size(std::vector<int>&dim);
+
     //def anlyzd function
     void analyzeAstNode(frontend::AstNode* root);
     void analyzeCompUnit(frontend::CompUnit* root);
@@ -151,7 +149,7 @@ struct Analyzer {
     void analyzeConstInitVal(frontend::ConstInitVal* root);
     void analyzeVarDecl(frontend::VarDecl* root);
     void analyzeVarDef(frontend::VarDef* root,TokenType token_type);
-    void analyzeInitVal(frontend::InitVal* root, frontend::STE ste);
+    void analyzeInitVal(frontend::InitVal* root, frontend::STE& ste);
     ir::Type analyzeFuncType(frontend::FuncType* root);
     void analyzeFuncFParam(frontend::FuncFParam* root);
     void analyzeFuncFParams(frontend::FuncFParams* root);
