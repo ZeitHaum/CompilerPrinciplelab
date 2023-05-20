@@ -214,6 +214,7 @@ struct FuncFParam: AstNode{
     /**
      * @brief constructor
      */
+    frontend::STE param;
     FuncFParam(AstNode* p = nullptr);
 };
 
@@ -221,6 +222,7 @@ struct FuncFParams: AstNode{
     /**
      * @brief constructor
      */
+    vector<frontend::STE> param_stes;//注意数组的传参
     FuncFParams(AstNode* p = nullptr);
 };
 
@@ -335,6 +337,7 @@ struct FuncRParams: AstNode{
     /**
      * @brief constructor
      */
+    std::vector<ir::Operand> params;
     FuncRParams(AstNode* p = nullptr);
 };
 
