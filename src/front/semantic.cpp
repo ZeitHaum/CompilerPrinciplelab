@@ -197,11 +197,11 @@ void frontend::Analyzer::sync_literalop_type(ir::Operand& op1,ir::Operand& op2){
     }
     else{
         if(op1.type==ir::Type::IntLiteral && op2.type==ir::Type::FloatLiteral){
-            op2 = sync_literal_type(op2,ir::Type::FloatLiteral);
+            op1 = sync_literal_type(op1,ir::Type::FloatLiteral);
             return;
         }
         else if(op1.type==ir::Type::FloatLiteral && op2.type==ir::Type::IntLiteral){
-            op1 = sync_literal_type(op1,ir::Type::FloatLiteral);
+            op2 = sync_literal_type(op2,ir::Type::FloatLiteral);
             return;
         }
         error();
@@ -475,7 +475,7 @@ ir::Operand frontend::Analyzer::perform_var(Operand op1, Operand op2, frontend::
     }
     else if(op==TokenType::LSS){
         //逻辑运算
-        tmp_op.type = ir::Type::Int;
+        // tmp_op.type = ir::Type::Int; ERROR, FLSS MUST ACCEPT FLOAT
         if(op1.type==ir::Type::Int){
             ADD_INST_LSS(add1,op1,op2,tmp_op);
         }
@@ -488,7 +488,7 @@ ir::Operand frontend::Analyzer::perform_var(Operand op1, Operand op2, frontend::
     }
     else if(op==TokenType::GTR){
         //逻辑运算
-        tmp_op.type = ir::Type::Int;
+        // tmp_op.type = ir::Type::Int;
         if(op1.type==ir::Type::Int){
             ADD_INST_GTR(add1,op1,op2,tmp_op);
         }
@@ -501,7 +501,7 @@ ir::Operand frontend::Analyzer::perform_var(Operand op1, Operand op2, frontend::
     }
     else if(op==TokenType::LEQ){
         //逻辑运算
-        tmp_op.type = ir::Type::Int;
+        // tmp_op.type = ir::Type::Int;
         if(op1.type==ir::Type::Int){
             ADD_INST_LEQ(add1,op1,op2,tmp_op);
         }
@@ -514,7 +514,7 @@ ir::Operand frontend::Analyzer::perform_var(Operand op1, Operand op2, frontend::
     }
     else if(op==TokenType::GEQ){
         //逻辑运算
-        tmp_op.type = ir::Type::Int;
+        // tmp_op.type = ir::Type::Int;
         if(op1.type==ir::Type::Int){
             ADD_INST_GEQ(add1,op1,op2,tmp_op);
         }
@@ -527,7 +527,7 @@ ir::Operand frontend::Analyzer::perform_var(Operand op1, Operand op2, frontend::
     }
     else if(op==TokenType::EQL){
         //逻辑运算
-        tmp_op.type = ir::Type::Int;
+        // tmp_op.type = ir::Type::Int;
         if(op1.type==ir::Type::Int){
             ADD_INST_EQ(add1,op1,op2,tmp_op);
         }
@@ -540,7 +540,7 @@ ir::Operand frontend::Analyzer::perform_var(Operand op1, Operand op2, frontend::
     }
     else if(op==TokenType::NEQ){
         //逻辑运算
-        tmp_op.type = ir::Type::Int;
+        // tmp_op.type = ir::Type::Int;
         if(op1.type==ir::Type::Int){
             ADD_INST_NEQ(add1,op1,op2,tmp_op);
         }
@@ -553,7 +553,7 @@ ir::Operand frontend::Analyzer::perform_var(Operand op1, Operand op2, frontend::
     }
     else if(op==TokenType::AND){
         //逻辑运算
-        tmp_op.type = ir::Type::Int;
+        // tmp_op.type = ir::Type::Int;
         if(op1.type==ir::Type::Int){
             ADD_INST__AND(add1,op1,op2,tmp_op);
         }
@@ -567,7 +567,7 @@ ir::Operand frontend::Analyzer::perform_var(Operand op1, Operand op2, frontend::
     }
     else if(op==TokenType::OR){
         //逻辑运算
-        tmp_op.type = ir::Type::Int;
+        // tmp_op.type = ir::Type::Int;
         if(op1.type==ir::Type::Int){
             ADD_INST__OR(add1,op1,op2,tmp_op);
         }
@@ -581,7 +581,7 @@ ir::Operand frontend::Analyzer::perform_var(Operand op1, Operand op2, frontend::
     }
     else if(op==TokenType::NOT){
         //逻辑运算,op2 不使用
-        tmp_op.type = ir::Type::Int;
+        // tmp_op.type = ir::Type::Int;
         if(op1.type==ir::Type::Int){
             ADD_INST__NOT(add1,op1,tmp_op);
         }
@@ -753,16 +753,20 @@ void frontend::SymbolTable::add_ste(std::string id,STE ste){
 
 frontend::Analyzer::Analyzer():symbol_table() {
     //添加输入输出库函数
-    symbol_table.functions["getint"] = new ir::Function("getint",ir::Type::Int);
-    symbol_table.functions["putint"] = new ir::Function("putint",{{"a",ir::Type::Int}},ir::Type::null);
-    symbol_table.functions["getch"] = new ir::Function("getch",ir::Type::Int);
-    symbol_table.functions["putch"] = new ir::Function("putch",{{"a",ir::Type::Int}},ir::Type::null);
-    symbol_table.functions["getfloat"] = new ir::Function("getfloat",ir::Type::Float);
-    symbol_table.functions["putfloat"] = new ir::Function("putfloat",{{"a",ir::Type::Float}},ir::Type::null);
-    symbol_table.functions["getarray"] = new ir::Function("getarray",ir::Type::IntPtr);
-    symbol_table.functions["putarray"] = new ir::Function("putarray",{{"n",ir::Type::IntLiteral},{"a",ir::Type::IntPtr}},ir::Type::null);
-    symbol_table.functions["getfarray"] =  new ir::Function("getfarray",ir::Type::FloatPtr);
-    symbol_table.functions["putfarray"] = new ir::Function("putfarray",{{"n",ir::Type::IntLiteral},{"a",ir::Type::FloatPtr}},ir::Type::null);
+    map<std::string, Function*> lib_func = *get_lib_funcs();
+    for(auto iter = lib_func.begin();iter!=lib_func.end();iter++){
+        symbol_table.functions[iter->first] = iter->second; 
+    }
+    // symbol_table.functions["getint"] = new ir::Function("getint",ir::Type::Int);
+    // symbol_table.functions["putint"] = new ir::Function("putint",{{"a",ir::Type::Int}},ir::Type::null);
+    // symbol_table.functions["getch"] = new ir::Function("getch",ir::Type::Int);
+    // symbol_table.functions["putch"] = new ir::Function("putch",{{"a",ir::Type::Int}},ir::Type::null);
+    // symbol_table.functions["getfloat"] = new ir::Function("getfloat",ir::Type::Float);
+    // symbol_table.functions["putfloat"] = new ir::Function("putfloat",{{"a",ir::Type::Float}},ir::Type::null);
+    // symbol_table.functions["getarray"] = new ir::Function("getarray",{{"a",ir::Type::IntPtr}},ir::Type::IntLiteral);
+    // symbol_table.functions["putarray"] = new ir::Function("putarray",{{"n",ir::Type::IntLiteral},{"a",ir::Type::IntPtr}},ir::Type::null);
+    // symbol_table.functions["getfarray"] =  new ir::Function("getfarray",{{"a",ir::Type::FloatPtr}},ir::Type::IntLiteral);
+    // symbol_table.functions["putfarray"] = new ir::Function("putfarray",{{"n",ir::Type::IntLiteral},{"a",ir::Type::FloatPtr}},ir::Type::null);
 }
 
 ir::Program frontend::Analyzer::get_ir_program(CompUnit* root) {
@@ -790,7 +794,15 @@ int frontend::Analyzer::get_alloc_size(std::vector<int>& dim){
 
 //数组运算,计算总偏移量
 int frontend::Analyzer::get_offset(std::vector<int>& dim, std::vector<int>& index){
-    if(dim.size()!=index.size()){error();}
+    if(dim.size()>index.size()){
+        //ind小于dim时返回数组指针
+        todo();
+    }
+    if(dim.size()<index.size()){
+        if(index.size()>1){
+            error();
+        }
+    }
     for(int i  = 0;i<dim.size();i++){
         if(index[i]>=dim[i]){
             error();
@@ -1016,10 +1028,22 @@ def_analyze_withparams(ConstInitVal,frontend::STE& ste){
             if(!ste.is_const){
                 error();
             }
-            if(int_check(node_e->op.type)){
+            if(int_check(ste.operand.type)){
+                if(literal_check(node_e->op.type)){
+                    node_e->op =  sync_literal_type(node_e->op,ir::Type::IntLiteral);
+                }
+                else{
+                    error();
+                }
                 ADD_INST_MOV(t,node_e->op,ste.operand)
             }
-            else if(float_check(node_e->op.type)){
+            else if(float_check(ste.operand.type)){
+                if(literal_check(node_e->op.type)){
+                    node_e->op =  sync_literal_type(node_e->op,ir::Type::FloatLiteral);
+                }
+                else{
+                    error();
+                }
                 ADD_INST_FMOV(t,node_e->op,ste.operand)
             }
             else{
@@ -1204,10 +1228,22 @@ def_analyze_withparams(InitVal,frontend::STE& ste){
         parse_bptr(Exp,e);
         analyzeExp(node_e);
         if(ste.dimension.empty()){
-            if(int_check(node_e->op.type)){
+            if(int_check(ste.operand.type)){
+                if(literal_check(node_e->op.type)){
+                    node_e->op =  sync_literal_type(node_e->op,ir::Type::IntLiteral);
+                }
+                else{
+                    node_e->op =  sync_var_type(node_e->op,ir::Type::Int);
+                }
                 ADD_INST_MOV(t,node_e->op,ste.operand)
             }
-            else if(float_check(node_e->op.type)){
+            else if(float_check(ste.operand.type)){
+                if(literal_check(node_e->op.type)){
+                    node_e->op =  sync_literal_type(node_e->op,ir::Type::FloatLiteral);
+                }
+                else{
+                    node_e->op =  sync_var_type(node_e->op,ir::Type::Float);
+                }
                 ADD_INST_FMOV(t,node_e->op,ste.operand)
             }
             else{
@@ -1309,12 +1345,9 @@ def_analyze(FuncDef){
         }
     }
     analyzeBlock(node_block,nullptr);
-    //检测main函数是否有返回值
-    if(func->name=="main"){
-        if(func->InstVec.empty() || func->InstVec.back()->op!=Operator::_return){
-            //添加返回0
-            ADD_INST_RETURN(t,get_default_opeand(ir::Type::IntLiteral))
-        }
+    //检测函数是否有返回值
+    if(func->InstVec.empty() || func->InstVec.back()->op!=Operator::_return){
+        ADD_INST_RETURN(t,get_default_opeand(func->returnType));
     }
     //将Function添加到program中
     add_func();
@@ -1770,6 +1803,23 @@ def_analyze(UnaryExp){
                     // if(arr_ste.dimension.size()>1){
                     //     todo();
                     // }
+                }
+                //同步类型
+                if(int_check(op.type) && func_tmp->ParameterList[i].type==ir::Type::Float){
+                    if(literal_check(op.type)){
+                        op = sync_literal_type(op,ir::Type::FloatLiteral);
+                    }
+                    else{
+                        op = sync_var_type(op,ir::Type::Float);
+                    }
+                }
+                else if(float_check(op.type) && func_tmp->ParameterList[i].type==ir::Type::Int){
+                    if(literal_check(op.type)){
+                        op = sync_literal_type(op,ir::Type::IntLiteral);
+                    }
+                    else{
+                        op = sync_var_type(op,ir::Type::Int);
+                    }
                 }
                 paraVec.push_back(op);
             }
