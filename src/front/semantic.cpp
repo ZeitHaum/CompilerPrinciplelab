@@ -81,7 +81,7 @@ using ir::Operator;
 #define ASSERT_NULLFUNC() if(this->func==nullptr){assert(0 && "NULL FUNC!");}
 #define ASSERT_WRONGRET() if(!(this->func->returnType==ir::Type::Int || this->func->returnType==ir::Type::Float || this->func->returnType==ir::Type::null)){error();}
 #define ASSERT_WRONGRET_WITHOUTNULL() if(!(this->func->returnType==ir::Type::Int || this->func->returnType==ir::Type::Float)){error();}
-
+#define PERFROM_OP(node_name,op_name) if(root->is_computable){ root->op = perform_literal(root->op,node_name->op,op_name->token.type);} else{ root->op =  op_to_var(root->op); node_name->op = op_to_var(node_name->op); root->op = perform_var(root->op,node_name->op,op_name->token.type);}
 
 map<std::string,ir::Function*>* frontend::get_lib_funcs() {
 
@@ -277,16 +277,54 @@ int frontend::Analyzer::Atoi(std::string s)
     return ret;
 }
 
-std::string frontend::Analyzer::add_string(std::string s1,std::string s2, frontend::TokenType addop, ir::Type addtype){
+//任意操作
+std::string frontend::Analyzer::perform_string(std::string s1,std::string s2, frontend::TokenType op, ir::Type addtype){
     if(addtype==ir::Type::IntLiteral){
         int i1,i2;
         i1 = Atoi(s1);
         i2 = Atoi(s2);
-        if(addop==TokenType::PLUS){
+        if(op==TokenType::PLUS){
             return std::to_string(i1+i2);
         }
-        else if(addop==TokenType::MINU){
+        else if(op==TokenType::MINU){
             return std::to_string(i1-i2);
+        }
+        else if(op==TokenType::MULT){
+            return std::to_string(i1*i2);
+        }
+        else if(op==TokenType::DIV){
+            return std::to_string(i1/i2);
+        }
+        else if(op==TokenType::MOD){
+            return std::to_string(i1%i2);
+        }
+        else if(op==TokenType::LSS){
+            return std::to_string(int(i1<i2));
+        }
+        else if(op==TokenType::GTR){
+            return std::to_string(int(i1>i2));
+        }
+        else if(op==TokenType::LEQ){
+            return std::to_string(int(i1<=i2));
+        }
+        else if(op==TokenType::GEQ){
+            return std::to_string(int(i1>=i2));
+        }
+        else if(op==TokenType::EQL){
+            return std::to_string(int(i1==i2));
+        }
+        else if(op==TokenType::NEQ){
+            return std::to_string(int(i1!=i2));
+        }
+        else if(op==TokenType::AND){
+            return std::to_string(int(i1&&i2));
+        }
+        else if(op==TokenType::OR){
+            return std::to_string(int(i1||i2));
+        }
+        else if(op==TokenType::NOT){
+            //第二个操作数不使用
+            return std::to_string(int(!i1));
         }
         else{
             error();
@@ -296,11 +334,48 @@ std::string frontend::Analyzer::add_string(std::string s1,std::string s2, fronte
         float f1,f2;
         f1 = std::stof(s1);
         f2 = std::stof(s2);
-        if(addop==TokenType::PLUS){
+        if(op==TokenType::PLUS){
             return std::to_string(f1+f2);
         }
-        else if(addop==TokenType::MINU){
+        else if(op==TokenType::MINU){
             return std::to_string(f1-f2);
+        }
+        else if(op==TokenType::MULT){
+            return std::to_string(f1*f2);
+        }
+        else if(op==TokenType::DIV){
+            return std::to_string(f1/f2);
+        }
+        else if(op==TokenType::MOD){
+           error();
+        }
+        else if(op==TokenType::LSS){
+            return std::to_string(int(f1<f2));
+        }
+        else if(op==TokenType::GTR){
+            return std::to_string(int(f1>f2));
+        }
+        else if(op==TokenType::LEQ){
+            return std::to_string(int(f1<=f2));
+        }
+        else if(op==TokenType::GEQ){
+            return std::to_string(int(f1>=f2));
+        }
+        else if(op==TokenType::EQL){
+            return std::to_string(int(f1==f2));
+        }
+        else if(op==TokenType::NEQ){
+            return std::to_string(int(f1!=f2));
+        }
+        else if(op==TokenType::AND){
+            return std::to_string(int(f1&&f2));
+        }
+        else if(op==TokenType::OR){
+            return std::to_string(int(f1||f2));
+        }
+        else if(op==TokenType::NOT){
+            //第二个操作数不使用
+            return std::to_string(int(!f1));
         }
         else{
             error();
@@ -313,28 +388,23 @@ std::string frontend::Analyzer::add_string(std::string s1,std::string s2, fronte
     return "";
 }
 
-ir::Operand frontend::Analyzer::add_literal(Operand op1,Operand op2, frontend::TokenType addop){
-    if(!(addop==TokenType::PLUS || addop==TokenType::MINU)){
-        error();
-    }
+//字面量加法
+ir::Operand frontend::Analyzer::perform_literal(Operand op1,Operand op2, frontend::TokenType op){
     if(!literal_check(op1.type) || !literal_check(op2.type)){
         error();
     } 
     sync_literalop_type(op1,op2);
-    return {add_string(op1.name,op2.name,addop,op1.type),op1.type};
+    return {perform_string(op1.name,op2.name,op,op1.type),op1.type};
 }
 
 //变量加法
-ir::Operand frontend::Analyzer::add_var(Operand op1, Operand op2, frontend::TokenType addop){
-    if(!(addop==TokenType::PLUS || addop==TokenType::MINU)){
-        error();
-    }
+ir::Operand frontend::Analyzer::perform_var(Operand op1, Operand op2, frontend::TokenType op){
     if(literal_check(op1.type) || literal_check(op2.type)){
         error();
     }
     sync_varop_type(op1,op2);
     Operand tmp_op = {get_tmp_name(),op1.type};
-    if(addop==TokenType::PLUS){
+    if(op==TokenType::PLUS){
         if(op1.type==ir::Type::Int){
             ADD_INST_ADD(add1,op1,op2,tmp_op);
         }
@@ -345,7 +415,7 @@ ir::Operand frontend::Analyzer::add_var(Operand op1, Operand op2, frontend::Toke
             error();
         }
     }
-    else if(addop==TokenType::MINU){
+    else if(op==TokenType::MINU){
         if(op1.type==ir::Type::Int){
             ADD_INST_SUB(add1,op1,op2,tmp_op);
         }
@@ -356,11 +426,166 @@ ir::Operand frontend::Analyzer::add_var(Operand op1, Operand op2, frontend::Toke
             error();
         }
     }
+    else if(op==TokenType::MULT){
+        if(op1.type==ir::Type::Int){
+            ADD_INST_MUL(add1,op1,op2,tmp_op);
+        }
+        else if(op1.type==ir::Type::Float) {
+            ADD_INST_FMUL(add2,op1,op2,tmp_op);
+        }
+        else{
+            error();
+        }
+    }
+    else if(op==TokenType::DIV){
+        if(op1.type==ir::Type::Int){
+            ADD_INST_DIV(add1,op1,op2,tmp_op);
+        }
+        else if(op1.type==ir::Type::Float) {
+            ADD_INST_FDIV(add2,op1,op2,tmp_op);
+        }
+        else{
+            error();
+        }
+    }
+    else if(op==TokenType::MOD){
+        if(op1.type==ir::Type::Int){
+            ADD_INST_MOD(add1,op1,op2,tmp_op);
+        }
+        else if(op1.type==ir::Type::Float) {
+            error();
+        }
+        else{
+            error();
+        }
+    }
+    else if(op==TokenType::LSS){
+        //逻辑运算
+        tmp_op.type = ir::Type::Int;
+        if(op1.type==ir::Type::Int){
+            ADD_INST_LSS(add1,op1,op2,tmp_op);
+        }
+        else if(op1.type==ir::Type::Float) {
+            ADD_INST_FLSS(add1,op1,op2,tmp_op);
+        }
+        else{
+            error();
+        }
+    }
+    else if(op==TokenType::GTR){
+        //逻辑运算
+        tmp_op.type = ir::Type::Int;
+        if(op1.type==ir::Type::Int){
+            ADD_INST_GTR(add1,op1,op2,tmp_op);
+        }
+        else if(op1.type==ir::Type::Float) {
+            ADD_INST_FGTR(add1,op1,op2,tmp_op);
+        }
+        else{
+            error();
+        }
+    }
+    else if(op==TokenType::LEQ){
+        //逻辑运算
+        tmp_op.type = ir::Type::Int;
+        if(op1.type==ir::Type::Int){
+            ADD_INST_LEQ(add1,op1,op2,tmp_op);
+        }
+        else if(op1.type==ir::Type::Float) {
+            ADD_INST_FLEQ(add1,op1,op2,tmp_op);
+        }
+        else{
+            error();
+        }
+    }
+    else if(op==TokenType::GEQ){
+        //逻辑运算
+        tmp_op.type = ir::Type::Int;
+        if(op1.type==ir::Type::Int){
+            ADD_INST_GEQ(add1,op1,op2,tmp_op);
+        }
+        else if(op1.type==ir::Type::Float) {
+            ADD_INST_FGEQ(add1,op1,op2,tmp_op);
+        }
+        else{
+            error();
+        }
+    }
+    else if(op==TokenType::EQL){
+        //逻辑运算
+        tmp_op.type = ir::Type::Int;
+        if(op1.type==ir::Type::Int){
+            ADD_INST_EQ(add1,op1,op2,tmp_op);
+        }
+        else if(op1.type==ir::Type::Float) {
+            ADD_INST_FEQ(add1,op1,op2,tmp_op);
+        }
+        else{
+            error();
+        }
+    }
+    else if(op==TokenType::NEQ){
+        //逻辑运算
+        tmp_op.type = ir::Type::Int;
+        if(op1.type==ir::Type::Int){
+            ADD_INST_NEQ(add1,op1,op2,tmp_op);
+        }
+        else if(op1.type==ir::Type::Float) {
+            ADD_INST_FNEQ(add1,op1,op2,tmp_op);
+        }
+        else{
+            error();
+        }
+    }
+    else if(op==TokenType::AND){
+        //逻辑运算
+        tmp_op.type = ir::Type::Int;
+        if(op1.type==ir::Type::Int){
+            ADD_INST__AND(add1,op1,op2,tmp_op);
+        }
+        else if(op1.type==ir::Type::Float) {
+            warning_todo();
+            ADD_INST__AND(add1,op1,op2,tmp_op);
+        }
+        else{
+            error();
+        }
+    }
+    else if(op==TokenType::OR){
+        //逻辑运算
+        tmp_op.type = ir::Type::Int;
+        if(op1.type==ir::Type::Int){
+            ADD_INST__OR(add1,op1,op2,tmp_op);
+        }
+        else if(op1.type==ir::Type::Float) {
+            warning_todo();
+            ADD_INST__OR(add1,op1,op2,tmp_op);
+        }
+        else{
+            error();
+        }
+    }
+    else if(op==TokenType::NOT){
+        //逻辑运算,op2 不使用
+        tmp_op.type = ir::Type::Int;
+        if(op1.type==ir::Type::Int){
+            ADD_INST__NOT(add1,op1,tmp_op);
+        }
+        else if(op1.type==ir::Type::Float) {
+            warning_todo();
+            ADD_INST__NOT(add1,op1,tmp_op);
+        }
+        else{
+            error();
+        }
+    }
     else{
         error();
     }
     return tmp_op;
 }
+
+
 
 //获取默认Operand
 ir::Operand frontend::Analyzer::get_default_opeand(ir::Type t){
@@ -1391,11 +1616,13 @@ def_analyze(MulExp){
     root_exp_assign(node_unaryexp_);
     while(b_ptr<root->children.size()){
         parse_bptr(Term,mulop);
+        if( (node_mulop->token.type!=TokenType::MULT) && (node_mulop->token.type!=TokenType::DIV) && (node_mulop->token.type!=TokenType::MOD)){
+            error();
+        }
         parse_bptr(UnaryExp,ue_sub);
         analyzeUnaryExp(node_ue_sub);
         root->is_computable = root->is_computable && node_ue_sub->is_computable;
-        //添加到ret_op上,分is_computable情况讨论
-        todo();
+        PERFROM_OP(node_ue_sub,node_mulop)
     }
 }
 
@@ -1408,20 +1635,12 @@ def_analyze(AddExp){
     root_exp_assign(node_mulexp_);
     while(b_ptr<root->children.size()){
         parse_bptr(Term,addop);
+        if( (node_addop->token.type!=TokenType::PLUS) && (node_addop->token.type!=TokenType::MINU)){
+            error();
+        }
         parse_bptr(MulExp,mulexp_sub);
         analyzeMulExp(node_mulexp_sub);
-        //添加到ret_op上
-        root->is_computable = root->is_computable && node_mulexp_sub->is_computable;
-        if(root->is_computable){
-            root->op = add_literal(root->op,node_mulexp_sub->op,node_addop->token.type);
-        }    
-        else{
-            //添加定义指令,禁用立即数加法
-            root->op =  op_to_var(root->op);
-            node_mulexp_sub->op = op_to_var(node_mulexp_sub->op);
-            //加法
-            root->op = add_var(root->op,node_mulexp_sub->op,node_addop->token.type);
-        }
+        PERFROM_OP(node_mulexp_sub,node_addop)
     }
 }
 

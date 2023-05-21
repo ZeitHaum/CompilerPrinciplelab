@@ -126,9 +126,9 @@ struct Analyzer {
     int Atoi(std::string s);//进制转换,仅限整数
 
     //Operand运算
-    std::string add_string(std::string s1,std::string s2, frontend::TokenType addop, ir::Type addtype);
-    ir::Operand add_literal(ir::Operand op1,ir::Operand op2, frontend::TokenType addop);
-    ir::Operand add_var(ir::Operand op1,ir::Operand op2,frontend::TokenType addop);
+    std::string perform_string(std::string s1,std::string s2, frontend::TokenType op, ir::Type addtype);
+    ir::Operand perform_literal(ir::Operand op1,ir::Operand op2, frontend::TokenType op);
+    ir::Operand perform_var(ir::Operand op1,ir::Operand op2,frontend::TokenType op);
     ir::Operand get_default_opeand(ir::Type t);
     ir::Operand op_to_var(ir::Operand liter_op);
     ir::Operand sync_var_type(ir::Operand op, ir::Type to_type);

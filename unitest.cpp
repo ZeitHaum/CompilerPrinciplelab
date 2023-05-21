@@ -47,6 +47,6 @@ int main(){
     // ar[1] = 3;
     // int arr[ar[1]]{0,1,2};
     // std::cout<<arr[2];
-    std::cout<<get_offset({1,2,3},{0,1,2});
+    std::cout<<std::to_string(int(1<2));
     return 0;
 }
