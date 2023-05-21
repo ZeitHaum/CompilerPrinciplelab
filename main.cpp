@@ -79,7 +79,7 @@ int main(int argc, char** argv) {
 
         auto executor = ir::Executor(&program);
         std::cout << program.draw();
-        fprintf(ir::reopen_output_file, "\n%d", executor.run());
+        fprintf(ir::reopen_output_file, "\n%d", (executor.run())%256);
     }
     return 0;
 }

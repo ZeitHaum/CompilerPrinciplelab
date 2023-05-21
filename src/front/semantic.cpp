@@ -20,8 +20,8 @@ using ir::Operator;
 #define def_analyze_withparams(type,params) void frontend::Analyzer::analyze##type(type* root,params)
 #define def_analyze_withretparams(type,returntype,params) returntype frontend::Analyzer::analyze##type(type* root,params)
 #define BEGIN_PTR_INIT() int b_ptr = 0;//begin_ptr
-#define parse_bptr(type,name) if(b_ptr>=root->children.size()){error();} type* node_##name = (type*)root->children[b_ptr++]
-#define parse_bptr_declared(type,name) if(b_ptr>=root->children.size()){error();} node_##name = (type*)root->children[b_ptr++]
+#define parse_bptr(type,name) if(b_ptr>=((int)root->children.size())){error();} type* node_##name = (type*)root->children[b_ptr++]
+#define parse_bptr_declared(type,name) if(b_ptr>=((int)root->children.size())){error();} node_##name = (type*)root->children[b_ptr++]
 #define new_func() if(this->func!=nullptr){error();} this->func = new Function()
 #define add_func() this->anlyzed_p.addFunction(*func); this->func = nullptr
 //ADD_INST 注意:不会做任何合法性检查
@@ -1303,7 +1303,7 @@ def_analyze(FuncDef){
             this->symbol_table.add_ste(ident_name,se);
         }
     }
-    analyzeBlock(node_block);
+    analyzeBlock(node_block,nullptr);
     //检测main函数是否有返回值
     if(func->name=="main"){
         if(func->InstVec.empty() || func->InstVec.back()->op!=Operator::_return){
@@ -1379,23 +1379,29 @@ def_analyze(FuncFParams){
 }
 
 //14. Block -> '{' { BlockItem } '}'
-def_analyze(Block){
+def_analyze_withparams(Block,std::vector<gotoInst>* pa_ins){
     //创建符号表 
     ASSERT_NULLFUNC()
     BEGIN_PTR_INIT()  
     b_ptr++;//忽略'{'
     while(cur_node_is(NodeType::BLOCKITEM)){
         parse_bptr(BlockItem,blockitem);
-        analyzeBlockItem(node_blockitem);
+        analyzeBlockItem(node_blockitem,pa_ins);
     }
     //符号表出栈
     this->symbol_table.exit_scope();
 }
 
 //15. BlockItem -> Decl | Stmt
-def_analyze(BlockItem){
+def_analyze_withparams(BlockItem,std::vector<gotoInst>* pa_ins){
     ASSERT_NULLFUNC()
-    ANALYZE_CHILD()
+    BEGIN_PTR_INIT();
+    if(cur_node_is(NodeType::DECL)){
+        analyzeDecl((Decl*)root->children[0]);
+    }
+    else{
+        analyzeStmt((Stmt*)root->children[0],pa_ins);
+    }
 }
 
 //16. Stmt -> LVal '=' Exp ';' | Block | 'if' '(' Cond ')' Stmt [ 'else' Stmt ] | 'while' '(' Cond ')' Stmt | 'break' ';' | 'continue' ';' | 'return' [Exp] ';' | [Exp] ';'
@@ -1482,7 +1488,7 @@ def_analyze_withparams(Stmt,std::vector<gotoInst>* pa_go_ins){
     else if(cur_node_is(NodeType::BLOCK)){
         parse_bptr(Block,b);
         this->symbol_table.add_scope(node_b);
-        analyzeBlock(node_b);
+        analyzeBlock(node_b,pa_go_ins);
     }
     else if(cur_termtoken_is(TokenType::IFTK)){
         // 'if' '(' Cond ')' Stmt [ 'else' Stmt ]
@@ -1500,10 +1506,18 @@ def_analyze_withparams(Stmt,std::vector<gotoInst>* pa_go_ins){
         parse_bptr(Stmt,ifst);
         analyzeStmt(node_ifst,pa_go_ins);
         //if执行完去final
-        ADD_INST_GOTO(if_go_final,get_default_opeand(ir::Type::null),get_default_opeand(ir::Type::null));
+        Instruction* if_go_final = nullptr;
+        bool has_else = b_ptr<root->children.size() && cur_termtoken_is(TokenType::ELSETK);
+        if(has_else){
+            if_go_final = new Instruction();
+            if_go_final->op1 = get_default_opeand(ir::Type::null);
+            if_go_final->des = get_default_opeand(ir::Type::null);
+            if_go_final->op = ir::Operator::_goto;
+            ADD_INST(if_go_final);
+        }
         int if_go_final_id = get_nowins_ind();
         begin_else_id = get_nowins_ind()+1;
-        if(b_ptr<root->children.size() && cur_termtoken_is(TokenType::ELSETK)){
+        if(has_else){
             b_ptr++;//跳过else;
             parse_bptr(Stmt,elsest);
             analyzeStmt(node_elsest,pa_go_ins);
@@ -1521,7 +1535,9 @@ def_analyze_withparams(Stmt,std::vector<gotoInst>* pa_go_ins){
                 error();
             }
         }
-        if_go_final->des = int_to_literal(begin_final_id - if_go_final_id);
+        if(has_else){
+            if_go_final->des = int_to_literal(begin_final_id - if_go_final_id);
+        }
     }
     else if(cur_node_is(NodeType::EXP)){
         parse_bptr(Exp,e);
@@ -1531,7 +1547,11 @@ def_analyze_withparams(Stmt,std::vector<gotoInst>* pa_go_ins){
         //DONOTHING;
     }
     else if(cur_termtoken_is(TokenType::BREAKTK)){
-        todo();
+        if(pa_go_ins==nullptr){
+            error();
+        }
+        ADD_INST_GOTO(continu_ins,get_default_opeand(ir::Type::null),get_default_opeand(ir::Type::null));
+        pa_go_ins->push_back({continu_ins,get_nowins_ind(),GoToType::BREAK});
     }
     else if(cur_termtoken_is(TokenType::WHILETK)){
         // 'while' '(' Cond ')' Stmt
@@ -1564,11 +1584,25 @@ def_analyze_withparams(Stmt,std::vector<gotoInst>* pa_go_ins){
         while_go_begin->des = int_to_literal(begin_cd_id- while_go_begin_id);
         //对BREAK 和 CONTINUE进行计算
         if(!root->go_ins.empty()){
-            todo();
+            for(auto g:root->go_ins){
+                if(g.go_type==GoToType::BREAK){
+                    g.goto_ins->des = int_to_literal(begin_final_id - g.ins_index);
+                }
+                else if(g.go_type==GoToType::CONTINUE){
+                    g.goto_ins->des = int_to_literal(begin_cd_id - g.ins_index);
+                }
+                else{
+                    error();
+                }
+            }
         }
     }
     else if(cur_termtoken_is(TokenType::CONTINUETK)){
-        todo();
+        if(pa_go_ins==nullptr){
+            error();
+        }
+        ADD_INST_GOTO(continu_ins,get_default_opeand(ir::Type::null),get_default_opeand(ir::Type::null));
+        pa_go_ins->push_back({continu_ins,get_nowins_ind(),GoToType::CONTINUE});
     }
     else{
         error();
@@ -1935,10 +1969,10 @@ def_analyze(AstNode){
         analyzeFuncFParams((FuncFParams*)root);
     }
     else if(root->type==NodeType::BLOCK){
-        analyzeBlock((Block*)root);
+        analyzeBlock((Block*)root,nullptr);
     }
     else if(root->type==NodeType::BLOCKITEM){
-        analyzeBlockItem((BlockItem*)root);
+        analyzeBlockItem((BlockItem*)root,nullptr);
     }
     else if(root->type==NodeType::STMT){
         analyzeStmt((Stmt*)root, nullptr);

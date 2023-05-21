@@ -159,8 +159,8 @@ struct Analyzer {
     ir::Type analyzeFuncType(frontend::FuncType* root);
     void analyzeFuncFParam(frontend::FuncFParam* root);
     void analyzeFuncFParams(frontend::FuncFParams* root);
-    void analyzeBlock(frontend::Block* root);
-    void analyzeBlockItem(frontend::BlockItem* root);
+    void analyzeBlock(frontend::Block* root,std::vector<gotoInst>* par_go_ins);
+    void analyzeBlockItem(frontend::BlockItem* root,std::vector<gotoInst>* par_go_ins);
     void analyzeStmt(frontend::Stmt* root,std::vector<gotoInst>* par_go_ins);
     void analyzeExp(frontend::Exp* root);
     void analyzeCond(frontend::Cond* root);
