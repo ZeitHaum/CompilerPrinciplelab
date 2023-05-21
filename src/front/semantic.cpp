@@ -19,9 +19,9 @@ using ir::Operator;
 #define def_analyze_withret(type,returntype) returntype frontend::Analyzer::analyze##type(type* root)
 #define def_analyze_withparams(type,params) void frontend::Analyzer::analyze##type(type* root,params)
 #define def_analyze_withretparams(type,returntype,params) returntype frontend::Analyzer::analyze##type(type* root,params)
-#define BEGIN_PTR_INIT() int b_ptr = 0;//begin_ptr
-#define parse_bptr(type,name) if(b_ptr>=((int)root->children.size())){error();} type* node_##name = (type*)root->children[b_ptr++]
-#define parse_bptr_declared(type,name) if(b_ptr>=((int)root->children.size())){error();} node_##name = (type*)root->children[b_ptr++]
+#define BEGIN_PTR_INIT() unsigned b_ptr = 0;//begin_ptr
+#define parse_bptr(type,name) if(b_ptr>=root->children.size()){error();} type* node_##name = (type*)root->children[b_ptr++]
+#define parse_bptr_declared(type,name) if(b_ptr>=root->children.size()){error();} node_##name = (type*)root->children[b_ptr++]
 #define new_func() if(this->func!=nullptr){error();} this->func = new Function()
 #define add_func() this->anlyzed_p.addFunction(*func); this->func = nullptr
 //ADD_INST 注意:不会做任何合法性检查
@@ -273,7 +273,7 @@ int frontend::Analyzer::Atoi(std::string s)
         }
     };
     bool enable = false;
-    for (int i = begin; i < s.size(); i++)
+    for (int i  = begin; i < s.size(); i++)
     {
         if (enable)
         {
@@ -711,7 +711,7 @@ string frontend::SymbolTable::get_scoped_name(string id) {
 //输入一个变量名, 在符号表中寻找最近的同名变量, 返回对应的 Operand(注意，此 Operand 的 name 是重命名后的)
 Operand frontend::SymbolTable::get_operand(string id)  {
     //遍历栈
-    for(int i = this->scope_stack.size()-1;i>=0;i--){
+    for(int i  = this->scope_stack.size()-1;i>=0;i--){
         if((scope_stack[i]).table.count(id)!=0){
             return  (scope_stack[i]).table[id].operand;
         }
@@ -726,7 +726,7 @@ Operand frontend::SymbolTable::get_operand(string id)  {
 //输入一个变量名, 在符号表中寻找最近的同名变量, 返回 STE
 frontend::STE frontend::SymbolTable::get_ste(string id) {
     //遍历栈
-    for(int i = this->scope_stack.size()-1;i>=0;i--){
+    for(int i  = this->scope_stack.size()-1;i>=0;i--){
         if((scope_stack[i]).table.count(id)!=0){
             frontend::map_str_ste tmp_map =  (scope_stack[i]).table;
             return tmp_map[id];
@@ -779,7 +779,7 @@ int frontend::Analyzer::get_alloc_size(std::vector<int>& dim){
         return 0;
     }
     int ret = 1;
-    for(int i = 0;i<dim.size();i++){
+    for(int i  = 0;i<dim.size();i++){
         if(dim[i]<=0){
             error();
         }
@@ -791,14 +791,14 @@ int frontend::Analyzer::get_alloc_size(std::vector<int>& dim){
 //数组运算,计算总偏移量
 int frontend::Analyzer::get_offset(std::vector<int>& dim, std::vector<int>& index){
     if(dim.size()!=index.size()){error();}
-    for(int i = 0;i<dim.size();i++){
+    for(int i  = 0;i<dim.size();i++){
         if(index[i]>=dim[i]){
             error();
         }
     }
     int off_per_dim = 1;
     int ret = index.back() * off_per_dim;
-    for(int i = dim.size()-1;i>=1;i--){
+    for(int i  = dim.size()-1;i>=1;i--){
         off_per_dim*=dim[i];
         ret+= index[i-1] * off_per_dim;
     }
@@ -810,17 +810,22 @@ ir::Operand frontend::Analyzer::int_to_literal(int x){
 }
 
 Operand frontend::Analyzer::get_offset_op(std::vector<int>& dim,std::vector<Operand>& ind){
-    if(dim.size()!=ind.size()){
+    if(dim.size()>ind.size()){
         //ind小于dim时返回数组指针
         todo();
     }
+    if(dim.size()<ind.size()){
+        if(ind.size()>1){
+            error();
+        }
+    }
     bool is_all_literal = true;
-    for(int i = 0;i<ind.size();i++){
+    for(int i  = 0;i<ind.size();i++){
         is_all_literal = is_all_literal && literal_check(ind[i].type); 
     }
     vector<int> int_id;
     if(is_all_literal){
-        for(int i = 0;i<ind.size();i++){
+        for(int i  = 0;i<ind.size();i++){
             int_id.push_back(intstring_to_int(ind[i].name));
         }
         return {std::to_string(get_offset(dim,int_id)),ir::Type::IntLiteral};
@@ -993,7 +998,7 @@ def_analyze_withparams(ConstInitVal,frontend::STE& ste){
             }
         }
         //添加store指令
-        for(int i = 0;i<root->arr_init_ops.size();i++){
+        for(int i  = 0;i<root->arr_init_ops.size();i++){
             Operand off_op = {std::to_string(i),ir::Type::IntLiteral};
             if(literal_check(root->arr_init_ops[i].type)){
                 root->arr_init_ops[i] = op_to_var(root->arr_init_ops[i]);
@@ -1187,7 +1192,7 @@ def_analyze_withparams(InitVal,frontend::STE& ste){
             }
         }
         //添加store指令
-        for(int i = 0;i<root->arr_init_ops.size();i++){
+        for(int i  = 0;i<root->arr_init_ops.size();i++){
             Operand off_op = {std::to_string(i),ir::Type::IntLiteral};
             if(literal_check(root->arr_init_ops[i].type)){
                 root->arr_init_ops[i] = op_to_var(root->arr_init_ops[i]);
@@ -1346,7 +1351,22 @@ def_analyze(FuncFParam){
     parse_bptr(Term,ident);
     if(b_ptr<root->children.size() && cur_termtoken_is(TokenType::LBRACK)){
         //数组
-        todo();
+        b_ptr+=2;//跳过'[]'
+        while(b_ptr<root->children.size() && cur_termtoken_is(TokenType::LBRACK)){
+            todo();
+        }
+        //仅处理单维数组
+        TokenType tt =  analyzeBType(node_bt);
+        root->param.operand.name = node_ident->token.value;
+        if(tt==TokenType::INTTK){
+            root->param.operand.type = ir::Type::IntPtr;
+        }
+        else if(tt == TokenType::FLOATTK){
+            root->param.operand.type = ir::Type::FloatPtr;
+        }
+        else{
+            error();
+        }
     }
     else{
         //变量
@@ -1525,11 +1545,11 @@ def_analyze_withparams(Stmt,std::vector<gotoInst>* pa_go_ins){
         begin_final_id = get_nowins_ind()+1;
         //对goto语句进行位置偏移计算
         for(auto g:node_cd->go_ins){
-            if(g.go_type==GoToType::AND){
-                g.goto_ins->des = int_to_literal(begin_else_id - g.ins_index);
-            }
-            else if(g.go_type==GoToType::OR){
+            if(g.go_type==GoToType::OR){
                 g.goto_ins->des = int_to_literal(begin_if_id - g.ins_index);
+            }
+            else if(g.go_type==GoToType::ENDCOND || g.go_type==GoToType::AND){
+                g.goto_ins->des = int_to_literal(begin_else_id - g.ins_index);
             }
             else{
                 error();
@@ -1571,11 +1591,11 @@ def_analyze_withparams(Stmt,std::vector<gotoInst>* pa_go_ins){
         begin_final_id = get_nowins_ind()+1;
         //对cond 进行偏移计算
         for(auto g:node_cd->go_ins){
-            if(g.go_type==GoToType::AND){
-                g.goto_ins->des = int_to_literal(begin_final_id - g.ins_index);
-            }
-            else if(g.go_type==GoToType::OR){
+            if(g.go_type==GoToType::OR){
                 g.goto_ins->des = int_to_literal(begin_while_id - g.ins_index);
+            }
+            else if(g.go_type==GoToType::ENDCOND || g.go_type==GoToType::AND){//最后一句LOrExp中的AND语句
+                g.goto_ins->des = int_to_literal(begin_final_id - g.ins_index);
             }
             else{
                 error();
@@ -1623,6 +1643,12 @@ def_analyze(Cond){
     parse_bptr(LOrExp,_);
     analyzeLOrExp(node__,root);
     root_exp_assign(node__);
+    //添加一个false跳转
+    Operand not_op = {get_tmp_name(),ir::Type::Int};
+    root->op = op_to_var(root->op);
+    ADD_INST__NOT(no_ins,root->op,not_op)
+    ADD_INST_GOTO(goto_ins,not_op,get_default_opeand(ir::Type::null))
+    root->go_ins.push_back({goto_ins,get_nowins_ind(),GoToType::ENDCOND});
 }
 
 //19. LVal -> Ident {'[' Exp ']'}
@@ -1633,7 +1659,7 @@ def_analyze(LVal){
     //从符号表中找到STE和OP
     STE indent_ste = this->symbol_table.get_ste(node_ident->token.value);
     Operand ident_op = this->symbol_table.get_operand(node_ident->token.value);
-    if(ptr_check(ident_op.type)){
+    if(b_ptr<root->children.size() && cur_termtoken_is(TokenType::LBRACK)){
         while(b_ptr<root->children.size() && cur_termtoken_is(TokenType::LBRACK)){
             //数组寻值,临时变量,计算偏移
             b_ptr++;//跳过'['
@@ -1735,7 +1761,16 @@ def_analyze(UnaryExp){
             parse_bptr(FuncRParams,fr);
             analyzeFuncRParams(node_fr);
             //添加到paraVec中
-            for(auto op:node_fr->params){
+            for(int i  = 0;i<node_fr->params.size();i++){
+                Operand op = node_fr->params[i];
+                //处理数组
+                if(ptr_check(op.type)){
+                    //仅处理单维数组,DONOTHING
+                    // STE arr_ste = this->symbol_table.get_ste(op.name);
+                    // if(arr_ste.dimension.size()>1){
+                    //     todo();
+                    // }
+                }
                 paraVec.push_back(op);
             }
         }
@@ -1837,6 +1872,7 @@ def_analyze(AddExp){
         }
         parse_bptr(MulExp,mulexp_sub);
         analyzeMulExp(node_mulexp_sub);
+        root->is_computable = root->is_computable && node_mulexp_sub->is_computable;
         PERFROM_OP(node_mulexp_sub,node_addop)
     }
 }
@@ -1854,6 +1890,7 @@ def_analyze(RelExp){
         }
         parse_bptr(AddExp,ad_1);
         analyzeAddExp(node_ad_1);
+        root->is_computable = root->is_computable && node_ad_1->is_computable;
         PERFROM_OP(node_ad_1,node_rlop);
     }
     root->op = sync_to_int(root->op);
@@ -1872,28 +1909,32 @@ def_analyze(EqExp){
         }
         parse_bptr(RelExp,rl_1);
         analyzeRelExp(node_rl_1);
+        root->is_computable = root->is_computable && node_rl_1->is_computable;
         PERFROM_OP(node_rl_1,node_eqop)
     }
     root->op = sync_to_int(root->op);
 }
 
 //29. LAndExp -> EqExp [ '&&' LAndExp ]
-def_analyze_withparams(LAndExp,frontend::Cond* cond_father){
+def_analyze_withparams(LAndExp,frontend::LOrExp* lor_father){
     BEGIN_PTR_INIT()
     parse_bptr(EqExp,eq);
     analyzeEqExp(node_eq);
     root_exp_assign(node_eq);
     //生成GOTO
     root->op = sync_to_int(root->op);
-    Operand not_op = {get_tmp_name(),ir::Type::Int};
-    ADD_INST__NOT(no_ins,node_eq->op,not_op)
-    ADD_INST_GOTO(goto_ins,not_op,get_default_opeand(ir::Type::null))
-    cond_father->go_ins.push_back({goto_ins,get_nowins_ind(),GoToType::AND});
+    if(b_ptr<root->children.size() && cur_termtoken_is(TokenType::AND)){
+        Operand not_op = {get_tmp_name(),ir::Type::Int};
+        ADD_INST__NOT(no_ins,node_eq->op,not_op)
+        ADD_INST_GOTO(goto_ins,not_op,get_default_opeand(ir::Type::null))
+        lor_father->go_ins.push_back({goto_ins,get_nowins_ind(),GoToType::AND});
+    }
     while(b_ptr<root->children.size() && cur_termtoken_is(TokenType::AND)){
         parse_bptr(Term,andop);
         parse_bptr(LAndExp,_);
-        analyzeLAndExp(node__,cond_father);
-        PERFROM_OP(node__,node_andop);
+        analyzeLAndExp(node__,lor_father);
+        root->is_computable = root->is_computable && node__->is_computable;
+        root->op = node__->op;//取最近一次作为值
     }
 }
 
@@ -1902,17 +1943,40 @@ def_analyze_withparams(LAndExp,frontend::Cond* cond_father){
 def_analyze_withparams(LOrExp,frontend::Cond* cond_father){
     BEGIN_PTR_INIT()
     parse_bptr(LAndExp,la);
-    analyzeLAndExp(node_la,cond_father);
+    analyzeLAndExp(node_la,root);
     root_exp_assign(node_la);
     //生成GOTO
     root->op = sync_to_int(root->op);//必须是int
-    ADD_INST_GOTO(goto_ins,op_to_var(root->op),get_default_opeand(ir::Type::null))//偏移量先留空
-    cond_father->go_ins.push_back({goto_ins,get_nowins_ind(),GoToType::OR});
+    if(b_ptr<root->children.size() && cur_termtoken_is(TokenType::OR)){
+        ADD_INST_GOTO(goto_ins,op_to_var(root->op),get_default_opeand(ir::Type::null))//偏移量先留空
+        cond_father->go_ins.push_back({goto_ins,get_nowins_ind(),GoToType::OR});
+        //处理LAND的goto
+        for(auto iter = root->go_ins.begin();iter!=root->go_ins.end();iter++){
+            if((*iter).go_type==GoToType::AND){
+                (*iter).goto_ins->des = int_to_literal(get_nowins_ind()+1 - (*iter).ins_index);
+            }
+            else{
+                error();
+            }
+        }
+    }
+    else{
+        //处理LAND的goto
+        for(auto iter = root->go_ins.begin();iter!=root->go_ins.end();iter++){
+            if((*iter).go_type==GoToType::AND){
+                cond_father->go_ins.push_back(*(iter));
+            }
+            else{
+                error();
+            }
+        }
+    }
     while(b_ptr<root->children.size() && cur_termtoken_is(TokenType::OR)){
         parse_bptr(Term,orop);
         parse_bptr(LOrExp,_);
         analyzeLOrExp(node__,cond_father);
-        PERFROM_OP(node__,node_orop)
+        root->is_computable = root->is_computable && node__->is_computable;
+        root->op = node__->op;
     }
 }
 

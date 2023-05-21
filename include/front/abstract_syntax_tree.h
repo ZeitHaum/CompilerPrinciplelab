@@ -43,6 +43,7 @@ enum GoToType{
     OR,
     BREAK,
     CONTINUE,
+    ENDCOND,
 };
 
 struct gotoInst{
@@ -420,6 +421,7 @@ struct LOrExp: AstNode{
     // string v;
     // Type t = Type::Int;
     ir::Operand op;
+    std::vector<gotoInst> go_ins;
 
     /**
      * @brief constructor

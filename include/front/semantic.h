@@ -174,7 +174,7 @@ struct Analyzer {
     void analyzeAddExp(frontend::AddExp* root);
     void analyzeRelExp(frontend::RelExp* root);
     void analyzeEqExp(frontend::EqExp* root);
-    void analyzeLAndExp(frontend::LAndExp* root,frontend::Cond* cond_father);
+    void analyzeLAndExp(frontend::LAndExp* root,frontend::LOrExp* cond_father);
     void analyzeLOrExp(frontend::LOrExp* root,frontend::Cond* cond_father);
     void analyzeConstExp(frontend::ConstExp* root);
 };
