@@ -141,7 +141,10 @@ struct Analyzer {
     int get_offset(std::vector<int>& dim, std::vector<int>& index);
     int get_alloc_size(std::vector<int>&dim);
 
+    //支持IF-ELSE
+    int get_nowins_ind();//返回最新添加指令的位置
     //def anlyzd function
+
     void analyzeAstNode(frontend::AstNode* root);
     void analyzeCompUnit(frontend::CompUnit* root);
     void analyzeDecl(frontend::Decl* root);
@@ -171,8 +174,8 @@ struct Analyzer {
     void analyzeAddExp(frontend::AddExp* root);
     void analyzeRelExp(frontend::RelExp* root);
     void analyzeEqExp(frontend::EqExp* root);
-    void analyzeLAndExp(frontend::LAndExp* root);
-    void analyzeLOrExp(frontend::LOrExp* root);
+    void analyzeLAndExp(frontend::LAndExp* root,frontend::Cond* cond_father);
+    void analyzeLOrExp(frontend::LOrExp* root,frontend::Cond* cond_father);
     void analyzeConstExp(frontend::ConstExp* root);
 };
 

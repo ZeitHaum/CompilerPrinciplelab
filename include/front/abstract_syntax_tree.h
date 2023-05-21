@@ -263,12 +263,25 @@ struct Exp: AstNode{
     Exp(AstNode* p = nullptr);
 };
 
+enum GoToType{
+    AND,
+    OR,
+    BREAK,
+    CONTINUE,
+};
+
+struct gotoInst{
+    ir::Instruction* goto_ins;
+    int ins_index;
+    GoToType go_type;
+};
+
 struct Cond: AstNode{
     bool is_computable = false;
     string v;
     Type t;
     ir::Operand op;
-
+    std::vector<gotoInst> go_ins;
     /**
      * @brief constructor
      */

@@ -63,7 +63,7 @@ using ir::Operator;
 #define ADD_INST_CVT_I2F(name,op1_,des_) Instruction* name = new Instruction();  name->op1 = op1_;    name->des = des_;   name->op = ir::Operator::cvt_i2f;ADD_INST(name)
 #define ADD_INST_CVT_F2I(name,op1_,des_) Instruction* name = new Instruction();  name->op1 = op1_;    name->des = des_;   name->op = ir::Operator::cvt_f2i;ADD_INST(name)
 #define ADD_INST_RETURN(name,op1_) Instruction* name = new Instruction();  name->op1 = op1_;     name->op = ir::Operator::_return;ADD_INST(name)
-#define ADD_INST_GOTO(name,op1_,des_) Instruction* name = new Instruction();  name->op1 = op1_;    name->des = des_;   name->op = ir::Operator::goto;ADD_INST(name)
+#define ADD_INST_GOTO(name,op1_,des_) Instruction* name = new Instruction();  name->op1 = op1_;    name->des = des_;   name->op = ir::Operator::_goto;ADD_INST(name)
 #define ADD_INST_UNUSE(name) Instruction* name = new Instruction();     name->op = ir::Operator::unuse;ADD_INST(name)
 // #define ADD_INST_CALL(name,op1_,des_,paraVec)  ir::CallInst* name = new ir::CallInst(); name->op1 = op_1; name->des = des_; name->
 #define ADD_INST_AUTOTYPE(name,type,inst_name,params) 
@@ -214,24 +214,35 @@ void frontend::Analyzer::sync_literalop_type(ir::Operand& op1,ir::Operand& op2){
 //进制转换,仅限整数
 int frontend::Analyzer::Atoi(std::string s)
 {
-    // 先判断进制
+    // 先判断进制和符号
     int base = 0;
     int begin = 0;
-    if (s[0] == '0' && s.size() > 1)
+    if(s[0]=='-'){
+        begin++;
+    }
+    if (s[begin] == '0' && s.size()-begin > 1)
     {
-        begin = 2;
-        if (s[1] == 'b')
+        if (s[begin+1] == 'b'){
             base = 2;
-        else if (s[1] == 'x')
+            begin += 2;
+        }
+        else if (s[begin+1] == 'x'){
             base = 16;
-        else if (s[1] == 'h')
+            begin += 2;
+        }
+        else if (s[begin+1] == 'h'){
             base = 16;
-        else if (s[1] == 'd')
+            begin += 2;
+        }
+            
+        else if (s[begin+1] == 'd'){
             base = 10;
+            begin +=2;
+        }
         else
         {
             base = 8;
-            begin = 1;
+            begin++;
         }
     }
     else
@@ -273,6 +284,9 @@ int frontend::Analyzer::Atoi(std::string s)
             enable = true;
         }
         ret += mapping(s[i]);
+    }
+    if(s[0]=='-'){
+        ret = -ret;
     }
     return ret;
 }
@@ -388,7 +402,7 @@ std::string frontend::Analyzer::perform_string(std::string s1,std::string s2, fr
     return "";
 }
 
-//字面量加法
+//字面量操作
 ir::Operand frontend::Analyzer::perform_literal(Operand op1,Operand op2, frontend::TokenType op){
     if(!literal_check(op1.type) || !literal_check(op2.type)){
         error();
@@ -397,7 +411,7 @@ ir::Operand frontend::Analyzer::perform_literal(Operand op1,Operand op2, fronten
     return {perform_string(op1.name,op2.name,op,op1.type),op1.type};
 }
 
-//变量加法
+//变量操作
 ir::Operand frontend::Analyzer::perform_var(Operand op1, Operand op2, frontend::TokenType op){
     if(literal_check(op1.type) || literal_check(op2.type)){
         error();
@@ -814,6 +828,15 @@ Operand frontend::Analyzer::get_offset_op(std::vector<int>& dim,std::vector<Oper
     return off_op;
 }
 
+//支持IF-ELSE
+int frontend::Analyzer::get_nowins_ind(){
+    if(this->func==nullptr){
+        return this->g_init_inst.size()-1;
+    }
+    else{
+        return this->func->InstVec.size()-1;
+    }
+}
 
 //1. CompUnit -> (Decl | FuncDef) [CompUnit]
 def_analyze(CompUnit){
@@ -1446,6 +1469,51 @@ def_analyze(Stmt){
             error();
         }
     }
+    else if(cur_node_is(NodeType::BLOCK)){
+        parse_bptr(Block,b);
+        this->symbol_table.add_scope(node_b);
+        analyzeBlock(node_b);
+    }
+    else if(cur_termtoken_is(TokenType::IFTK)){
+        // 'if' '(' Cond ')' Stmt [ 'else' Stmt ]
+        //处理IF
+        //parse
+        BEGIN_PTR_INIT()
+        b_ptr+=2;//跳过 if,'('
+        parse_bptr(Cond,cd);
+        //跳过')'
+        int begin_if_id = -1;
+        int begin_else_id = -1;
+        int begin_final_id = -1;
+        analyzeCond(node_cd);
+        begin_if_id = get_nowins_ind()+1;
+        b_ptr++;//跳过')'
+        parse_bptr(Stmt,ifst);
+        analyzeStmt(node_ifst);
+        //if执行完去final
+        ADD_INST_GOTO(if_go_final,get_default_opeand(ir::Type::null),get_default_opeand(ir::Type::null));
+        int if_go_final_id = get_nowins_ind();
+        begin_else_id = get_nowins_ind()+1;
+        if(b_ptr<root->children.size() && cur_termtoken_is(TokenType::ELSETK)){
+            b_ptr++;//跳过else;
+            parse_bptr(Stmt,elsest);
+            analyzeStmt(node_elsest);
+        }
+        begin_final_id = get_nowins_ind()+1;
+        //对goto语句进行位置偏移计算
+        for(auto g:node_cd->go_ins){
+            if(g.go_type==GoToType::AND){
+                g.goto_ins->des = int_to_literal(begin_else_id - g.ins_index);
+            }
+            else if(g.go_type==GoToType::OR){
+                g.goto_ins->des = int_to_literal(begin_if_id - g.ins_index);
+            }
+            else{
+                error();
+            }
+        }
+        if_go_final->des = int_to_literal(begin_final_id - if_go_final_id);
+    }
     else{
         todo();
     }
@@ -1461,7 +1529,10 @@ def_analyze(Exp){
 
 //18. Cond -> LOrExp
 def_analyze(Cond){
-    todo();
+    BEGIN_PTR_INIT()
+    parse_bptr(LOrExp,_);
+    analyzeLOrExp(node__,root);
+    root_exp_assign(node__);
 }
 
 //19. LVal -> Ident {'[' Exp ']'}
@@ -1524,7 +1595,10 @@ def_analyze(PrimaryExp){
     BEGIN_PTR_INIT()
     if(cur_node_is(NodeType::TERMINAL)){
         //'(' Exp ')' 
-        todo();
+        b_ptr++;
+        parse_bptr(Exp,e);
+        analyzeExp(node_e);
+        root_exp_assign(node_e);
     }
     else if(cur_node_is(NodeType::LVAL)){
         //LVal
@@ -1581,7 +1655,38 @@ def_analyze(UnaryExp){
     }
     else if(cur_node_is(NodeType::UNARYOP)){
         //UnaryOp UnaryExp
-        todo();
+        parse_bptr(UnaryOp,uop);
+        parse_bptr(UnaryExp,ue);
+        analyzeUnaryOp(node_uop);
+        analyzeUnaryExp(node_ue);
+        root->is_computable = node_ue->is_computable;
+        if(node_uop->op==TokenType::MINU){
+            Operand tmp_op = {"-1",ir::Type::IntLiteral};
+            if(root->is_computable){ 
+                root->op = perform_literal(node_ue->op,tmp_op,TokenType::MULT);
+            } 
+            else{ 
+                tmp_op =  op_to_var(tmp_op); 
+                node_ue->op = op_to_var(node_ue->op); 
+                root->op = perform_var(tmp_op,node_ue->op,TokenType::MULT);
+            }
+        }
+        else if(node_uop->op==TokenType::NOT){
+           if(root->is_computable){
+                root->op = perform_literal(node_ue->op,get_default_opeand(ir::Type::IntLiteral),TokenType::NOT);
+           }
+           else{
+                Operand tmp_op =  op_to_var(get_default_opeand(ir::Type::IntLiteral)); 
+                node_ue->op = op_to_var(node_ue->op); 
+                root->op = perform_var(node_ue->op,tmp_op,TokenType::NOT);
+           }
+        }
+        else if(node_uop->op==TokenType::PLUS){
+            root->op = node_ue->op;
+        }
+        else{
+            error(); 
+        }
     }
     else{
         error();
@@ -1590,7 +1695,9 @@ def_analyze(UnaryExp){
 
 //23. UnaryOp -> '+' | '-' | '!'
 def_analyze(UnaryOp){
-    todo();
+    BEGIN_PTR_INIT()
+    parse_bptr(Term,uop);
+    root->op = node_uop->token.type;
 }
 
 //24. FuncRParams -> Exp { ',' Exp }
@@ -1646,22 +1753,77 @@ def_analyze(AddExp){
 
 //27. RelExp -> AddExp { ('<' | '>' | '<=' | '>=') AddExp }
 def_analyze(RelExp){
-    todo();
+    BEGIN_PTR_INIT()
+    parse_bptr(AddExp,ad);
+    analyzeAddExp(node_ad);
+    root_exp_assign(node_ad);
+    while(b_ptr<root->children.size()){
+        parse_bptr(Term,rlop);
+        if((node_rlop->token.type!=TokenType::LSS) && (node_rlop->token.type!=TokenType::LEQ) && (node_rlop->token.type!=TokenType::GTR) && (node_rlop->token.type!=TokenType::GEQ)){
+            error();
+        }
+        parse_bptr(AddExp,ad_1);
+        analyzeAddExp(node_ad_1);
+        PERFROM_OP(node_ad_1,node_rlop);
+    }
+    root->op = sync_to_int(root->op);
 }
 
 //28. EqExp -> RelExp { ('==' | '!=') RelExp }
 def_analyze(EqExp){
-    todo();
+    BEGIN_PTR_INIT()
+    parse_bptr(RelExp,rl);
+    analyzeRelExp(node_rl);
+    root_exp_assign(node_rl);
+    while(b_ptr<root->children.size()){
+        parse_bptr(Term,eqop);
+        if( (node_eqop->token.type!=TokenType::EQL) && (node_eqop->token.type!=TokenType::NEQ)){
+            error();
+        }
+        parse_bptr(RelExp,rl_1);
+        analyzeRelExp(node_rl_1);
+        PERFROM_OP(node_rl_1,node_eqop)
+    }
+    root->op = sync_to_int(root->op);
 }
 
 //29. LAndExp -> EqExp [ '&&' LAndExp ]
-def_analyze(LAndExp){
-    todo();
+def_analyze_withparams(LAndExp,frontend::Cond* cond_father){
+    BEGIN_PTR_INIT()
+    parse_bptr(EqExp,eq);
+    analyzeEqExp(node_eq);
+    root_exp_assign(node_eq);
+    //生成GOTO
+    root->op = sync_to_int(root->op);
+    Operand not_op = {get_tmp_name(),ir::Type::Int};
+    ADD_INST__NOT(no_ins,node_eq->op,not_op)
+    ADD_INST_GOTO(goto_ins,not_op,get_default_opeand(ir::Type::null))
+    cond_father->go_ins.push_back({goto_ins,get_nowins_ind(),GoToType::AND});
+    while(b_ptr<root->children.size() && cur_termtoken_is(TokenType::AND)){
+        parse_bptr(Term,andop);
+        parse_bptr(LAndExp,_);
+        analyzeLAndExp(node__,cond_father);
+        PERFROM_OP(node__,node_andop);
+    }
 }
 
 //30. LOrExp -> LAndExp [ '||' LOrExp ]
-def_analyze(LOrExp){
-    todo();
+//结尾的事情交给父亲结点处理
+def_analyze_withparams(LOrExp,frontend::Cond* cond_father){
+    BEGIN_PTR_INIT()
+    parse_bptr(LAndExp,la);
+    analyzeLAndExp(node_la,cond_father);
+    root_exp_assign(node_la);
+    //生成GOTO
+    root->op = sync_to_int(root->op);//必须是int
+    ADD_INST_GOTO(goto_ins,op_to_var(root->op),get_default_opeand(ir::Type::null))//偏移量先留空
+    cond_father->go_ins.push_back({goto_ins,get_nowins_ind(),GoToType::OR});
+    while(b_ptr<root->children.size() && cur_termtoken_is(TokenType::OR)){
+        parse_bptr(Term,orop);
+        parse_bptr(LOrExp,_);
+        analyzeLOrExp(node__,cond_father);
+        PERFROM_OP(node__,node_orop)
+    }
 }
 
 //31. ConstExp -> AddExp
@@ -1762,10 +1924,10 @@ def_analyze(AstNode){
         analyzeEqExp((EqExp*)root);
     }
     else if(root->type==NodeType::LANDEXP){
-        analyzeLAndExp((LAndExp*)root);
+        error();
     }
     else if(root->type==NodeType::LOREXP){
-        analyzeLOrExp((LOrExp*)root);
+        error();
     }
     else if(root->type==NodeType::CONSTEXP){
         analyzeConstExp((ConstExp*)root);
