@@ -752,7 +752,17 @@ void frontend::SymbolTable::add_ste(std::string id,STE ste){
 }
 
 frontend::Analyzer::Analyzer():symbol_table() {
-    
+    //添加输入输出库函数
+    symbol_table.functions["getint"] = new ir::Function("getint",ir::Type::Int);
+    symbol_table.functions["putint"] = new ir::Function("putint",{{"a",ir::Type::Int}},ir::Type::null);
+    symbol_table.functions["getch"] = new ir::Function("getch",ir::Type::Int);
+    symbol_table.functions["putch"] = new ir::Function("putch",{{"a",ir::Type::Int}},ir::Type::null);
+    symbol_table.functions["getfloat"] = new ir::Function("getfloat",ir::Type::Float);
+    symbol_table.functions["putfloat"] = new ir::Function("putfloat",{{"a",ir::Type::Float}},ir::Type::null);
+    symbol_table.functions["getarray"] = new ir::Function("getarray",ir::Type::IntPtr);
+    symbol_table.functions["putarray"] = new ir::Function("putarray",{{"n",ir::Type::IntLiteral},{"a",ir::Type::IntPtr}},ir::Type::null);
+    symbol_table.functions["getfarray"] =  new ir::Function("getfarray",ir::Type::FloatPtr);
+    symbol_table.functions["putfarray"] = new ir::Function("putfarray",{{"n",ir::Type::IntLiteral},{"a",ir::Type::FloatPtr}},ir::Type::null);
 }
 
 ir::Program frontend::Analyzer::get_ir_program(CompUnit* root) {
@@ -1389,7 +1399,7 @@ def_analyze(BlockItem){
 }
 
 //16. Stmt -> LVal '=' Exp ';' | Block | 'if' '(' Cond ')' Stmt [ 'else' Stmt ] | 'while' '(' Cond ')' Stmt | 'break' ';' | 'continue' ';' | 'return' [Exp] ';' | [Exp] ';'
-def_analyze(Stmt){
+def_analyze_withparams(Stmt,std::vector<gotoInst>* pa_go_ins){
     //FIRST,根据子节点类型分情况讨论
     BEGIN_PTR_INIT()
     ASSERT_NULLFUNC()
@@ -1478,7 +1488,6 @@ def_analyze(Stmt){
         // 'if' '(' Cond ')' Stmt [ 'else' Stmt ]
         //处理IF
         //parse
-        BEGIN_PTR_INIT()
         b_ptr+=2;//跳过 if,'('
         parse_bptr(Cond,cd);
         //跳过')'
@@ -1489,7 +1498,7 @@ def_analyze(Stmt){
         begin_if_id = get_nowins_ind()+1;
         b_ptr++;//跳过')'
         parse_bptr(Stmt,ifst);
-        analyzeStmt(node_ifst);
+        analyzeStmt(node_ifst,pa_go_ins);
         //if执行完去final
         ADD_INST_GOTO(if_go_final,get_default_opeand(ir::Type::null),get_default_opeand(ir::Type::null));
         int if_go_final_id = get_nowins_ind();
@@ -1497,7 +1506,7 @@ def_analyze(Stmt){
         if(b_ptr<root->children.size() && cur_termtoken_is(TokenType::ELSETK)){
             b_ptr++;//跳过else;
             parse_bptr(Stmt,elsest);
-            analyzeStmt(node_elsest);
+            analyzeStmt(node_elsest,pa_go_ins);
         }
         begin_final_id = get_nowins_ind()+1;
         //对goto语句进行位置偏移计算
@@ -1514,8 +1523,55 @@ def_analyze(Stmt){
         }
         if_go_final->des = int_to_literal(begin_final_id - if_go_final_id);
     }
-    else{
+    else if(cur_node_is(NodeType::EXP)){
+        parse_bptr(Exp,e);
+        analyzeExp(node_e);
+    }
+    else if(cur_termtoken_is(TokenType::SEMICN)){
+        //DONOTHING;
+    }
+    else if(cur_termtoken_is(TokenType::BREAKTK)){
         todo();
+    }
+    else if(cur_termtoken_is(TokenType::WHILETK)){
+        // 'while' '(' Cond ')' Stmt
+        b_ptr+=2;//跳过while '('
+        parse_bptr(Cond,cd);
+        b_ptr++;//跳过')'
+        parse_bptr(Stmt,while_st);
+        int begin_cd_id = get_nowins_ind()+1;
+        int begin_while_id = -1;
+        int begin_final_id = -1;
+        analyzeCond(node_cd);
+        begin_while_id = get_nowins_ind()+1;
+        analyzeStmt(node_while_st,&(root->go_ins));
+        //Stmt执行完去begin_cd_id
+        ADD_INST_GOTO(while_go_begin,get_default_opeand(ir::Type::null),get_default_opeand(ir::Type::null));
+        int while_go_begin_id = get_nowins_ind();
+        begin_final_id = get_nowins_ind()+1;
+        //对cond 进行偏移计算
+        for(auto g:node_cd->go_ins){
+            if(g.go_type==GoToType::AND){
+                g.goto_ins->des = int_to_literal(begin_final_id - g.ins_index);
+            }
+            else if(g.go_type==GoToType::OR){
+                g.goto_ins->des = int_to_literal(begin_while_id - g.ins_index);
+            }
+            else{
+                error();
+            }
+        }
+        while_go_begin->des = int_to_literal(begin_cd_id- while_go_begin_id);
+        //对BREAK 和 CONTINUE进行计算
+        if(!root->go_ins.empty()){
+            todo();
+        }
+    }
+    else if(cur_termtoken_is(TokenType::CONTINUETK)){
+        todo();
+    }
+    else{
+        error();
     }
 }
 
@@ -1706,7 +1762,7 @@ def_analyze(FuncRParams){
     parse_bptr(Exp,e_);
     analyzeExp(node_e_);
     root->params.push_back(node_e_->op);
-    while(b_ptr<root->children.size() && cur_node_is(NodeType::EXP)){
+    while(b_ptr<root->children.size() && cur_termtoken_is(TokenType::COMMA)){
         b_ptr++;
         parse_bptr(Exp,e);
         analyzeExp(node_e);
@@ -1885,7 +1941,7 @@ def_analyze(AstNode){
         analyzeBlockItem((BlockItem*)root);
     }
     else if(root->type==NodeType::STMT){
-        analyzeStmt((Stmt*)root);
+        analyzeStmt((Stmt*)root, nullptr);
     }
     else if(root->type==NodeType::EXP){
         analyzeExp((Exp*)root);
