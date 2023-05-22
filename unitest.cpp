@@ -86,7 +86,10 @@ int Atoi(std::string s)
 #define f(type) f##type()
 
 void f2(){
-    std::cout<<"2\n";
+    for(int i = 0;i<10;i++){
+        std::cout<<"2\n";
+        std::cout<<"5"<<std::endl;
+    }
 }
 
 void global(){
@@ -124,6 +127,20 @@ int main(){
     // ar[1] = 3;
     // int arr[ar[1]]{0,1,2};
     // std::cout<<arr[2];
-    std::cout<<semantic::Atoi("-0xff");
+
+    // std::cout<<semantic::Atoi("-0xff");
+    /********修改cout输出路径***********/
+    // std::streambuf* now_buf = std::cout.rdbuf();
+    // std::ofstream of("run.out");
+    // std::streambuf* filebuf = of.rdbuf();
+    // std::cout.rdbuf(filebuf);
+    // /********************************/
+    // f2();
+    // /********恢复cout的指针******/
+    // of.flush();
+    // of.close();
+    // std::cout.rdbuf(now_buf);
+    // /***************************/
+    std::cout<<std::stof("0x1.199999999999ap+0");
     return 0;
 }

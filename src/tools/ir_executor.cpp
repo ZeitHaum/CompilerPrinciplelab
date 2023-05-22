@@ -5,6 +5,7 @@
 #include<stdio.h>
 #include<cassert>
 #include<iostream>
+#include<fstream>
 
 #define TODO assert(0 && "TODO");
 #define DEBUG_EXEC_BRIEF  1
@@ -119,6 +120,12 @@ ir::Value* ir::Executor::get_des_operand(Operand op) {
 }
 
 int ir::Executor::run() {
+    /********修改cout输出路径***********/
+    std::streambuf* now_buf = std::cout.rdbuf();
+    std::ofstream of("run.out");
+    std::streambuf* filebuf = of.rdbuf();
+    std::cout.rdbuf(filebuf);
+    /********************************/
     // init global variables
     for(const auto& gte: program->globalVal) {
         std::pair<std::string, Value> entry = {gte.val.name, {gte.val.type, 0}};
@@ -158,7 +165,11 @@ int ir::Executor::run() {
     while (cxt_stack.size()) {
         exec_ir();
     }
-
+    /********恢复cout的指针******/
+    of.flush();
+    of.close();
+    std::cout.rdbuf(now_buf);
+    /***************************/
     return main_func_retval._val.ival;
 }
 

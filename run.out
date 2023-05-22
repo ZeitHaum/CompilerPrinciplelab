@@ -1,0 +1,2205 @@
+0: call null, global()
+0: alloc array_, 110
+	in find_src_operand(intLiteral 110)	eval_int: 110
+	in get_des_operand(int* array_), value = 0
+1: def n_, 0
+	in get_des_operand(int n_), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int n_), value = 0
+2: return null
+1: def t_0, 0
+	in get_des_operand(int t_0), new des (int t_0), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int t_0), value = 0
+2: def m_0, 0
+	in get_des_operand(int m_0), new des (int m_0), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int m_0), value = 0
+3: def a_0, 0
+	in get_des_operand(int a_0), new des (int a_0), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int a_0), value = 0
+4: def b_0, 0
+	in get_des_operand(int b_0), new des (int b_0), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int b_0), value = 0
+5: mov t_0, 1
+	in get_des_operand(int t_0), value = 0
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int t_0), value = 1
+6: not tmp31, t_0
+	in get_des_operand(int tmp31), new des (int tmp31), value = 0
+	in find_src_operand(int t_0), value = 1
+	des operand(int tmp31), value = 0
+7: if tmp31 goto [pc, 136]
+	in find_src_operand(intLiteral 136)	eval_int: 136
+	in find_src_operand(int tmp31), value = 0
+	in goto: pc = 8
+8: def tmp32, 1
+	in get_des_operand(int tmp32), new des (int tmp32), value = 0
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp32), value = 1
+9: sub tmp33, t_0, tmp32
+	in find_src_operand(int t_0), value = 1
+	in find_src_operand(int tmp32), value = 1
+	in get_des_operand(int tmp33), new des (int tmp33), value = 0
+	des operand(int tmp33), value = 0
+10: mov t_0, tmp33
+	in get_des_operand(int t_0), value = 1
+	in find_src_operand(int tmp33), value = 0
+	des operand(int t_0), value = 0
+11: mov n_, 4
+	in get_des_operand(int n_), value = 0
+	in find_src_operand(intLiteral 4)	eval_int: 4
+	des operand(int n_), value = 4
+12: mov m_0, 10
+	in get_des_operand(int m_0), value = 0
+	in find_src_operand(intLiteral 10)	eval_int: 10
+	des operand(int m_0), value = 10
+13: def i_1, 0
+	in get_des_operand(int i_1), new des (int i_1), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int i_1), value = 0
+14: mov i_1, 0
+	in get_des_operand(int i_1), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int i_1), value = 0
+15: def flag_1, 0
+	in get_des_operand(int flag_1), new des (int flag_1), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int flag_1), value = 0
+16: mov flag_1, 0
+	in get_des_operand(int flag_1), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int flag_1), value = 0
+17: call tmp34, init(n_)
+	in find_src_operand(int n_), value = 4
+0: def i_0, 0
+	in get_des_operand(int i_0), new des (int i_0), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int i_0), value = 0
+1: mov i_0, 1
+	in get_des_operand(int i_0), value = 0
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int i_0), value = 1
+2: mul tmp0, n_0, n_0
+	in find_src_operand(int n_0), value = 4
+	in find_src_operand(int n_0), value = 4
+	in get_des_operand(int tmp0), new des (int tmp0), value = 0
+	des operand(int tmp0), value = 16
+3: def tmp1, 1
+	in get_des_operand(int tmp1), new des (int tmp1), value = 0
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp1), value = 1
+4: add tmp2, tmp0, tmp1
+	in find_src_operand(int tmp0), value = 16
+	in find_src_operand(int tmp1), value = 1
+	in get_des_operand(int tmp2), new des (int tmp2), value = 0
+	des operand(int tmp2), value = 17
+5: leq tmp3, i_0, tmp2
+	in find_src_operand(int i_0), value = 1
+	in find_src_operand(int tmp2), value = 17
+	in get_des_operand(int tmp3), new des (int tmp3), value = 0
+	des operand(int tmp3), value = 1
+6: not tmp5, tmp3
+	in get_des_operand(int tmp5), new des (int tmp5), value = 0
+	in find_src_operand(int tmp3), value = 1
+	des operand(int tmp5), value = 0
+7: if tmp5 goto [pc, 8]
+	in find_src_operand(intLiteral 8)	eval_int: 8
+	in find_src_operand(int tmp5), value = 0
+	in goto: pc = 8
+8: def tmp6, i_0
+	in get_des_operand(int tmp6), new des (int tmp6), value = 0
+	in find_src_operand(int i_0), value = 1
+	des operand(int tmp6), value = 1
+9: def tmp8, -1
+	in get_des_operand(int tmp8), new des (int tmp8), value = 0
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp8), value = -1
+10: store tmp8, array_, tmp6
+	in find_src_operand(int tmp6), value = 1
+	in find_src_operand(int tmp8), value = -1
+	in find_src_operand(int* array_), value = 0x26100e27860
+11: def tmp9, 1
+	in get_des_operand(int tmp9), new des (int tmp9), value = 0
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp9), value = 1
+12: add tmp10, i_0, tmp9
+	in find_src_operand(int i_0), value = 1
+	in find_src_operand(int tmp9), value = 1
+	in get_des_operand(int tmp10), new des (int tmp10), value = 0
+	des operand(int tmp10), value = 2
+13: mov i_0, tmp10
+	in get_des_operand(int i_0), value = 1
+	in find_src_operand(int tmp10), value = 2
+	des operand(int i_0), value = 2
+14: goto [pc, -12]
+	in find_src_operand(intLiteral -12)	eval_int: -12
+	in goto: pc = 2
+2: mul tmp0, n_0, n_0
+	in find_src_operand(int n_0), value = 4
+	in find_src_operand(int n_0), value = 4
+	in get_des_operand(int tmp0), value = 16
+	des operand(int tmp0), value = 16
+3: def tmp1, 1
+	in get_des_operand(int tmp1), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp1), value = 1
+4: add tmp2, tmp0, tmp1
+	in find_src_operand(int tmp0), value = 16
+	in find_src_operand(int tmp1), value = 1
+	in get_des_operand(int tmp2), value = 17
+	des operand(int tmp2), value = 17
+5: leq tmp3, i_0, tmp2
+	in find_src_operand(int i_0), value = 2
+	in find_src_operand(int tmp2), value = 17
+	in get_des_operand(int tmp3), value = 1
+	des operand(int tmp3), value = 1
+6: not tmp5, tmp3
+	in get_des_operand(int tmp5), value = 0
+	in find_src_operand(int tmp3), value = 1
+	des operand(int tmp5), value = 0
+7: if tmp5 goto [pc, 8]
+	in find_src_operand(intLiteral 8)	eval_int: 8
+	in find_src_operand(int tmp5), value = 0
+	in goto: pc = 8
+8: def tmp6, i_0
+	in get_des_operand(int tmp6), value = 1
+	in find_src_operand(int i_0), value = 2
+	des operand(int tmp6), value = 2
+9: def tmp8, -1
+	in get_des_operand(int tmp8), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp8), value = -1
+10: store tmp8, array_, tmp6
+	in find_src_operand(int tmp6), value = 2
+	in find_src_operand(int tmp8), value = -1
+	in find_src_operand(int* array_), value = 0x26100e27860
+11: def tmp9, 1
+	in get_des_operand(int tmp9), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp9), value = 1
+12: add tmp10, i_0, tmp9
+	in find_src_operand(int i_0), value = 2
+	in find_src_operand(int tmp9), value = 1
+	in get_des_operand(int tmp10), value = 2
+	des operand(int tmp10), value = 3
+13: mov i_0, tmp10
+	in get_des_operand(int i_0), value = 2
+	in find_src_operand(int tmp10), value = 3
+	des operand(int i_0), value = 3
+14: goto [pc, -12]
+	in find_src_operand(intLiteral -12)	eval_int: -12
+	in goto: pc = 2
+2: mul tmp0, n_0, n_0
+	in find_src_operand(int n_0), value = 4
+	in find_src_operand(int n_0), value = 4
+	in get_des_operand(int tmp0), value = 16
+	des operand(int tmp0), value = 16
+3: def tmp1, 1
+	in get_des_operand(int tmp1), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp1), value = 1
+4: add tmp2, tmp0, tmp1
+	in find_src_operand(int tmp0), value = 16
+	in find_src_operand(int tmp1), value = 1
+	in get_des_operand(int tmp2), value = 17
+	des operand(int tmp2), value = 17
+5: leq tmp3, i_0, tmp2
+	in find_src_operand(int i_0), value = 3
+	in find_src_operand(int tmp2), value = 17
+	in get_des_operand(int tmp3), value = 1
+	des operand(int tmp3), value = 1
+6: not tmp5, tmp3
+	in get_des_operand(int tmp5), value = 0
+	in find_src_operand(int tmp3), value = 1
+	des operand(int tmp5), value = 0
+7: if tmp5 goto [pc, 8]
+	in find_src_operand(intLiteral 8)	eval_int: 8
+	in find_src_operand(int tmp5), value = 0
+	in goto: pc = 8
+8: def tmp6, i_0
+	in get_des_operand(int tmp6), value = 2
+	in find_src_operand(int i_0), value = 3
+	des operand(int tmp6), value = 3
+9: def tmp8, -1
+	in get_des_operand(int tmp8), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp8), value = -1
+10: store tmp8, array_, tmp6
+	in find_src_operand(int tmp6), value = 3
+	in find_src_operand(int tmp8), value = -1
+	in find_src_operand(int* array_), value = 0x26100e27860
+11: def tmp9, 1
+	in get_des_operand(int tmp9), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp9), value = 1
+12: add tmp10, i_0, tmp9
+	in find_src_operand(int i_0), value = 3
+	in find_src_operand(int tmp9), value = 1
+	in get_des_operand(int tmp10), value = 3
+	des operand(int tmp10), value = 4
+13: mov i_0, tmp10
+	in get_des_operand(int i_0), value = 3
+	in find_src_operand(int tmp10), value = 4
+	des operand(int i_0), value = 4
+14: goto [pc, -12]
+	in find_src_operand(intLiteral -12)	eval_int: -12
+	in goto: pc = 2
+2: mul tmp0, n_0, n_0
+	in find_src_operand(int n_0), value = 4
+	in find_src_operand(int n_0), value = 4
+	in get_des_operand(int tmp0), value = 16
+	des operand(int tmp0), value = 16
+3: def tmp1, 1
+	in get_des_operand(int tmp1), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp1), value = 1
+4: add tmp2, tmp0, tmp1
+	in find_src_operand(int tmp0), value = 16
+	in find_src_operand(int tmp1), value = 1
+	in get_des_operand(int tmp2), value = 17
+	des operand(int tmp2), value = 17
+5: leq tmp3, i_0, tmp2
+	in find_src_operand(int i_0), value = 4
+	in find_src_operand(int tmp2), value = 17
+	in get_des_operand(int tmp3), value = 1
+	des operand(int tmp3), value = 1
+6: not tmp5, tmp3
+	in get_des_operand(int tmp5), value = 0
+	in find_src_operand(int tmp3), value = 1
+	des operand(int tmp5), value = 0
+7: if tmp5 goto [pc, 8]
+	in find_src_operand(intLiteral 8)	eval_int: 8
+	in find_src_operand(int tmp5), value = 0
+	in goto: pc = 8
+8: def tmp6, i_0
+	in get_des_operand(int tmp6), value = 3
+	in find_src_operand(int i_0), value = 4
+	des operand(int tmp6), value = 4
+9: def tmp8, -1
+	in get_des_operand(int tmp8), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp8), value = -1
+10: store tmp8, array_, tmp6
+	in find_src_operand(int tmp6), value = 4
+	in find_src_operand(int tmp8), value = -1
+	in find_src_operand(int* array_), value = 0x26100e27860
+11: def tmp9, 1
+	in get_des_operand(int tmp9), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp9), value = 1
+12: add tmp10, i_0, tmp9
+	in find_src_operand(int i_0), value = 4
+	in find_src_operand(int tmp9), value = 1
+	in get_des_operand(int tmp10), value = 4
+	des operand(int tmp10), value = 5
+13: mov i_0, tmp10
+	in get_des_operand(int i_0), value = 4
+	in find_src_operand(int tmp10), value = 5
+	des operand(int i_0), value = 5
+14: goto [pc, -12]
+	in find_src_operand(intLiteral -12)	eval_int: -12
+	in goto: pc = 2
+2: mul tmp0, n_0, n_0
+	in find_src_operand(int n_0), value = 4
+	in find_src_operand(int n_0), value = 4
+	in get_des_operand(int tmp0), value = 16
+	des operand(int tmp0), value = 16
+3: def tmp1, 1
+	in get_des_operand(int tmp1), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp1), value = 1
+4: add tmp2, tmp0, tmp1
+	in find_src_operand(int tmp0), value = 16
+	in find_src_operand(int tmp1), value = 1
+	in get_des_operand(int tmp2), value = 17
+	des operand(int tmp2), value = 17
+5: leq tmp3, i_0, tmp2
+	in find_src_operand(int i_0), value = 5
+	in find_src_operand(int tmp2), value = 17
+	in get_des_operand(int tmp3), value = 1
+	des operand(int tmp3), value = 1
+6: not tmp5, tmp3
+	in get_des_operand(int tmp5), value = 0
+	in find_src_operand(int tmp3), value = 1
+	des operand(int tmp5), value = 0
+7: if tmp5 goto [pc, 8]
+	in find_src_operand(intLiteral 8)	eval_int: 8
+	in find_src_operand(int tmp5), value = 0
+	in goto: pc = 8
+8: def tmp6, i_0
+	in get_des_operand(int tmp6), value = 4
+	in find_src_operand(int i_0), value = 5
+	des operand(int tmp6), value = 5
+9: def tmp8, -1
+	in get_des_operand(int tmp8), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp8), value = -1
+10: store tmp8, array_, tmp6
+	in find_src_operand(int tmp6), value = 5
+	in find_src_operand(int tmp8), value = -1
+	in find_src_operand(int* array_), value = 0x26100e27860
+11: def tmp9, 1
+	in get_des_operand(int tmp9), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp9), value = 1
+12: add tmp10, i_0, tmp9
+	in find_src_operand(int i_0), value = 5
+	in find_src_operand(int tmp9), value = 1
+	in get_des_operand(int tmp10), value = 5
+	des operand(int tmp10), value = 6
+13: mov i_0, tmp10
+	in get_des_operand(int i_0), value = 5
+	in find_src_operand(int tmp10), value = 6
+	des operand(int i_0), value = 6
+14: goto [pc, -12]
+	in find_src_operand(intLiteral -12)	eval_int: -12
+	in goto: pc = 2
+2: mul tmp0, n_0, n_0
+	in find_src_operand(int n_0), value = 4
+	in find_src_operand(int n_0), value = 4
+	in get_des_operand(int tmp0), value = 16
+	des operand(int tmp0), value = 16
+3: def tmp1, 1
+	in get_des_operand(int tmp1), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp1), value = 1
+4: add tmp2, tmp0, tmp1
+	in find_src_operand(int tmp0), value = 16
+	in find_src_operand(int tmp1), value = 1
+	in get_des_operand(int tmp2), value = 17
+	des operand(int tmp2), value = 17
+5: leq tmp3, i_0, tmp2
+	in find_src_operand(int i_0), value = 6
+	in find_src_operand(int tmp2), value = 17
+	in get_des_operand(int tmp3), value = 1
+	des operand(int tmp3), value = 1
+6: not tmp5, tmp3
+	in get_des_operand(int tmp5), value = 0
+	in find_src_operand(int tmp3), value = 1
+	des operand(int tmp5), value = 0
+7: if tmp5 goto [pc, 8]
+	in find_src_operand(intLiteral 8)	eval_int: 8
+	in find_src_operand(int tmp5), value = 0
+	in goto: pc = 8
+8: def tmp6, i_0
+	in get_des_operand(int tmp6), value = 5
+	in find_src_operand(int i_0), value = 6
+	des operand(int tmp6), value = 6
+9: def tmp8, -1
+	in get_des_operand(int tmp8), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp8), value = -1
+10: store tmp8, array_, tmp6
+	in find_src_operand(int tmp6), value = 6
+	in find_src_operand(int tmp8), value = -1
+	in find_src_operand(int* array_), value = 0x26100e27860
+11: def tmp9, 1
+	in get_des_operand(int tmp9), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp9), value = 1
+12: add tmp10, i_0, tmp9
+	in find_src_operand(int i_0), value = 6
+	in find_src_operand(int tmp9), value = 1
+	in get_des_operand(int tmp10), value = 6
+	des operand(int tmp10), value = 7
+13: mov i_0, tmp10
+	in get_des_operand(int i_0), value = 6
+	in find_src_operand(int tmp10), value = 7
+	des operand(int i_0), value = 7
+14: goto [pc, -12]
+	in find_src_operand(intLiteral -12)	eval_int: -12
+	in goto: pc = 2
+2: mul tmp0, n_0, n_0
+	in find_src_operand(int n_0), value = 4
+	in find_src_operand(int n_0), value = 4
+	in get_des_operand(int tmp0), value = 16
+	des operand(int tmp0), value = 16
+3: def tmp1, 1
+	in get_des_operand(int tmp1), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp1), value = 1
+4: add tmp2, tmp0, tmp1
+	in find_src_operand(int tmp0), value = 16
+	in find_src_operand(int tmp1), value = 1
+	in get_des_operand(int tmp2), value = 17
+	des operand(int tmp2), value = 17
+5: leq tmp3, i_0, tmp2
+	in find_src_operand(int i_0), value = 7
+	in find_src_operand(int tmp2), value = 17
+	in get_des_operand(int tmp3), value = 1
+	des operand(int tmp3), value = 1
+6: not tmp5, tmp3
+	in get_des_operand(int tmp5), value = 0
+	in find_src_operand(int tmp3), value = 1
+	des operand(int tmp5), value = 0
+7: if tmp5 goto [pc, 8]
+	in find_src_operand(intLiteral 8)	eval_int: 8
+	in find_src_operand(int tmp5), value = 0
+	in goto: pc = 8
+8: def tmp6, i_0
+	in get_des_operand(int tmp6), value = 6
+	in find_src_operand(int i_0), value = 7
+	des operand(int tmp6), value = 7
+9: def tmp8, -1
+	in get_des_operand(int tmp8), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp8), value = -1
+10: store tmp8, array_, tmp6
+	in find_src_operand(int tmp6), value = 7
+	in find_src_operand(int tmp8), value = -1
+	in find_src_operand(int* array_), value = 0x26100e27860
+11: def tmp9, 1
+	in get_des_operand(int tmp9), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp9), value = 1
+12: add tmp10, i_0, tmp9
+	in find_src_operand(int i_0), value = 7
+	in find_src_operand(int tmp9), value = 1
+	in get_des_operand(int tmp10), value = 7
+	des operand(int tmp10), value = 8
+13: mov i_0, tmp10
+	in get_des_operand(int i_0), value = 7
+	in find_src_operand(int tmp10), value = 8
+	des operand(int i_0), value = 8
+14: goto [pc, -12]
+	in find_src_operand(intLiteral -12)	eval_int: -12
+	in goto: pc = 2
+2: mul tmp0, n_0, n_0
+	in find_src_operand(int n_0), value = 4
+	in find_src_operand(int n_0), value = 4
+	in get_des_operand(int tmp0), value = 16
+	des operand(int tmp0), value = 16
+3: def tmp1, 1
+	in get_des_operand(int tmp1), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp1), value = 1
+4: add tmp2, tmp0, tmp1
+	in find_src_operand(int tmp0), value = 16
+	in find_src_operand(int tmp1), value = 1
+	in get_des_operand(int tmp2), value = 17
+	des operand(int tmp2), value = 17
+5: leq tmp3, i_0, tmp2
+	in find_src_operand(int i_0), value = 8
+	in find_src_operand(int tmp2), value = 17
+	in get_des_operand(int tmp3), value = 1
+	des operand(int tmp3), value = 1
+6: not tmp5, tmp3
+	in get_des_operand(int tmp5), value = 0
+	in find_src_operand(int tmp3), value = 1
+	des operand(int tmp5), value = 0
+7: if tmp5 goto [pc, 8]
+	in find_src_operand(intLiteral 8)	eval_int: 8
+	in find_src_operand(int tmp5), value = 0
+	in goto: pc = 8
+8: def tmp6, i_0
+	in get_des_operand(int tmp6), value = 7
+	in find_src_operand(int i_0), value = 8
+	des operand(int tmp6), value = 8
+9: def tmp8, -1
+	in get_des_operand(int tmp8), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp8), value = -1
+10: store tmp8, array_, tmp6
+	in find_src_operand(int tmp6), value = 8
+	in find_src_operand(int tmp8), value = -1
+	in find_src_operand(int* array_), value = 0x26100e27860
+11: def tmp9, 1
+	in get_des_operand(int tmp9), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp9), value = 1
+12: add tmp10, i_0, tmp9
+	in find_src_operand(int i_0), value = 8
+	in find_src_operand(int tmp9), value = 1
+	in get_des_operand(int tmp10), value = 8
+	des operand(int tmp10), value = 9
+13: mov i_0, tmp10
+	in get_des_operand(int i_0), value = 8
+	in find_src_operand(int tmp10), value = 9
+	des operand(int i_0), value = 9
+14: goto [pc, -12]
+	in find_src_operand(intLiteral -12)	eval_int: -12
+	in goto: pc = 2
+2: mul tmp0, n_0, n_0
+	in find_src_operand(int n_0), value = 4
+	in find_src_operand(int n_0), value = 4
+	in get_des_operand(int tmp0), value = 16
+	des operand(int tmp0), value = 16
+3: def tmp1, 1
+	in get_des_operand(int tmp1), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp1), value = 1
+4: add tmp2, tmp0, tmp1
+	in find_src_operand(int tmp0), value = 16
+	in find_src_operand(int tmp1), value = 1
+	in get_des_operand(int tmp2), value = 17
+	des operand(int tmp2), value = 17
+5: leq tmp3, i_0, tmp2
+	in find_src_operand(int i_0), value = 9
+	in find_src_operand(int tmp2), value = 17
+	in get_des_operand(int tmp3), value = 1
+	des operand(int tmp3), value = 1
+6: not tmp5, tmp3
+	in get_des_operand(int tmp5), value = 0
+	in find_src_operand(int tmp3), value = 1
+	des operand(int tmp5), value = 0
+7: if tmp5 goto [pc, 8]
+	in find_src_operand(intLiteral 8)	eval_int: 8
+	in find_src_operand(int tmp5), value = 0
+	in goto: pc = 8
+8: def tmp6, i_0
+	in get_des_operand(int tmp6), value = 8
+	in find_src_operand(int i_0), value = 9
+	des operand(int tmp6), value = 9
+9: def tmp8, -1
+	in get_des_operand(int tmp8), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp8), value = -1
+10: store tmp8, array_, tmp6
+	in find_src_operand(int tmp6), value = 9
+	in find_src_operand(int tmp8), value = -1
+	in find_src_operand(int* array_), value = 0x26100e27860
+11: def tmp9, 1
+	in get_des_operand(int tmp9), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp9), value = 1
+12: add tmp10, i_0, tmp9
+	in find_src_operand(int i_0), value = 9
+	in find_src_operand(int tmp9), value = 1
+	in get_des_operand(int tmp10), value = 9
+	des operand(int tmp10), value = 10
+13: mov i_0, tmp10
+	in get_des_operand(int i_0), value = 9
+	in find_src_operand(int tmp10), value = 10
+	des operand(int i_0), value = 10
+14: goto [pc, -12]
+	in find_src_operand(intLiteral -12)	eval_int: -12
+	in goto: pc = 2
+2: mul tmp0, n_0, n_0
+	in find_src_operand(int n_0), value = 4
+	in find_src_operand(int n_0), value = 4
+	in get_des_operand(int tmp0), value = 16
+	des operand(int tmp0), value = 16
+3: def tmp1, 1
+	in get_des_operand(int tmp1), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp1), value = 1
+4: add tmp2, tmp0, tmp1
+	in find_src_operand(int tmp0), value = 16
+	in find_src_operand(int tmp1), value = 1
+	in get_des_operand(int tmp2), value = 17
+	des operand(int tmp2), value = 17
+5: leq tmp3, i_0, tmp2
+	in find_src_operand(int i_0), value = 10
+	in find_src_operand(int tmp2), value = 17
+	in get_des_operand(int tmp3), value = 1
+	des operand(int tmp3), value = 1
+6: not tmp5, tmp3
+	in get_des_operand(int tmp5), value = 0
+	in find_src_operand(int tmp3), value = 1
+	des operand(int tmp5), value = 0
+7: if tmp5 goto [pc, 8]
+	in find_src_operand(intLiteral 8)	eval_int: 8
+	in find_src_operand(int tmp5), value = 0
+	in goto: pc = 8
+8: def tmp6, i_0
+	in get_des_operand(int tmp6), value = 9
+	in find_src_operand(int i_0), value = 10
+	des operand(int tmp6), value = 10
+9: def tmp8, -1
+	in get_des_operand(int tmp8), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp8), value = -1
+10: store tmp8, array_, tmp6
+	in find_src_operand(int tmp6), value = 10
+	in find_src_operand(int tmp8), value = -1
+	in find_src_operand(int* array_), value = 0x26100e27860
+11: def tmp9, 1
+	in get_des_operand(int tmp9), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp9), value = 1
+12: add tmp10, i_0, tmp9
+	in find_src_operand(int i_0), value = 10
+	in find_src_operand(int tmp9), value = 1
+	in get_des_operand(int tmp10), value = 10
+	des operand(int tmp10), value = 11
+13: mov i_0, tmp10
+	in get_des_operand(int i_0), value = 10
+	in find_src_operand(int tmp10), value = 11
+	des operand(int i_0), value = 11
+14: goto [pc, -12]
+	in find_src_operand(intLiteral -12)	eval_int: -12
+	in goto: pc = 2
+2: mul tmp0, n_0, n_0
+	in find_src_operand(int n_0), value = 4
+	in find_src_operand(int n_0), value = 4
+	in get_des_operand(int tmp0), value = 16
+	des operand(int tmp0), value = 16
+3: def tmp1, 1
+	in get_des_operand(int tmp1), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp1), value = 1
+4: add tmp2, tmp0, tmp1
+	in find_src_operand(int tmp0), value = 16
+	in find_src_operand(int tmp1), value = 1
+	in get_des_operand(int tmp2), value = 17
+	des operand(int tmp2), value = 17
+5: leq tmp3, i_0, tmp2
+	in find_src_operand(int i_0), value = 11
+	in find_src_operand(int tmp2), value = 17
+	in get_des_operand(int tmp3), value = 1
+	des operand(int tmp3), value = 1
+6: not tmp5, tmp3
+	in get_des_operand(int tmp5), value = 0
+	in find_src_operand(int tmp3), value = 1
+	des operand(int tmp5), value = 0
+7: if tmp5 goto [pc, 8]
+	in find_src_operand(intLiteral 8)	eval_int: 8
+	in find_src_operand(int tmp5), value = 0
+	in goto: pc = 8
+8: def tmp6, i_0
+	in get_des_operand(int tmp6), value = 10
+	in find_src_operand(int i_0), value = 11
+	des operand(int tmp6), value = 11
+9: def tmp8, -1
+	in get_des_operand(int tmp8), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp8), value = -1
+10: store tmp8, array_, tmp6
+	in find_src_operand(int tmp6), value = 11
+	in find_src_operand(int tmp8), value = -1
+	in find_src_operand(int* array_), value = 0x26100e27860
+11: def tmp9, 1
+	in get_des_operand(int tmp9), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp9), value = 1
+12: add tmp10, i_0, tmp9
+	in find_src_operand(int i_0), value = 11
+	in find_src_operand(int tmp9), value = 1
+	in get_des_operand(int tmp10), value = 11
+	des operand(int tmp10), value = 12
+13: mov i_0, tmp10
+	in get_des_operand(int i_0), value = 11
+	in find_src_operand(int tmp10), value = 12
+	des operand(int i_0), value = 12
+14: goto [pc, -12]
+	in find_src_operand(intLiteral -12)	eval_int: -12
+	in goto: pc = 2
+2: mul tmp0, n_0, n_0
+	in find_src_operand(int n_0), value = 4
+	in find_src_operand(int n_0), value = 4
+	in get_des_operand(int tmp0), value = 16
+	des operand(int tmp0), value = 16
+3: def tmp1, 1
+	in get_des_operand(int tmp1), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp1), value = 1
+4: add tmp2, tmp0, tmp1
+	in find_src_operand(int tmp0), value = 16
+	in find_src_operand(int tmp1), value = 1
+	in get_des_operand(int tmp2), value = 17
+	des operand(int tmp2), value = 17
+5: leq tmp3, i_0, tmp2
+	in find_src_operand(int i_0), value = 12
+	in find_src_operand(int tmp2), value = 17
+	in get_des_operand(int tmp3), value = 1
+	des operand(int tmp3), value = 1
+6: not tmp5, tmp3
+	in get_des_operand(int tmp5), value = 0
+	in find_src_operand(int tmp3), value = 1
+	des operand(int tmp5), value = 0
+7: if tmp5 goto [pc, 8]
+	in find_src_operand(intLiteral 8)	eval_int: 8
+	in find_src_operand(int tmp5), value = 0
+	in goto: pc = 8
+8: def tmp6, i_0
+	in get_des_operand(int tmp6), value = 11
+	in find_src_operand(int i_0), value = 12
+	des operand(int tmp6), value = 12
+9: def tmp8, -1
+	in get_des_operand(int tmp8), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp8), value = -1
+10: store tmp8, array_, tmp6
+	in find_src_operand(int tmp6), value = 12
+	in find_src_operand(int tmp8), value = -1
+	in find_src_operand(int* array_), value = 0x26100e27860
+11: def tmp9, 1
+	in get_des_operand(int tmp9), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp9), value = 1
+12: add tmp10, i_0, tmp9
+	in find_src_operand(int i_0), value = 12
+	in find_src_operand(int tmp9), value = 1
+	in get_des_operand(int tmp10), value = 12
+	des operand(int tmp10), value = 13
+13: mov i_0, tmp10
+	in get_des_operand(int i_0), value = 12
+	in find_src_operand(int tmp10), value = 13
+	des operand(int i_0), value = 13
+14: goto [pc, -12]
+	in find_src_operand(intLiteral -12)	eval_int: -12
+	in goto: pc = 2
+2: mul tmp0, n_0, n_0
+	in find_src_operand(int n_0), value = 4
+	in find_src_operand(int n_0), value = 4
+	in get_des_operand(int tmp0), value = 16
+	des operand(int tmp0), value = 16
+3: def tmp1, 1
+	in get_des_operand(int tmp1), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp1), value = 1
+4: add tmp2, tmp0, tmp1
+	in find_src_operand(int tmp0), value = 16
+	in find_src_operand(int tmp1), value = 1
+	in get_des_operand(int tmp2), value = 17
+	des operand(int tmp2), value = 17
+5: leq tmp3, i_0, tmp2
+	in find_src_operand(int i_0), value = 13
+	in find_src_operand(int tmp2), value = 17
+	in get_des_operand(int tmp3), value = 1
+	des operand(int tmp3), value = 1
+6: not tmp5, tmp3
+	in get_des_operand(int tmp5), value = 0
+	in find_src_operand(int tmp3), value = 1
+	des operand(int tmp5), value = 0
+7: if tmp5 goto [pc, 8]
+	in find_src_operand(intLiteral 8)	eval_int: 8
+	in find_src_operand(int tmp5), value = 0
+	in goto: pc = 8
+8: def tmp6, i_0
+	in get_des_operand(int tmp6), value = 12
+	in find_src_operand(int i_0), value = 13
+	des operand(int tmp6), value = 13
+9: def tmp8, -1
+	in get_des_operand(int tmp8), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp8), value = -1
+10: store tmp8, array_, tmp6
+	in find_src_operand(int tmp6), value = 13
+	in find_src_operand(int tmp8), value = -1
+	in find_src_operand(int* array_), value = 0x26100e27860
+11: def tmp9, 1
+	in get_des_operand(int tmp9), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp9), value = 1
+12: add tmp10, i_0, tmp9
+	in find_src_operand(int i_0), value = 13
+	in find_src_operand(int tmp9), value = 1
+	in get_des_operand(int tmp10), value = 13
+	des operand(int tmp10), value = 14
+13: mov i_0, tmp10
+	in get_des_operand(int i_0), value = 13
+	in find_src_operand(int tmp10), value = 14
+	des operand(int i_0), value = 14
+14: goto [pc, -12]
+	in find_src_operand(intLiteral -12)	eval_int: -12
+	in goto: pc = 2
+2: mul tmp0, n_0, n_0
+	in find_src_operand(int n_0), value = 4
+	in find_src_operand(int n_0), value = 4
+	in get_des_operand(int tmp0), value = 16
+	des operand(int tmp0), value = 16
+3: def tmp1, 1
+	in get_des_operand(int tmp1), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp1), value = 1
+4: add tmp2, tmp0, tmp1
+	in find_src_operand(int tmp0), value = 16
+	in find_src_operand(int tmp1), value = 1
+	in get_des_operand(int tmp2), value = 17
+	des operand(int tmp2), value = 17
+5: leq tmp3, i_0, tmp2
+	in find_src_operand(int i_0), value = 14
+	in find_src_operand(int tmp2), value = 17
+	in get_des_operand(int tmp3), value = 1
+	des operand(int tmp3), value = 1
+6: not tmp5, tmp3
+	in get_des_operand(int tmp5), value = 0
+	in find_src_operand(int tmp3), value = 1
+	des operand(int tmp5), value = 0
+7: if tmp5 goto [pc, 8]
+	in find_src_operand(intLiteral 8)	eval_int: 8
+	in find_src_operand(int tmp5), value = 0
+	in goto: pc = 8
+8: def tmp6, i_0
+	in get_des_operand(int tmp6), value = 13
+	in find_src_operand(int i_0), value = 14
+	des operand(int tmp6), value = 14
+9: def tmp8, -1
+	in get_des_operand(int tmp8), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp8), value = -1
+10: store tmp8, array_, tmp6
+	in find_src_operand(int tmp6), value = 14
+	in find_src_operand(int tmp8), value = -1
+	in find_src_operand(int* array_), value = 0x26100e27860
+11: def tmp9, 1
+	in get_des_operand(int tmp9), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp9), value = 1
+12: add tmp10, i_0, tmp9
+	in find_src_operand(int i_0), value = 14
+	in find_src_operand(int tmp9), value = 1
+	in get_des_operand(int tmp10), value = 14
+	des operand(int tmp10), value = 15
+13: mov i_0, tmp10
+	in get_des_operand(int i_0), value = 14
+	in find_src_operand(int tmp10), value = 15
+	des operand(int i_0), value = 15
+14: goto [pc, -12]
+	in find_src_operand(intLiteral -12)	eval_int: -12
+	in goto: pc = 2
+2: mul tmp0, n_0, n_0
+	in find_src_operand(int n_0), value = 4
+	in find_src_operand(int n_0), value = 4
+	in get_des_operand(int tmp0), value = 16
+	des operand(int tmp0), value = 16
+3: def tmp1, 1
+	in get_des_operand(int tmp1), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp1), value = 1
+4: add tmp2, tmp0, tmp1
+	in find_src_operand(int tmp0), value = 16
+	in find_src_operand(int tmp1), value = 1
+	in get_des_operand(int tmp2), value = 17
+	des operand(int tmp2), value = 17
+5: leq tmp3, i_0, tmp2
+	in find_src_operand(int i_0), value = 15
+	in find_src_operand(int tmp2), value = 17
+	in get_des_operand(int tmp3), value = 1
+	des operand(int tmp3), value = 1
+6: not tmp5, tmp3
+	in get_des_operand(int tmp5), value = 0
+	in find_src_operand(int tmp3), value = 1
+	des operand(int tmp5), value = 0
+7: if tmp5 goto [pc, 8]
+	in find_src_operand(intLiteral 8)	eval_int: 8
+	in find_src_operand(int tmp5), value = 0
+	in goto: pc = 8
+8: def tmp6, i_0
+	in get_des_operand(int tmp6), value = 14
+	in find_src_operand(int i_0), value = 15
+	des operand(int tmp6), value = 15
+9: def tmp8, -1
+	in get_des_operand(int tmp8), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp8), value = -1
+10: store tmp8, array_, tmp6
+	in find_src_operand(int tmp6), value = 15
+	in find_src_operand(int tmp8), value = -1
+	in find_src_operand(int* array_), value = 0x26100e27860
+11: def tmp9, 1
+	in get_des_operand(int tmp9), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp9), value = 1
+12: add tmp10, i_0, tmp9
+	in find_src_operand(int i_0), value = 15
+	in find_src_operand(int tmp9), value = 1
+	in get_des_operand(int tmp10), value = 15
+	des operand(int tmp10), value = 16
+13: mov i_0, tmp10
+	in get_des_operand(int i_0), value = 15
+	in find_src_operand(int tmp10), value = 16
+	des operand(int i_0), value = 16
+14: goto [pc, -12]
+	in find_src_operand(intLiteral -12)	eval_int: -12
+	in goto: pc = 2
+2: mul tmp0, n_0, n_0
+	in find_src_operand(int n_0), value = 4
+	in find_src_operand(int n_0), value = 4
+	in get_des_operand(int tmp0), value = 16
+	des operand(int tmp0), value = 16
+3: def tmp1, 1
+	in get_des_operand(int tmp1), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp1), value = 1
+4: add tmp2, tmp0, tmp1
+	in find_src_operand(int tmp0), value = 16
+	in find_src_operand(int tmp1), value = 1
+	in get_des_operand(int tmp2), value = 17
+	des operand(int tmp2), value = 17
+5: leq tmp3, i_0, tmp2
+	in find_src_operand(int i_0), value = 16
+	in find_src_operand(int tmp2), value = 17
+	in get_des_operand(int tmp3), value = 1
+	des operand(int tmp3), value = 1
+6: not tmp5, tmp3
+	in get_des_operand(int tmp5), value = 0
+	in find_src_operand(int tmp3), value = 1
+	des operand(int tmp5), value = 0
+7: if tmp5 goto [pc, 8]
+	in find_src_operand(intLiteral 8)	eval_int: 8
+	in find_src_operand(int tmp5), value = 0
+	in goto: pc = 8
+8: def tmp6, i_0
+	in get_des_operand(int tmp6), value = 15
+	in find_src_operand(int i_0), value = 16
+	des operand(int tmp6), value = 16
+9: def tmp8, -1
+	in get_des_operand(int tmp8), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp8), value = -1
+10: store tmp8, array_, tmp6
+	in find_src_operand(int tmp6), value = 16
+	in find_src_operand(int tmp8), value = -1
+	in find_src_operand(int* array_), value = 0x26100e27860
+11: def tmp9, 1
+	in get_des_operand(int tmp9), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp9), value = 1
+12: add tmp10, i_0, tmp9
+	in find_src_operand(int i_0), value = 16
+	in find_src_operand(int tmp9), value = 1
+	in get_des_operand(int tmp10), value = 16
+	des operand(int tmp10), value = 17
+13: mov i_0, tmp10
+	in get_des_operand(int i_0), value = 16
+	in find_src_operand(int tmp10), value = 17
+	des operand(int i_0), value = 17
+14: goto [pc, -12]
+	in find_src_operand(intLiteral -12)	eval_int: -12
+	in goto: pc = 2
+2: mul tmp0, n_0, n_0
+	in find_src_operand(int n_0), value = 4
+	in find_src_operand(int n_0), value = 4
+	in get_des_operand(int tmp0), value = 16
+	des operand(int tmp0), value = 16
+3: def tmp1, 1
+	in get_des_operand(int tmp1), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp1), value = 1
+4: add tmp2, tmp0, tmp1
+	in find_src_operand(int tmp0), value = 16
+	in find_src_operand(int tmp1), value = 1
+	in get_des_operand(int tmp2), value = 17
+	des operand(int tmp2), value = 17
+5: leq tmp3, i_0, tmp2
+	in find_src_operand(int i_0), value = 17
+	in find_src_operand(int tmp2), value = 17
+	in get_des_operand(int tmp3), value = 1
+	des operand(int tmp3), value = 1
+6: not tmp5, tmp3
+	in get_des_operand(int tmp5), value = 0
+	in find_src_operand(int tmp3), value = 1
+	des operand(int tmp5), value = 0
+7: if tmp5 goto [pc, 8]
+	in find_src_operand(intLiteral 8)	eval_int: 8
+	in find_src_operand(int tmp5), value = 0
+	in goto: pc = 8
+8: def tmp6, i_0
+	in get_des_operand(int tmp6), value = 16
+	in find_src_operand(int i_0), value = 17
+	des operand(int tmp6), value = 17
+9: def tmp8, -1
+	in get_des_operand(int tmp8), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp8), value = -1
+10: store tmp8, array_, tmp6
+	in find_src_operand(int tmp6), value = 17
+	in find_src_operand(int tmp8), value = -1
+	in find_src_operand(int* array_), value = 0x26100e27860
+11: def tmp9, 1
+	in get_des_operand(int tmp9), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp9), value = 1
+12: add tmp10, i_0, tmp9
+	in find_src_operand(int i_0), value = 17
+	in find_src_operand(int tmp9), value = 1
+	in get_des_operand(int tmp10), value = 17
+	des operand(int tmp10), value = 18
+13: mov i_0, tmp10
+	in get_des_operand(int i_0), value = 17
+	in find_src_operand(int tmp10), value = 18
+	des operand(int i_0), value = 18
+14: goto [pc, -12]
+	in find_src_operand(intLiteral -12)	eval_int: -12
+	in goto: pc = 2
+2: mul tmp0, n_0, n_0
+	in find_src_operand(int n_0), value = 4
+	in find_src_operand(int n_0), value = 4
+	in get_des_operand(int tmp0), value = 16
+	des operand(int tmp0), value = 16
+3: def tmp1, 1
+	in get_des_operand(int tmp1), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp1), value = 1
+4: add tmp2, tmp0, tmp1
+	in find_src_operand(int tmp0), value = 16
+	in find_src_operand(int tmp1), value = 1
+	in get_des_operand(int tmp2), value = 17
+	des operand(int tmp2), value = 17
+5: leq tmp3, i_0, tmp2
+	in find_src_operand(int i_0), value = 18
+	in find_src_operand(int tmp2), value = 17
+	in get_des_operand(int tmp3), value = 1
+	des operand(int tmp3), value = 0
+6: not tmp5, tmp3
+	in get_des_operand(int tmp5), value = 0
+	in find_src_operand(int tmp3), value = 0
+	des operand(int tmp5), value = 1
+7: if tmp5 goto [pc, 8]
+	in find_src_operand(intLiteral 8)	eval_int: 8
+	in find_src_operand(int tmp5), value = 1
+	in goto: pc = 15
+15: return null
+18: def k_1, 0
+	in get_des_operand(int k_1), new des (int k_1), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int k_1), value = 0
+19: mul tmp35, n_, n_
+	in find_src_operand(int n_), value = 4
+	in find_src_operand(int n_), value = 4
+	in get_des_operand(int tmp35), new des (int tmp35), value = 0
+	des operand(int tmp35), value = 16
+20: def tmp36, 1
+	in get_des_operand(int tmp36), new des (int tmp36), value = 0
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp36), value = 1
+21: add tmp37, tmp35, tmp36
+	in find_src_operand(int tmp35), value = 16
+	in find_src_operand(int tmp36), value = 1
+	in get_des_operand(int tmp37), new des (int tmp37), value = 0
+	des operand(int tmp37), value = 17
+22: mov k_1, tmp37
+	in get_des_operand(int k_1), value = 0
+	in find_src_operand(int tmp37), value = 17
+	des operand(int k_1), value = 17
+23: lss tmp38, i_1, m_0
+	in find_src_operand(int i_1), value = 0
+	in find_src_operand(int m_0), value = 10
+	in get_des_operand(int tmp38), new des (int tmp38), value = 0
+	des operand(int tmp38), value = 1
+24: not tmp40, tmp38
+	in get_des_operand(int tmp40), new des (int tmp40), value = 0
+	in find_src_operand(int tmp38), value = 1
+	des operand(int tmp40), value = 0
+25: if tmp40 goto [pc, 111]
+	in find_src_operand(intLiteral 111)	eval_int: 111
+	in find_src_operand(int tmp40), value = 0
+	in goto: pc = 26
+26: call tmp41, getint()
+	in get_des_operand(int tmp41), new des (int tmp41), value = 0
+27: mov a_0, tmp41
+	in get_des_operand(int a_0), value = 0
+	in find_src_operand(int tmp41), value = 2
+	des operand(int a_0), value = 2
+28: call tmp42, getint()
+	in get_des_operand(int tmp42), new des (int tmp42), value = 0
+29: mov b_0, tmp42
+	in get_des_operand(int b_0), value = 0
+	in find_src_operand(int tmp42), value = 2
+	des operand(int b_0), value = 2
+30: def tmp43, 0
+	in get_des_operand(int tmp43), new des (int tmp43), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int tmp43), value = 0
+31: not tmp44, flag_1
+	in get_des_operand(int tmp44), new des (int tmp44), value = 0
+	in find_src_operand(int flag_1), value = 0
+	des operand(int tmp44), value = 1
+32: not tmp46, tmp44
+	in get_des_operand(int tmp46), new des (int tmp46), value = 0
+	in find_src_operand(int tmp44), value = 1
+	des operand(int tmp46), value = 0
+33: if tmp46 goto [pc, 99]
+	in find_src_operand(intLiteral 99)	eval_int: 99
+	in find_src_operand(int tmp46), value = 0
+	in goto: pc = 34
+34: def loc_3, 0
+	in get_des_operand(int loc_3), new des (int loc_3), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int loc_3), value = 0
+35: def tmp47, 1
+	in get_des_operand(int tmp47), new des (int tmp47), value = 0
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp47), value = 1
+36: sub tmp48, a_0, tmp47
+	in find_src_operand(int a_0), value = 2
+	in find_src_operand(int tmp47), value = 1
+	in get_des_operand(int tmp48), new des (int tmp48), value = 0
+	des operand(int tmp48), value = 1
+37: mul tmp49, n_, tmp48
+	in find_src_operand(int n_), value = 4
+	in find_src_operand(int tmp48), value = 1
+	in get_des_operand(int tmp49), new des (int tmp49), value = 0
+	des operand(int tmp49), value = 4
+38: add tmp50, tmp49, b_0
+	in find_src_operand(int tmp49), value = 4
+	in find_src_operand(int b_0), value = 2
+	in get_des_operand(int tmp50), new des (int tmp50), value = 0
+	des operand(int tmp50), value = 6
+39: mov loc_3, tmp50
+	in get_des_operand(int loc_3), value = 0
+	in find_src_operand(int tmp50), value = 6
+	des operand(int loc_3), value = 6
+40: def tmp51, loc_3
+	in get_des_operand(int tmp51), new des (int tmp51), value = 0
+	in find_src_operand(int loc_3), value = 6
+	des operand(int tmp51), value = 6
+41: store loc_3, array_, tmp51
+	in find_src_operand(int tmp51), value = 6
+	in find_src_operand(int loc_3), value = 6
+	in find_src_operand(int* array_), value = 0x26100e27860
+42: def tmp53, 1
+	in get_des_operand(int tmp53), new des (int tmp53), value = 0
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp53), value = 1
+43: eq tmp54, a_0, tmp53
+	in find_src_operand(int a_0), value = 2
+	in find_src_operand(int tmp53), value = 1
+	in get_des_operand(int tmp54), new des (int tmp54), value = 0
+	des operand(int tmp54), value = 0
+44: not tmp56, tmp54
+	in get_des_operand(int tmp56), new des (int tmp56), value = 0
+	in find_src_operand(int tmp54), value = 0
+	des operand(int tmp56), value = 1
+45: if tmp56 goto [pc, 4]
+	in find_src_operand(intLiteral 4)	eval_int: 4
+	in find_src_operand(int tmp56), value = 1
+	in goto: pc = 49
+49: eq tmp60, a_0, n_
+	in find_src_operand(int a_0), value = 2
+	in find_src_operand(int n_), value = 4
+	in get_des_operand(int tmp60), new des (int tmp60), value = 0
+	des operand(int tmp60), value = 0
+50: not tmp62, tmp60
+	in get_des_operand(int tmp62), new des (int tmp62), value = 0
+	in find_src_operand(int tmp60), value = 0
+	des operand(int tmp62), value = 1
+51: if tmp62 goto [pc, 4]
+	in find_src_operand(intLiteral 4)	eval_int: 4
+	in find_src_operand(int tmp62), value = 1
+	in goto: pc = 55
+55: lss tmp66, b_0, n_
+	in find_src_operand(int b_0), value = 2
+	in find_src_operand(int n_), value = 4
+	in get_des_operand(int tmp66), new des (int tmp66), value = 0
+	des operand(int tmp66), value = 1
+56: not tmp68, tmp66
+	in get_des_operand(int tmp68), new des (int tmp68), value = 0
+	in find_src_operand(int tmp66), value = 1
+	des operand(int tmp68), value = 0
+57: if tmp68 goto [pc, 12]
+	in find_src_operand(intLiteral 12)	eval_int: 12
+	in find_src_operand(int tmp68), value = 0
+	in goto: pc = 58
+58: def tmp69, 1
+	in get_des_operand(int tmp69), new des (int tmp69), value = 0
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp69), value = 1
+59: add tmp70, loc_3, tmp69
+	in find_src_operand(int loc_3), value = 6
+	in find_src_operand(int tmp69), value = 1
+	in get_des_operand(int tmp70), new des (int tmp70), value = 0
+	des operand(int tmp70), value = 7
+60: def tmp71, tmp70
+	in get_des_operand(int tmp71), new des (int tmp71), value = 0
+	in find_src_operand(int tmp70), value = 7
+	des operand(int tmp71), value = 7
+61: load tmp72, array_, tmp71
+	in find_src_operand(int tmp71), value = 7
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp72), new des (int tmp72), value = 0
+62: def tmp73, -1
+	in get_des_operand(int tmp73), new des (int tmp73), value = 0
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp73), value = -1
+63: neq tmp74, tmp72, tmp73
+	in find_src_operand(int tmp72), value = -1
+	in find_src_operand(int tmp73), value = -1
+	in get_des_operand(int tmp74), new des (int tmp74), value = 0
+	des operand(int tmp74), value = 0
+64: not tmp76, tmp74
+	in get_des_operand(int tmp76), new des (int tmp76), value = 0
+	in find_src_operand(int tmp74), value = 0
+	des operand(int tmp76), value = 1
+65: if tmp76 goto [pc, 4]
+	in find_src_operand(intLiteral 4)	eval_int: 4
+	in find_src_operand(int tmp76), value = 1
+	in goto: pc = 69
+69: def tmp80, 1
+	in get_des_operand(int tmp80), new des (int tmp80), value = 0
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp80), value = 1
+70: gtr tmp81, b_0, tmp80
+	in find_src_operand(int b_0), value = 2
+	in find_src_operand(int tmp80), value = 1
+	in get_des_operand(int tmp81), new des (int tmp81), value = 0
+	des operand(int tmp81), value = 1
+71: not tmp83, tmp81
+	in get_des_operand(int tmp83), new des (int tmp83), value = 0
+	in find_src_operand(int tmp81), value = 1
+	des operand(int tmp83), value = 0
+72: if tmp83 goto [pc, 12]
+	in find_src_operand(intLiteral 12)	eval_int: 12
+	in find_src_operand(int tmp83), value = 0
+	in goto: pc = 73
+73: def tmp84, 1
+	in get_des_operand(int tmp84), new des (int tmp84), value = 0
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp84), value = 1
+74: sub tmp85, loc_3, tmp84
+	in find_src_operand(int loc_3), value = 6
+	in find_src_operand(int tmp84), value = 1
+	in get_des_operand(int tmp85), new des (int tmp85), value = 0
+	des operand(int tmp85), value = 5
+75: def tmp86, tmp85
+	in get_des_operand(int tmp86), new des (int tmp86), value = 0
+	in find_src_operand(int tmp85), value = 5
+	des operand(int tmp86), value = 5
+76: load tmp87, array_, tmp86
+	in find_src_operand(int tmp86), value = 5
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp87), new des (int tmp87), value = 0
+77: def tmp88, -1
+	in get_des_operand(int tmp88), new des (int tmp88), value = 0
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp88), value = -1
+78: neq tmp89, tmp87, tmp88
+	in find_src_operand(int tmp87), value = -1
+	in find_src_operand(int tmp88), value = -1
+	in get_des_operand(int tmp89), new des (int tmp89), value = 0
+	des operand(int tmp89), value = 0
+79: not tmp91, tmp89
+	in get_des_operand(int tmp91), new des (int tmp91), value = 0
+	in find_src_operand(int tmp89), value = 0
+	des operand(int tmp91), value = 1
+80: if tmp91 goto [pc, 4]
+	in find_src_operand(intLiteral 4)	eval_int: 4
+	in find_src_operand(int tmp91), value = 1
+	in goto: pc = 84
+84: lss tmp95, a_0, n_
+	in find_src_operand(int a_0), value = 2
+	in find_src_operand(int n_), value = 4
+	in get_des_operand(int tmp95), new des (int tmp95), value = 0
+	des operand(int tmp95), value = 1
+85: not tmp97, tmp95
+	in get_des_operand(int tmp97), new des (int tmp97), value = 0
+	in find_src_operand(int tmp95), value = 1
+	des operand(int tmp97), value = 0
+86: if tmp97 goto [pc, 10]
+	in find_src_operand(intLiteral 10)	eval_int: 10
+	in find_src_operand(int tmp97), value = 0
+	in goto: pc = 87
+87: add tmp98, loc_3, n_
+	in find_src_operand(int loc_3), value = 6
+	in find_src_operand(int n_), value = 4
+	in get_des_operand(int tmp98), new des (int tmp98), value = 0
+	des operand(int tmp98), value = 10
+88: def tmp99, tmp98
+	in get_des_operand(int tmp99), new des (int tmp99), value = 0
+	in find_src_operand(int tmp98), value = 10
+	des operand(int tmp99), value = 10
+89: load tmp100, array_, tmp99
+	in find_src_operand(int tmp99), value = 10
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp100), new des (int tmp100), value = 0
+90: def tmp101, -1
+	in get_des_operand(int tmp101), new des (int tmp101), value = 0
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp101), value = -1
+91: neq tmp102, tmp100, tmp101
+	in find_src_operand(int tmp100), value = -1
+	in find_src_operand(int tmp101), value = -1
+	in get_des_operand(int tmp102), new des (int tmp102), value = 0
+	des operand(int tmp102), value = 0
+92: not tmp104, tmp102
+	in get_des_operand(int tmp104), new des (int tmp104), value = 0
+	in find_src_operand(int tmp102), value = 0
+	des operand(int tmp104), value = 1
+93: if tmp104 goto [pc, 3]
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	in find_src_operand(int tmp104), value = 1
+	in goto: pc = 96
+96: def tmp107, 1
+	in get_des_operand(int tmp107), new des (int tmp107), value = 0
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp107), value = 1
+97: gtr tmp108, a_0, tmp107
+	in find_src_operand(int a_0), value = 2
+	in find_src_operand(int tmp107), value = 1
+	in get_des_operand(int tmp108), new des (int tmp108), value = 0
+	des operand(int tmp108), value = 1
+98: not tmp110, tmp108
+	in get_des_operand(int tmp110), new des (int tmp110), value = 0
+	in find_src_operand(int tmp108), value = 1
+	des operand(int tmp110), value = 0
+99: if tmp110 goto [pc, 10]
+	in find_src_operand(intLiteral 10)	eval_int: 10
+	in find_src_operand(int tmp110), value = 0
+	in goto: pc = 100
+100: sub tmp111, loc_3, n_
+	in find_src_operand(int loc_3), value = 6
+	in find_src_operand(int n_), value = 4
+	in get_des_operand(int tmp111), new des (int tmp111), value = 0
+	des operand(int tmp111), value = 2
+101: def tmp112, tmp111
+	in get_des_operand(int tmp112), new des (int tmp112), value = 0
+	in find_src_operand(int tmp111), value = 2
+	des operand(int tmp112), value = 2
+102: load tmp113, array_, tmp112
+	in find_src_operand(int tmp112), value = 2
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp113), new des (int tmp113), value = 0
+103: def tmp114, -1
+	in get_des_operand(int tmp114), new des (int tmp114), value = 0
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp114), value = -1
+104: neq tmp115, tmp113, tmp114
+	in find_src_operand(int tmp113), value = -1
+	in find_src_operand(int tmp114), value = -1
+	in get_des_operand(int tmp115), new des (int tmp115), value = 0
+	des operand(int tmp115), value = 0
+105: not tmp117, tmp115
+	in get_des_operand(int tmp117), new des (int tmp117), value = 0
+	in find_src_operand(int tmp115), value = 0
+	des operand(int tmp117), value = 1
+106: if tmp117 goto [pc, 3]
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	in find_src_operand(int tmp117), value = 1
+	in goto: pc = 109
+109: load tmp120, array_, 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp120), new des (int tmp120), value = 0
+110: def tmp121, -1
+	in get_des_operand(int tmp121), new des (int tmp121), value = 0
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp121), value = -1
+111: neq tmp122, tmp120, tmp121
+	in find_src_operand(int tmp120), value = -1163005939
+	in find_src_operand(int tmp121), value = -1
+	in get_des_operand(int tmp122), new des (int tmp122), value = 0
+	des operand(int tmp122), value = 1
+112: not tmp124, tmp122
+	in get_des_operand(int tmp124), new des (int tmp124), value = 0
+	in find_src_operand(int tmp122), value = 1
+	des operand(int tmp124), value = 0
+113: if tmp124 goto [pc, 19]
+	in find_src_operand(intLiteral 19)	eval_int: 19
+	in find_src_operand(int tmp124), value = 0
+	in goto: pc = 114
+114: def tmp125, k_1
+	in get_des_operand(int tmp125), new des (int tmp125), value = 0
+	in find_src_operand(int k_1), value = 17
+	des operand(int tmp125), value = 17
+115: load tmp126, array_, tmp125
+	in find_src_operand(int tmp125), value = 17
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp126), new des (int tmp126), value = 0
+116: def tmp127, -1
+	in get_des_operand(int tmp127), new des (int tmp127), value = 0
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp127), value = -1
+117: neq tmp128, tmp126, tmp127
+	in find_src_operand(int tmp126), value = -1
+	in find_src_operand(int tmp127), value = -1
+	in get_des_operand(int tmp128), new des (int tmp128), value = 0
+	des operand(int tmp128), value = 0
+118: not tmp130, tmp128
+	in get_des_operand(int tmp130), new des (int tmp130), value = 0
+	in find_src_operand(int tmp128), value = 0
+	des operand(int tmp130), value = 1
+119: if tmp130 goto [pc, 13]
+	in find_src_operand(intLiteral 13)	eval_int: 13
+	in find_src_operand(int tmp130), value = 1
+	in goto: pc = 132
+132: def tmp140, 1
+	in get_des_operand(int tmp140), new des (int tmp140), value = 0
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp140), value = 1
+133: add tmp141, i_1, tmp140
+	in find_src_operand(int i_1), value = 0
+	in find_src_operand(int tmp140), value = 1
+	in get_des_operand(int tmp141), new des (int tmp141), value = 0
+	des operand(int tmp141), value = 1
+134: mov i_1, tmp141
+	in get_des_operand(int i_1), value = 0
+	in find_src_operand(int tmp141), value = 1
+	des operand(int i_1), value = 1
+135: goto [pc, -112]
+	in find_src_operand(intLiteral -112)	eval_int: -112
+	in goto: pc = 23
+23: lss tmp38, i_1, m_0
+	in find_src_operand(int i_1), value = 1
+	in find_src_operand(int m_0), value = 10
+	in get_des_operand(int tmp38), value = 1
+	des operand(int tmp38), value = 1
+24: not tmp40, tmp38
+	in get_des_operand(int tmp40), value = 0
+	in find_src_operand(int tmp38), value = 1
+	des operand(int tmp40), value = 0
+25: if tmp40 goto [pc, 111]
+	in find_src_operand(intLiteral 111)	eval_int: 111
+	in find_src_operand(int tmp40), value = 0
+	in goto: pc = 26
+26: call tmp41, getint()
+	in get_des_operand(int tmp41), value = 2
+27: mov a_0, tmp41
+	in get_des_operand(int a_0), value = 2
+	in find_src_operand(int tmp41), value = 3
+	des operand(int a_0), value = 3
+28: call tmp42, getint()
+	in get_des_operand(int tmp42), value = 2
+29: mov b_0, tmp42
+	in get_des_operand(int b_0), value = 2
+	in find_src_operand(int tmp42), value = 1
+	des operand(int b_0), value = 1
+30: def tmp43, 0
+	in get_des_operand(int tmp43), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int tmp43), value = 0
+31: not tmp44, flag_1
+	in get_des_operand(int tmp44), value = 1
+	in find_src_operand(int flag_1), value = 0
+	des operand(int tmp44), value = 1
+32: not tmp46, tmp44
+	in get_des_operand(int tmp46), value = 0
+	in find_src_operand(int tmp44), value = 1
+	des operand(int tmp46), value = 0
+33: if tmp46 goto [pc, 99]
+	in find_src_operand(intLiteral 99)	eval_int: 99
+	in find_src_operand(int tmp46), value = 0
+	in goto: pc = 34
+34: def loc_3, 0
+	in get_des_operand(int loc_3), value = 6
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int loc_3), value = 0
+35: def tmp47, 1
+	in get_des_operand(int tmp47), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp47), value = 1
+36: sub tmp48, a_0, tmp47
+	in find_src_operand(int a_0), value = 3
+	in find_src_operand(int tmp47), value = 1
+	in get_des_operand(int tmp48), value = 1
+	des operand(int tmp48), value = 2
+37: mul tmp49, n_, tmp48
+	in find_src_operand(int n_), value = 4
+	in find_src_operand(int tmp48), value = 2
+	in get_des_operand(int tmp49), value = 4
+	des operand(int tmp49), value = 8
+38: add tmp50, tmp49, b_0
+	in find_src_operand(int tmp49), value = 8
+	in find_src_operand(int b_0), value = 1
+	in get_des_operand(int tmp50), value = 6
+	des operand(int tmp50), value = 9
+39: mov loc_3, tmp50
+	in get_des_operand(int loc_3), value = 0
+	in find_src_operand(int tmp50), value = 9
+	des operand(int loc_3), value = 9
+40: def tmp51, loc_3
+	in get_des_operand(int tmp51), value = 6
+	in find_src_operand(int loc_3), value = 9
+	des operand(int tmp51), value = 9
+41: store loc_3, array_, tmp51
+	in find_src_operand(int tmp51), value = 9
+	in find_src_operand(int loc_3), value = 9
+	in find_src_operand(int* array_), value = 0x26100e27860
+42: def tmp53, 1
+	in get_des_operand(int tmp53), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp53), value = 1
+43: eq tmp54, a_0, tmp53
+	in find_src_operand(int a_0), value = 3
+	in find_src_operand(int tmp53), value = 1
+	in get_des_operand(int tmp54), value = 0
+	des operand(int tmp54), value = 0
+44: not tmp56, tmp54
+	in get_des_operand(int tmp56), value = 1
+	in find_src_operand(int tmp54), value = 0
+	des operand(int tmp56), value = 1
+45: if tmp56 goto [pc, 4]
+	in find_src_operand(intLiteral 4)	eval_int: 4
+	in find_src_operand(int tmp56), value = 1
+	in goto: pc = 49
+49: eq tmp60, a_0, n_
+	in find_src_operand(int a_0), value = 3
+	in find_src_operand(int n_), value = 4
+	in get_des_operand(int tmp60), value = 0
+	des operand(int tmp60), value = 0
+50: not tmp62, tmp60
+	in get_des_operand(int tmp62), value = 1
+	in find_src_operand(int tmp60), value = 0
+	des operand(int tmp62), value = 1
+51: if tmp62 goto [pc, 4]
+	in find_src_operand(intLiteral 4)	eval_int: 4
+	in find_src_operand(int tmp62), value = 1
+	in goto: pc = 55
+55: lss tmp66, b_0, n_
+	in find_src_operand(int b_0), value = 1
+	in find_src_operand(int n_), value = 4
+	in get_des_operand(int tmp66), value = 1
+	des operand(int tmp66), value = 1
+56: not tmp68, tmp66
+	in get_des_operand(int tmp68), value = 0
+	in find_src_operand(int tmp66), value = 1
+	des operand(int tmp68), value = 0
+57: if tmp68 goto [pc, 12]
+	in find_src_operand(intLiteral 12)	eval_int: 12
+	in find_src_operand(int tmp68), value = 0
+	in goto: pc = 58
+58: def tmp69, 1
+	in get_des_operand(int tmp69), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp69), value = 1
+59: add tmp70, loc_3, tmp69
+	in find_src_operand(int loc_3), value = 9
+	in find_src_operand(int tmp69), value = 1
+	in get_des_operand(int tmp70), value = 7
+	des operand(int tmp70), value = 10
+60: def tmp71, tmp70
+	in get_des_operand(int tmp71), value = 7
+	in find_src_operand(int tmp70), value = 10
+	des operand(int tmp71), value = 10
+61: load tmp72, array_, tmp71
+	in find_src_operand(int tmp71), value = 10
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp72), value = -1
+62: def tmp73, -1
+	in get_des_operand(int tmp73), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp73), value = -1
+63: neq tmp74, tmp72, tmp73
+	in find_src_operand(int tmp72), value = -1
+	in find_src_operand(int tmp73), value = -1
+	in get_des_operand(int tmp74), value = 0
+	des operand(int tmp74), value = 0
+64: not tmp76, tmp74
+	in get_des_operand(int tmp76), value = 1
+	in find_src_operand(int tmp74), value = 0
+	des operand(int tmp76), value = 1
+65: if tmp76 goto [pc, 4]
+	in find_src_operand(intLiteral 4)	eval_int: 4
+	in find_src_operand(int tmp76), value = 1
+	in goto: pc = 69
+69: def tmp80, 1
+	in get_des_operand(int tmp80), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp80), value = 1
+70: gtr tmp81, b_0, tmp80
+	in find_src_operand(int b_0), value = 1
+	in find_src_operand(int tmp80), value = 1
+	in get_des_operand(int tmp81), value = 1
+	des operand(int tmp81), value = 0
+71: not tmp83, tmp81
+	in get_des_operand(int tmp83), value = 0
+	in find_src_operand(int tmp81), value = 0
+	des operand(int tmp83), value = 1
+72: if tmp83 goto [pc, 12]
+	in find_src_operand(intLiteral 12)	eval_int: 12
+	in find_src_operand(int tmp83), value = 1
+	in goto: pc = 84
+84: lss tmp95, a_0, n_
+	in find_src_operand(int a_0), value = 3
+	in find_src_operand(int n_), value = 4
+	in get_des_operand(int tmp95), value = 1
+	des operand(int tmp95), value = 1
+85: not tmp97, tmp95
+	in get_des_operand(int tmp97), value = 0
+	in find_src_operand(int tmp95), value = 1
+	des operand(int tmp97), value = 0
+86: if tmp97 goto [pc, 10]
+	in find_src_operand(intLiteral 10)	eval_int: 10
+	in find_src_operand(int tmp97), value = 0
+	in goto: pc = 87
+87: add tmp98, loc_3, n_
+	in find_src_operand(int loc_3), value = 9
+	in find_src_operand(int n_), value = 4
+	in get_des_operand(int tmp98), value = 10
+	des operand(int tmp98), value = 13
+88: def tmp99, tmp98
+	in get_des_operand(int tmp99), value = 10
+	in find_src_operand(int tmp98), value = 13
+	des operand(int tmp99), value = 13
+89: load tmp100, array_, tmp99
+	in find_src_operand(int tmp99), value = 13
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp100), value = -1
+90: def tmp101, -1
+	in get_des_operand(int tmp101), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp101), value = -1
+91: neq tmp102, tmp100, tmp101
+	in find_src_operand(int tmp100), value = -1
+	in find_src_operand(int tmp101), value = -1
+	in get_des_operand(int tmp102), value = 0
+	des operand(int tmp102), value = 0
+92: not tmp104, tmp102
+	in get_des_operand(int tmp104), value = 1
+	in find_src_operand(int tmp102), value = 0
+	des operand(int tmp104), value = 1
+93: if tmp104 goto [pc, 3]
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	in find_src_operand(int tmp104), value = 1
+	in goto: pc = 96
+96: def tmp107, 1
+	in get_des_operand(int tmp107), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp107), value = 1
+97: gtr tmp108, a_0, tmp107
+	in find_src_operand(int a_0), value = 3
+	in find_src_operand(int tmp107), value = 1
+	in get_des_operand(int tmp108), value = 1
+	des operand(int tmp108), value = 1
+98: not tmp110, tmp108
+	in get_des_operand(int tmp110), value = 0
+	in find_src_operand(int tmp108), value = 1
+	des operand(int tmp110), value = 0
+99: if tmp110 goto [pc, 10]
+	in find_src_operand(intLiteral 10)	eval_int: 10
+	in find_src_operand(int tmp110), value = 0
+	in goto: pc = 100
+100: sub tmp111, loc_3, n_
+	in find_src_operand(int loc_3), value = 9
+	in find_src_operand(int n_), value = 4
+	in get_des_operand(int tmp111), value = 2
+	des operand(int tmp111), value = 5
+101: def tmp112, tmp111
+	in get_des_operand(int tmp112), value = 2
+	in find_src_operand(int tmp111), value = 5
+	des operand(int tmp112), value = 5
+102: load tmp113, array_, tmp112
+	in find_src_operand(int tmp112), value = 5
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp113), value = -1
+103: def tmp114, -1
+	in get_des_operand(int tmp114), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp114), value = -1
+104: neq tmp115, tmp113, tmp114
+	in find_src_operand(int tmp113), value = -1
+	in find_src_operand(int tmp114), value = -1
+	in get_des_operand(int tmp115), value = 0
+	des operand(int tmp115), value = 0
+105: not tmp117, tmp115
+	in get_des_operand(int tmp117), value = 1
+	in find_src_operand(int tmp115), value = 0
+	des operand(int tmp117), value = 1
+106: if tmp117 goto [pc, 3]
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	in find_src_operand(int tmp117), value = 1
+	in goto: pc = 109
+109: load tmp120, array_, 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp120), value = -1163005939
+110: def tmp121, -1
+	in get_des_operand(int tmp121), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp121), value = -1
+111: neq tmp122, tmp120, tmp121
+	in find_src_operand(int tmp120), value = -1163005939
+	in find_src_operand(int tmp121), value = -1
+	in get_des_operand(int tmp122), value = 1
+	des operand(int tmp122), value = 1
+112: not tmp124, tmp122
+	in get_des_operand(int tmp124), value = 0
+	in find_src_operand(int tmp122), value = 1
+	des operand(int tmp124), value = 0
+113: if tmp124 goto [pc, 19]
+	in find_src_operand(intLiteral 19)	eval_int: 19
+	in find_src_operand(int tmp124), value = 0
+	in goto: pc = 114
+114: def tmp125, k_1
+	in get_des_operand(int tmp125), value = 17
+	in find_src_operand(int k_1), value = 17
+	des operand(int tmp125), value = 17
+115: load tmp126, array_, tmp125
+	in find_src_operand(int tmp125), value = 17
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp126), value = -1
+116: def tmp127, -1
+	in get_des_operand(int tmp127), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp127), value = -1
+117: neq tmp128, tmp126, tmp127
+	in find_src_operand(int tmp126), value = -1
+	in find_src_operand(int tmp127), value = -1
+	in get_des_operand(int tmp128), value = 0
+	des operand(int tmp128), value = 0
+118: not tmp130, tmp128
+	in get_des_operand(int tmp130), value = 1
+	in find_src_operand(int tmp128), value = 0
+	des operand(int tmp130), value = 1
+119: if tmp130 goto [pc, 13]
+	in find_src_operand(intLiteral 13)	eval_int: 13
+	in find_src_operand(int tmp130), value = 1
+	in goto: pc = 132
+132: def tmp140, 1
+	in get_des_operand(int tmp140), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp140), value = 1
+133: add tmp141, i_1, tmp140
+	in find_src_operand(int i_1), value = 1
+	in find_src_operand(int tmp140), value = 1
+	in get_des_operand(int tmp141), value = 1
+	des operand(int tmp141), value = 2
+134: mov i_1, tmp141
+	in get_des_operand(int i_1), value = 1
+	in find_src_operand(int tmp141), value = 2
+	des operand(int i_1), value = 2
+135: goto [pc, -112]
+	in find_src_operand(intLiteral -112)	eval_int: -112
+	in goto: pc = 23
+23: lss tmp38, i_1, m_0
+	in find_src_operand(int i_1), value = 2
+	in find_src_operand(int m_0), value = 10
+	in get_des_operand(int tmp38), value = 1
+	des operand(int tmp38), value = 1
+24: not tmp40, tmp38
+	in get_des_operand(int tmp40), value = 0
+	in find_src_operand(int tmp38), value = 1
+	des operand(int tmp40), value = 0
+25: if tmp40 goto [pc, 111]
+	in find_src_operand(intLiteral 111)	eval_int: 111
+	in find_src_operand(int tmp40), value = 0
+	in goto: pc = 26
+26: call tmp41, getint()
+	in get_des_operand(int tmp41), value = 3
+27: mov a_0, tmp41
+	in get_des_operand(int a_0), value = 3
+	in find_src_operand(int tmp41), value = 4
+	des operand(int a_0), value = 4
+28: call tmp42, getint()
+	in get_des_operand(int tmp42), value = 1
+29: mov b_0, tmp42
+	in get_des_operand(int b_0), value = 1
+	in find_src_operand(int tmp42), value = 2
+	des operand(int b_0), value = 2
+30: def tmp43, 0
+	in get_des_operand(int tmp43), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int tmp43), value = 0
+31: not tmp44, flag_1
+	in get_des_operand(int tmp44), value = 1
+	in find_src_operand(int flag_1), value = 0
+	des operand(int tmp44), value = 1
+32: not tmp46, tmp44
+	in get_des_operand(int tmp46), value = 0
+	in find_src_operand(int tmp44), value = 1
+	des operand(int tmp46), value = 0
+33: if tmp46 goto [pc, 99]
+	in find_src_operand(intLiteral 99)	eval_int: 99
+	in find_src_operand(int tmp46), value = 0
+	in goto: pc = 34
+34: def loc_3, 0
+	in get_des_operand(int loc_3), value = 9
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int loc_3), value = 0
+35: def tmp47, 1
+	in get_des_operand(int tmp47), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp47), value = 1
+36: sub tmp48, a_0, tmp47
+	in find_src_operand(int a_0), value = 4
+	in find_src_operand(int tmp47), value = 1
+	in get_des_operand(int tmp48), value = 2
+	des operand(int tmp48), value = 3
+37: mul tmp49, n_, tmp48
+	in find_src_operand(int n_), value = 4
+	in find_src_operand(int tmp48), value = 3
+	in get_des_operand(int tmp49), value = 8
+	des operand(int tmp49), value = 12
+38: add tmp50, tmp49, b_0
+	in find_src_operand(int tmp49), value = 12
+	in find_src_operand(int b_0), value = 2
+	in get_des_operand(int tmp50), value = 9
+	des operand(int tmp50), value = 14
+39: mov loc_3, tmp50
+	in get_des_operand(int loc_3), value = 0
+	in find_src_operand(int tmp50), value = 14
+	des operand(int loc_3), value = 14
+40: def tmp51, loc_3
+	in get_des_operand(int tmp51), value = 9
+	in find_src_operand(int loc_3), value = 14
+	des operand(int tmp51), value = 14
+41: store loc_3, array_, tmp51
+	in find_src_operand(int tmp51), value = 14
+	in find_src_operand(int loc_3), value = 14
+	in find_src_operand(int* array_), value = 0x26100e27860
+42: def tmp53, 1
+	in get_des_operand(int tmp53), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp53), value = 1
+43: eq tmp54, a_0, tmp53
+	in find_src_operand(int a_0), value = 4
+	in find_src_operand(int tmp53), value = 1
+	in get_des_operand(int tmp54), value = 0
+	des operand(int tmp54), value = 0
+44: not tmp56, tmp54
+	in get_des_operand(int tmp56), value = 1
+	in find_src_operand(int tmp54), value = 0
+	des operand(int tmp56), value = 1
+45: if tmp56 goto [pc, 4]
+	in find_src_operand(intLiteral 4)	eval_int: 4
+	in find_src_operand(int tmp56), value = 1
+	in goto: pc = 49
+49: eq tmp60, a_0, n_
+	in find_src_operand(int a_0), value = 4
+	in find_src_operand(int n_), value = 4
+	in get_des_operand(int tmp60), value = 0
+	des operand(int tmp60), value = 1
+50: not tmp62, tmp60
+	in get_des_operand(int tmp62), value = 1
+	in find_src_operand(int tmp60), value = 1
+	des operand(int tmp62), value = 0
+51: if tmp62 goto [pc, 4]
+	in find_src_operand(intLiteral 4)	eval_int: 4
+	in find_src_operand(int tmp62), value = 0
+	in goto: pc = 52
+52: def tmp63, k_1
+	in get_des_operand(int tmp63), new des (int tmp63), value = 0
+	in find_src_operand(int k_1), value = 17
+	des operand(int tmp63), value = 17
+53: store k_1, array_, tmp63
+	in find_src_operand(int tmp63), value = 17
+	in find_src_operand(int k_1), value = 17
+	in find_src_operand(int* array_), value = 0x26100e27860
+54: call tmp65, mmerge(loc_3, k_1)
+	in find_src_operand(int loc_3), value = 14
+	in find_src_operand(int k_1), value = 17
+0: def m_0, 0
+	in get_des_operand(int m_0), new des (int m_0), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int m_0), value = 0
+1: call tmp23, findfa(a_0)
+	in get_des_operand(int tmp23), new des (int tmp23), value = 0
+	in find_src_operand(int a_0), value = 14
+0: def tmp11, a_0
+	in get_des_operand(int tmp11), new des (int tmp11), value = 0
+	in find_src_operand(int a_0), value = 14
+	des operand(int tmp11), value = 14
+1: load tmp12, array_, tmp11
+	in find_src_operand(int tmp11), value = 14
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp12), new des (int tmp12), value = 0
+2: eq tmp13, tmp12, a_0
+	in find_src_operand(int tmp12), value = 14
+	in find_src_operand(int a_0), value = 14
+	in get_des_operand(int tmp13), new des (int tmp13), value = 0
+	des operand(int tmp13), value = 1
+3: not tmp15, tmp13
+	in get_des_operand(int tmp15), new des (int tmp15), value = 0
+	in find_src_operand(int tmp13), value = 1
+	des operand(int tmp15), value = 0
+4: if tmp15 goto [pc, 3]
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	in find_src_operand(int tmp15), value = 0
+	in goto: pc = 5
+5: return a_0
+	in find_src_operand(int a_0), value = 14
+2: mov m_0, tmp23
+	in get_des_operand(int m_0), value = 0
+	in find_src_operand(int tmp23), value = 14
+	des operand(int m_0), value = 14
+3: def n_0, 0
+	in get_des_operand(int n_0), new des (int n_0), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int n_0), value = 0
+4: call tmp24, findfa(b_0)
+	in get_des_operand(int tmp24), new des (int tmp24), value = 0
+	in find_src_operand(int b_0), value = 17
+0: def tmp11, a_0
+	in get_des_operand(int tmp11), new des (int tmp11), value = 0
+	in find_src_operand(int a_0), value = 17
+	des operand(int tmp11), value = 17
+1: load tmp12, array_, tmp11
+	in find_src_operand(int tmp11), value = 17
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp12), new des (int tmp12), value = 0
+2: eq tmp13, tmp12, a_0
+	in find_src_operand(int tmp12), value = 17
+	in find_src_operand(int a_0), value = 17
+	in get_des_operand(int tmp13), new des (int tmp13), value = 0
+	des operand(int tmp13), value = 1
+3: not tmp15, tmp13
+	in get_des_operand(int tmp15), new des (int tmp15), value = 0
+	in find_src_operand(int tmp13), value = 1
+	des operand(int tmp15), value = 0
+4: if tmp15 goto [pc, 3]
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	in find_src_operand(int tmp15), value = 0
+	in goto: pc = 5
+5: return a_0
+	in find_src_operand(int a_0), value = 17
+5: mov n_0, tmp24
+	in get_des_operand(int n_0), value = 0
+	in find_src_operand(int tmp24), value = 17
+	des operand(int n_0), value = 17
+6: neq tmp25, m_0, n_0
+	in find_src_operand(int m_0), value = 14
+	in find_src_operand(int n_0), value = 17
+	in get_des_operand(int tmp25), new des (int tmp25), value = 0
+	des operand(int tmp25), value = 1
+7: not tmp27, tmp25
+	in get_des_operand(int tmp27), new des (int tmp27), value = 0
+	in find_src_operand(int tmp25), value = 1
+	des operand(int tmp27), value = 0
+8: if tmp27 goto [pc, 3]
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	in find_src_operand(int tmp27), value = 0
+	in goto: pc = 9
+9: def tmp28, m_0
+	in get_des_operand(int tmp28), new des (int tmp28), value = 0
+	in find_src_operand(int m_0), value = 14
+	des operand(int tmp28), value = 14
+10: store n_0, array_, tmp28
+	in find_src_operand(int tmp28), value = 14
+	in find_src_operand(int n_0), value = 17
+	in find_src_operand(int* array_), value = 0x26100e27860
+11: return null
+55: lss tmp66, b_0, n_
+	in find_src_operand(int b_0), value = 2
+	in find_src_operand(int n_), value = 4
+	in get_des_operand(int tmp66), value = 1
+	des operand(int tmp66), value = 1
+56: not tmp68, tmp66
+	in get_des_operand(int tmp68), value = 0
+	in find_src_operand(int tmp66), value = 1
+	des operand(int tmp68), value = 0
+57: if tmp68 goto [pc, 12]
+	in find_src_operand(intLiteral 12)	eval_int: 12
+	in find_src_operand(int tmp68), value = 0
+	in goto: pc = 58
+58: def tmp69, 1
+	in get_des_operand(int tmp69), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp69), value = 1
+59: add tmp70, loc_3, tmp69
+	in find_src_operand(int loc_3), value = 14
+	in find_src_operand(int tmp69), value = 1
+	in get_des_operand(int tmp70), value = 10
+	des operand(int tmp70), value = 15
+60: def tmp71, tmp70
+	in get_des_operand(int tmp71), value = 10
+	in find_src_operand(int tmp70), value = 15
+	des operand(int tmp71), value = 15
+61: load tmp72, array_, tmp71
+	in find_src_operand(int tmp71), value = 15
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp72), value = -1
+62: def tmp73, -1
+	in get_des_operand(int tmp73), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp73), value = -1
+63: neq tmp74, tmp72, tmp73
+	in find_src_operand(int tmp72), value = -1
+	in find_src_operand(int tmp73), value = -1
+	in get_des_operand(int tmp74), value = 0
+	des operand(int tmp74), value = 0
+64: not tmp76, tmp74
+	in get_des_operand(int tmp76), value = 1
+	in find_src_operand(int tmp74), value = 0
+	des operand(int tmp76), value = 1
+65: if tmp76 goto [pc, 4]
+	in find_src_operand(intLiteral 4)	eval_int: 4
+	in find_src_operand(int tmp76), value = 1
+	in goto: pc = 69
+69: def tmp80, 1
+	in get_des_operand(int tmp80), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp80), value = 1
+70: gtr tmp81, b_0, tmp80
+	in find_src_operand(int b_0), value = 2
+	in find_src_operand(int tmp80), value = 1
+	in get_des_operand(int tmp81), value = 0
+	des operand(int tmp81), value = 1
+71: not tmp83, tmp81
+	in get_des_operand(int tmp83), value = 1
+	in find_src_operand(int tmp81), value = 1
+	des operand(int tmp83), value = 0
+72: if tmp83 goto [pc, 12]
+	in find_src_operand(intLiteral 12)	eval_int: 12
+	in find_src_operand(int tmp83), value = 0
+	in goto: pc = 73
+73: def tmp84, 1
+	in get_des_operand(int tmp84), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp84), value = 1
+74: sub tmp85, loc_3, tmp84
+	in find_src_operand(int loc_3), value = 14
+	in find_src_operand(int tmp84), value = 1
+	in get_des_operand(int tmp85), value = 5
+	des operand(int tmp85), value = 13
+75: def tmp86, tmp85
+	in get_des_operand(int tmp86), value = 5
+	in find_src_operand(int tmp85), value = 13
+	des operand(int tmp86), value = 13
+76: load tmp87, array_, tmp86
+	in find_src_operand(int tmp86), value = 13
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp87), value = -1
+77: def tmp88, -1
+	in get_des_operand(int tmp88), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp88), value = -1
+78: neq tmp89, tmp87, tmp88
+	in find_src_operand(int tmp87), value = -1
+	in find_src_operand(int tmp88), value = -1
+	in get_des_operand(int tmp89), value = 0
+	des operand(int tmp89), value = 0
+79: not tmp91, tmp89
+	in get_des_operand(int tmp91), value = 1
+	in find_src_operand(int tmp89), value = 0
+	des operand(int tmp91), value = 1
+80: if tmp91 goto [pc, 4]
+	in find_src_operand(intLiteral 4)	eval_int: 4
+	in find_src_operand(int tmp91), value = 1
+	in goto: pc = 84
+84: lss tmp95, a_0, n_
+	in find_src_operand(int a_0), value = 4
+	in find_src_operand(int n_), value = 4
+	in get_des_operand(int tmp95), value = 1
+	des operand(int tmp95), value = 0
+85: not tmp97, tmp95
+	in get_des_operand(int tmp97), value = 0
+	in find_src_operand(int tmp95), value = 0
+	des operand(int tmp97), value = 1
+86: if tmp97 goto [pc, 10]
+	in find_src_operand(intLiteral 10)	eval_int: 10
+	in find_src_operand(int tmp97), value = 1
+	in goto: pc = 96
+96: def tmp107, 1
+	in get_des_operand(int tmp107), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp107), value = 1
+97: gtr tmp108, a_0, tmp107
+	in find_src_operand(int a_0), value = 4
+	in find_src_operand(int tmp107), value = 1
+	in get_des_operand(int tmp108), value = 1
+	des operand(int tmp108), value = 1
+98: not tmp110, tmp108
+	in get_des_operand(int tmp110), value = 0
+	in find_src_operand(int tmp108), value = 1
+	des operand(int tmp110), value = 0
+99: if tmp110 goto [pc, 10]
+	in find_src_operand(intLiteral 10)	eval_int: 10
+	in find_src_operand(int tmp110), value = 0
+	in goto: pc = 100
+100: sub tmp111, loc_3, n_
+	in find_src_operand(int loc_3), value = 14
+	in find_src_operand(int n_), value = 4
+	in get_des_operand(int tmp111), value = 5
+	des operand(int tmp111), value = 10
+101: def tmp112, tmp111
+	in get_des_operand(int tmp112), value = 5
+	in find_src_operand(int tmp111), value = 10
+	des operand(int tmp112), value = 10
+102: load tmp113, array_, tmp112
+	in find_src_operand(int tmp112), value = 10
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp113), value = -1
+103: def tmp114, -1
+	in get_des_operand(int tmp114), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp114), value = -1
+104: neq tmp115, tmp113, tmp114
+	in find_src_operand(int tmp113), value = -1
+	in find_src_operand(int tmp114), value = -1
+	in get_des_operand(int tmp115), value = 0
+	des operand(int tmp115), value = 0
+105: not tmp117, tmp115
+	in get_des_operand(int tmp117), value = 1
+	in find_src_operand(int tmp115), value = 0
+	des operand(int tmp117), value = 1
+106: if tmp117 goto [pc, 3]
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	in find_src_operand(int tmp117), value = 1
+	in goto: pc = 109
+109: load tmp120, array_, 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp120), value = -1163005939
+110: def tmp121, -1
+	in get_des_operand(int tmp121), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp121), value = -1
+111: neq tmp122, tmp120, tmp121
+	in find_src_operand(int tmp120), value = -1163005939
+	in find_src_operand(int tmp121), value = -1
+	in get_des_operand(int tmp122), value = 1
+	des operand(int tmp122), value = 1
+112: not tmp124, tmp122
+	in get_des_operand(int tmp124), value = 0
+	in find_src_operand(int tmp122), value = 1
+	des operand(int tmp124), value = 0
+113: if tmp124 goto [pc, 19]
+	in find_src_operand(intLiteral 19)	eval_int: 19
+	in find_src_operand(int tmp124), value = 0
+	in goto: pc = 114
+114: def tmp125, k_1
+	in get_des_operand(int tmp125), value = 17
+	in find_src_operand(int k_1), value = 17
+	des operand(int tmp125), value = 17
+115: load tmp126, array_, tmp125
+	in find_src_operand(int tmp125), value = 17
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp126), value = -1
+116: def tmp127, -1
+	in get_des_operand(int tmp127), value = -1
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp127), value = -1
+117: neq tmp128, tmp126, tmp127
+	in find_src_operand(int tmp126), value = 17
+	in find_src_operand(int tmp127), value = -1
+	in get_des_operand(int tmp128), value = 0
+	des operand(int tmp128), value = 1
+118: not tmp130, tmp128
+	in get_des_operand(int tmp130), value = 1
+	in find_src_operand(int tmp128), value = 1
+	des operand(int tmp130), value = 0
+119: if tmp130 goto [pc, 13]
+	in find_src_operand(intLiteral 13)	eval_int: 13
+	in find_src_operand(int tmp130), value = 0
+	in goto: pc = 120
+120: call tmp131, findfa(0)
+	in get_des_operand(int tmp131), new des (int tmp131), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+0: def tmp11, a_0
+	in get_des_operand(int tmp11), new des (int tmp11), value = 0
+	in find_src_operand(int a_0), value = 0
+	des operand(int tmp11), value = 0
+1: load tmp12, array_, tmp11
+	in find_src_operand(int tmp11), value = 0
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp12), new des (int tmp12), value = 0
+2: eq tmp13, tmp12, a_0
+	in find_src_operand(int tmp12), value = -1163005939
+	in find_src_operand(int a_0), value = 0
+	in get_des_operand(int tmp13), new des (int tmp13), value = 0
+	des operand(int tmp13), value = 0
+3: not tmp15, tmp13
+	in get_des_operand(int tmp15), new des (int tmp15), value = 0
+	in find_src_operand(int tmp13), value = 0
+	des operand(int tmp15), value = 1
+4: if tmp15 goto [pc, 3]
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	in find_src_operand(int tmp15), value = 1
+	in goto: pc = 7
+7: def tmp16, a_0
+	in get_des_operand(int tmp16), new des (int tmp16), value = 0
+	in find_src_operand(int a_0), value = 0
+	des operand(int tmp16), value = 0
+8: def tmp19, a_0
+	in get_des_operand(int tmp19), new des (int tmp19), value = 0
+	in find_src_operand(int a_0), value = 0
+	des operand(int tmp19), value = 0
+9: load tmp20, array_, tmp19
+	in find_src_operand(int tmp19), value = 0
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp20), new des (int tmp20), value = 0
+10: call tmp18, findfa(tmp20)
+	in get_des_operand(int tmp18), new des (int tmp18), value = 0
+	in find_src_operand(int tmp20), value = -1163005939
+0: def tmp11, a_0
+	in get_des_operand(int tmp11), new des (int tmp11), value = 0
+	in find_src_operand(int a_0), value = -1163005939
+	des operand(int tmp11), value = -1163005939
+1: load tmp12, array_, tmp11
+	in find_src_operand(int tmp11), value = -1163005939
+	in find_src_operand(int* array_), value = 0x26100e27860
+	in get_des_operand(int tmp12), new des (int tmp12), value = 0

@@ -1,0 +1,2581 @@
+0: call null, global()
+0: fdef RADIUS_, 0.0
+	in get_des_operand(float RADIUS_), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float RADIUS_), value = 0
+1: fmov RADIUS_, 5.5
+	in get_des_operand(float RADIUS_), value = 0
+	in find_src_operand(floatLiteral 5.5)	des operand(float RADIUS_), value = 1085276160
+2: fdef PI_, 0.0
+	in get_des_operand(float PI_), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float PI_), value = 0
+3: fmov PI_, 03.141592653589793
+	in get_des_operand(float PI_), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float PI_), value = 1078530011
+4: fdef EPS_, 0.0
+	in get_des_operand(float EPS_), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float EPS_), value = 0
+5: fmov EPS_, 0.000001
+	in get_des_operand(float EPS_), value = 0
+	in find_src_operand(floatLiteral 0.000001)	des operand(float EPS_), value = 897988541
+6: fdef PI_HEX_, 0.0
+	in get_des_operand(float PI_HEX_), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float PI_HEX_), value = 0
+7: fmov PI_HEX_, 3.141592741012573242
+	in get_des_operand(float PI_HEX_), value = 0
+	in find_src_operand(floatLiteral 3.141592741012573242)	des operand(float PI_HEX_), value = 1078530011
+8: fdef HEX2_, 0.0
+	in get_des_operand(float HEX2_), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float HEX2_), value = 0
+9: fmov HEX2_, 0.078125
+	in get_des_operand(float HEX2_), value = 0
+	in find_src_operand(floatLiteral 0.078125)	des operand(float HEX2_), value = 1033895936
+10: fdef FACT_, 0.0
+	in get_des_operand(float FACT_), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float FACT_), value = 0
+11: fmov FACT_, -33000.000000
+	in get_des_operand(float FACT_), value = 0
+	in find_src_operand(floatLiteral -33000.000000)	des operand(float FACT_), value = -956241920
+12: fdef EVAL1_, 0.0
+	in get_des_operand(float EVAL1_), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float EVAL1_), value = 0
+13: fmov EVAL1_, 95.033188
+	in get_des_operand(float EVAL1_), value = 0
+	in find_src_operand(floatLiteral 95.033188)	des operand(float EVAL1_), value = 1119752446
+14: fdef EVAL2_, 0.0
+	in get_des_operand(float EVAL2_), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float EVAL2_), value = 0
+15: fmov EVAL2_, 34.557518
+	in get_des_operand(float EVAL2_), value = 0
+	in find_src_operand(floatLiteral 34.557518)	des operand(float EVAL2_), value = 1107966694
+16: fdef EVAL3_, 0.0
+	in get_des_operand(float EVAL3_), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float EVAL3_), value = 0
+17: fmov EVAL3_, 34.557518
+	in get_des_operand(float EVAL3_), value = 0
+	in find_src_operand(floatLiteral 34.557518)	des operand(float EVAL3_), value = 1107966694
+18: fdef CONV1_, 0.0
+	in get_des_operand(float CONV1_), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float CONV1_), value = 0
+19: fmov CONV1_, 233.000000
+	in get_des_operand(float CONV1_), value = 0
+	in find_src_operand(floatLiteral 233.000000)	des operand(float CONV1_), value = 1130954752
+20: fdef CONV2_, 0.0
+	in get_des_operand(float CONV2_), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float CONV2_), value = 0
+21: fmov CONV2_, 4095.000000
+	in get_des_operand(float CONV2_), value = 0
+	in find_src_operand(floatLiteral 4095.000000)	des operand(float CONV2_), value = 1166012416
+22: def MAX_, 0
+	in get_des_operand(int MAX_), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int MAX_), value = 0
+23: mov MAX_, 1000000000
+	in get_des_operand(int MAX_), value = 0
+	in find_src_operand(intLiteral 1000000000)	eval_int: 1000000000
+	des operand(int MAX_), value = 1000000000
+24: def TWO_, 0
+	in get_des_operand(int TWO_), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int TWO_), value = 0
+25: mov TWO_, 2
+	in get_des_operand(int TWO_), value = 0
+	in find_src_operand(intLiteral 2)	eval_int: 2
+	des operand(int TWO_), value = 2
+26: def THREE_, 0
+	in get_des_operand(int THREE_), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int THREE_), value = 0
+27: mov THREE_, 3
+	in get_des_operand(int THREE_), value = 0
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	des operand(int THREE_), value = 3
+28: def FIVE_, 0
+	in get_des_operand(int FIVE_), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int FIVE_), value = 0
+29: mov FIVE_, 5
+	in get_des_operand(int FIVE_), value = 0
+	in find_src_operand(intLiteral 5)	eval_int: 5
+	des operand(int FIVE_), value = 5
+30: return null
+1: fdef f_0, 0.0
+	in get_des_operand(float f_0), new des (float f_0), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float f_0), value = 0
+2: fmov f_0, -0.100000
+	in get_des_operand(float f_0), value = 0
+	in find_src_operand(floatLiteral -0.100000)	des operand(float f_0), value = -1110651699
+3: call tmp57, float_eq(0.078125, -33000.000000)
+	in get_des_operand(int tmp57), new des (int tmp57), value = 0
+	in find_src_operand(floatLiteral 0.078125)	in find_src_operand(floatLiteral -33000.000000)0: fsub tmp30, a_0, b_0
+	in find_src_operand(float a_0), value = 0.078125
+	in find_src_operand(float b_0), value = -33000
+	in get_des_operand(float tmp30), new des (float tmp30), value = 0
+	des operand(float tmp30), value = 33000.1
+1: call tmp29, float_abs(tmp30)
+	in get_des_operand(float tmp29), new des (float tmp29), value = 0
+	in find_src_operand(float tmp30), value = 33000.1
+0: def tmp0, 0
+	in get_des_operand(int tmp0), new des (int tmp0), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int tmp0), value = 0
+1: cvt_i2f tmp2, tmp0
+	in get_des_operand(float tmp2), new des (float tmp2), value = 0
+	in find_src_operand(int tmp0), value = 0
+	des operand(float tmp2), value = 0
+2: flss tmp3, x_0, tmp2
+	in find_src_operand(float x_0), value = 33000.1
+	in find_src_operand(float tmp2), value = 0
+	in get_des_operand(float tmp3), new des (float tmp3), value = 0
+	des operand(float tmp3), value = 0
+3: fdef tmp6, 0.0
+	in get_des_operand(float tmp6), new des (float tmp6), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp6), value = 0
+4: fdef tmp7, 0.0
+	in get_des_operand(float tmp7), new des (float tmp7), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp7), value = 0
+5: feq tmp6, tmp3, tmp7
+	in find_src_operand(float tmp3), value = 0
+	in find_src_operand(float tmp7), value = 0
+	in get_des_operand(float tmp6), value = 0
+	des operand(float tmp6), value = 1
+6: cvt_f2i tmp5, tmp6
+	in get_des_operand(int tmp5), new des (int tmp5), value = 0
+	in find_src_operand(float tmp6), value = 1
+	des operand(int tmp5), value = 1
+7: if tmp5 goto [pc, 5]
+	in find_src_operand(intLiteral 5)	eval_int: 5
+	in find_src_operand(int tmp5), value = 1
+	in goto: pc = 12
+12: return x_0
+	in find_src_operand(float x_0), value = 33000.1
+2: fdef tmp31, 0.000001
+	in get_des_operand(float tmp31), new des (float tmp31), value = 0
+	in find_src_operand(floatLiteral 0.000001)	des operand(float tmp31), value = 897988541
+3: flss tmp32, tmp29, tmp31
+	in find_src_operand(float tmp29), value = 33000.1
+	in find_src_operand(float tmp31), value = 1e-06
+	in get_des_operand(float tmp32), new des (float tmp32), value = 0
+	des operand(float tmp32), value = 0
+4: fdef tmp35, 0.0
+	in get_des_operand(float tmp35), new des (float tmp35), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp35), value = 0
+5: fdef tmp36, 0.0
+	in get_des_operand(float tmp36), new des (float tmp36), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp36), value = 0
+6: feq tmp35, tmp32, tmp36
+	in find_src_operand(float tmp32), value = 0
+	in find_src_operand(float tmp36), value = 0
+	in get_des_operand(float tmp35), value = 0
+	des operand(float tmp35), value = 1
+7: cvt_f2i tmp34, tmp35
+	in get_des_operand(int tmp34), new des (int tmp34), value = 0
+	in find_src_operand(float tmp35), value = 1
+	des operand(int tmp34), value = 1
+8: if tmp34 goto [pc, 3]
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	in find_src_operand(int tmp34), value = 1
+	in goto: pc = 11
+11: return 0
+	eval_int: 0
+4: call tmp56, assert_not(tmp57)
+	in find_src_operand(int tmp57), value = 0
+0: not tmp53, cond_0
+	in get_des_operand(int tmp53), new des (int tmp53), value = 0
+	in find_src_operand(int cond_0), value = 0
+	des operand(int tmp53), value = 1
+1: if tmp53 goto [pc, 3]
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	in find_src_operand(int tmp53), value = 1
+	in goto: pc = 4
+4: call tmp55, ok()
+0: call tmp43, putch(111)
+	in find_src_operand(intLiteral 111)	eval_int: 111
+1: call tmp44, putch(107)
+	in find_src_operand(intLiteral 107)	eval_int: 107
+2: call tmp45, putch(10)
+	in find_src_operand(intLiteral 10)	eval_int: 10
+3: return null
+5: return null
+5: call tmp59, float_eq(95.033188, 34.557518)
+	in get_des_operand(int tmp59), new des (int tmp59), value = 0
+	in find_src_operand(floatLiteral 95.033188)	in find_src_operand(floatLiteral 34.557518)0: fsub tmp30, a_0, b_0
+	in find_src_operand(float a_0), value = 95.0332
+	in find_src_operand(float b_0), value = 34.5575
+	in get_des_operand(float tmp30), new des (float tmp30), value = 0
+	des operand(float tmp30), value = 60.4757
+1: call tmp29, float_abs(tmp30)
+	in get_des_operand(float tmp29), new des (float tmp29), value = 0
+	in find_src_operand(float tmp30), value = 60.4757
+0: def tmp0, 0
+	in get_des_operand(int tmp0), new des (int tmp0), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int tmp0), value = 0
+1: cvt_i2f tmp2, tmp0
+	in get_des_operand(float tmp2), new des (float tmp2), value = 0
+	in find_src_operand(int tmp0), value = 0
+	des operand(float tmp2), value = 0
+2: flss tmp3, x_0, tmp2
+	in find_src_operand(float x_0), value = 60.4757
+	in find_src_operand(float tmp2), value = 0
+	in get_des_operand(float tmp3), new des (float tmp3), value = 0
+	des operand(float tmp3), value = 0
+3: fdef tmp6, 0.0
+	in get_des_operand(float tmp6), new des (float tmp6), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp6), value = 0
+4: fdef tmp7, 0.0
+	in get_des_operand(float tmp7), new des (float tmp7), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp7), value = 0
+5: feq tmp6, tmp3, tmp7
+	in find_src_operand(float tmp3), value = 0
+	in find_src_operand(float tmp7), value = 0
+	in get_des_operand(float tmp6), value = 0
+	des operand(float tmp6), value = 1
+6: cvt_f2i tmp5, tmp6
+	in get_des_operand(int tmp5), new des (int tmp5), value = 0
+	in find_src_operand(float tmp6), value = 1
+	des operand(int tmp5), value = 1
+7: if tmp5 goto [pc, 5]
+	in find_src_operand(intLiteral 5)	eval_int: 5
+	in find_src_operand(int tmp5), value = 1
+	in goto: pc = 12
+12: return x_0
+	in find_src_operand(float x_0), value = 60.4757
+2: fdef tmp31, 0.000001
+	in get_des_operand(float tmp31), new des (float tmp31), value = 0
+	in find_src_operand(floatLiteral 0.000001)	des operand(float tmp31), value = 897988541
+3: flss tmp32, tmp29, tmp31
+	in find_src_operand(float tmp29), value = 60.4757
+	in find_src_operand(float tmp31), value = 1e-06
+	in get_des_operand(float tmp32), new des (float tmp32), value = 0
+	des operand(float tmp32), value = 0
+4: fdef tmp35, 0.0
+	in get_des_operand(float tmp35), new des (float tmp35), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp35), value = 0
+5: fdef tmp36, 0.0
+	in get_des_operand(float tmp36), new des (float tmp36), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp36), value = 0
+6: feq tmp35, tmp32, tmp36
+	in find_src_operand(float tmp32), value = 0
+	in find_src_operand(float tmp36), value = 0
+	in get_des_operand(float tmp35), value = 0
+	des operand(float tmp35), value = 1
+7: cvt_f2i tmp34, tmp35
+	in get_des_operand(int tmp34), new des (int tmp34), value = 0
+	in find_src_operand(float tmp35), value = 1
+	des operand(int tmp34), value = 1
+8: if tmp34 goto [pc, 3]
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	in find_src_operand(int tmp34), value = 1
+	in goto: pc = 11
+11: return 0
+	eval_int: 0
+6: call tmp58, assert_not(tmp59)
+	in find_src_operand(int tmp59), value = 0
+0: not tmp53, cond_0
+	in get_des_operand(int tmp53), new des (int tmp53), value = 0
+	in find_src_operand(int cond_0), value = 0
+	des operand(int tmp53), value = 1
+1: if tmp53 goto [pc, 3]
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	in find_src_operand(int tmp53), value = 1
+	in goto: pc = 4
+4: call tmp55, ok()
+0: call tmp43, putch(111)
+	in find_src_operand(intLiteral 111)	eval_int: 111
+1: call tmp44, putch(107)
+	in find_src_operand(intLiteral 107)	eval_int: 107
+2: call tmp45, putch(10)
+	in find_src_operand(intLiteral 10)	eval_int: 10
+3: return null
+5: return null
+7: call tmp61, float_eq(34.557518, 34.557518)
+	in get_des_operand(int tmp61), new des (int tmp61), value = 0
+	in find_src_operand(floatLiteral 34.557518)	in find_src_operand(floatLiteral 34.557518)0: fsub tmp30, a_0, b_0
+	in find_src_operand(float a_0), value = 34.5575
+	in find_src_operand(float b_0), value = 34.5575
+	in get_des_operand(float tmp30), new des (float tmp30), value = 0
+	des operand(float tmp30), value = 0
+1: call tmp29, float_abs(tmp30)
+	in get_des_operand(float tmp29), new des (float tmp29), value = 0
+	in find_src_operand(float tmp30), value = 0
+0: def tmp0, 0
+	in get_des_operand(int tmp0), new des (int tmp0), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int tmp0), value = 0
+1: cvt_i2f tmp2, tmp0
+	in get_des_operand(float tmp2), new des (float tmp2), value = 0
+	in find_src_operand(int tmp0), value = 0
+	des operand(float tmp2), value = 0
+2: flss tmp3, x_0, tmp2
+	in find_src_operand(float x_0), value = 0
+	in find_src_operand(float tmp2), value = 0
+	in get_des_operand(float tmp3), new des (float tmp3), value = 0
+	des operand(float tmp3), value = 0
+3: fdef tmp6, 0.0
+	in get_des_operand(float tmp6), new des (float tmp6), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp6), value = 0
+4: fdef tmp7, 0.0
+	in get_des_operand(float tmp7), new des (float tmp7), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp7), value = 0
+5: feq tmp6, tmp3, tmp7
+	in find_src_operand(float tmp3), value = 0
+	in find_src_operand(float tmp7), value = 0
+	in get_des_operand(float tmp6), value = 0
+	des operand(float tmp6), value = 1
+6: cvt_f2i tmp5, tmp6
+	in get_des_operand(int tmp5), new des (int tmp5), value = 0
+	in find_src_operand(float tmp6), value = 1
+	des operand(int tmp5), value = 1
+7: if tmp5 goto [pc, 5]
+	in find_src_operand(intLiteral 5)	eval_int: 5
+	in find_src_operand(int tmp5), value = 1
+	in goto: pc = 12
+12: return x_0
+	in find_src_operand(float x_0), value = 0
+2: fdef tmp31, 0.000001
+	in get_des_operand(float tmp31), new des (float tmp31), value = 0
+	in find_src_operand(floatLiteral 0.000001)	des operand(float tmp31), value = 897988541
+3: flss tmp32, tmp29, tmp31
+	in find_src_operand(float tmp29), value = 0
+	in find_src_operand(float tmp31), value = 1e-06
+	in get_des_operand(float tmp32), new des (float tmp32), value = 0
+	des operand(float tmp32), value = 1
+4: fdef tmp35, 0.0
+	in get_des_operand(float tmp35), new des (float tmp35), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp35), value = 0
+5: fdef tmp36, 0.0
+	in get_des_operand(float tmp36), new des (float tmp36), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp36), value = 0
+6: feq tmp35, tmp32, tmp36
+	in find_src_operand(float tmp32), value = 1
+	in find_src_operand(float tmp36), value = 0
+	in get_des_operand(float tmp35), value = 0
+	des operand(float tmp35), value = 0
+7: cvt_f2i tmp34, tmp35
+	in get_des_operand(int tmp34), new des (int tmp34), value = 0
+	in find_src_operand(float tmp35), value = 0
+	des operand(int tmp34), value = 0
+8: if tmp34 goto [pc, 3]
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	in find_src_operand(int tmp34), value = 0
+	in goto: pc = 9
+9: return 1
+	eval_int: 1
+8: call tmp60, assert(tmp61)
+	in find_src_operand(int tmp61), value = 1
+0: def tmp46, 0
+	in get_des_operand(int tmp46), new des (int tmp46), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int tmp46), value = 0
+1: not tmp47, cond_0
+	in get_des_operand(int tmp47), new des (int tmp47), value = 0
+	in find_src_operand(int cond_0), value = 1
+	des operand(int tmp47), value = 0
+2: not tmp49, tmp47
+	in get_des_operand(int tmp49), new des (int tmp49), value = 0
+	in find_src_operand(int tmp47), value = 0
+	des operand(int tmp49), value = 1
+3: if tmp49 goto [pc, 3]
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	in find_src_operand(int tmp49), value = 1
+	in goto: pc = 6
+6: call tmp51, ok()
+0: call tmp43, putch(111)
+	in find_src_operand(intLiteral 111)	eval_int: 111
+1: call tmp44, putch(107)
+	in find_src_operand(intLiteral 107)	eval_int: 107
+2: call tmp45, putch(10)
+	in find_src_operand(intLiteral 10)	eval_int: 10
+3: return null
+7: return null
+9: call tmp64, circle_area(5)
+	in get_des_operand(float tmp64), new des (float tmp64), value = 0
+	in find_src_operand(intLiteral 5)	eval_int: 5
+0: fdef tmp12, 03.141592653589793
+	in get_des_operand(float tmp12), new des (float tmp12), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp12), value = 1078530011
+1: cvt_i2f tmp14, radius_0
+	in get_des_operand(float tmp14), new des (float tmp14), value = 0
+	in find_src_operand(int radius_0), value = 5
+	des operand(float tmp14), value = 5
+2: fmul tmp15, tmp12, tmp14
+	in find_src_operand(float tmp12), value = 3.14159
+	in find_src_operand(float tmp14), value = 5
+	in get_des_operand(float tmp15), new des (float tmp15), value = 0
+	des operand(float tmp15), value = 15.708
+3: cvt_i2f tmp17, radius_0
+	in get_des_operand(float tmp17), new des (float tmp17), value = 0
+	in find_src_operand(int radius_0), value = 5
+	des operand(float tmp17), value = 5
+4: fmul tmp18, tmp15, tmp17
+	in find_src_operand(float tmp15), value = 15.708
+	in find_src_operand(float tmp17), value = 5
+	in get_des_operand(float tmp18), new des (float tmp18), value = 0
+	des operand(float tmp18), value = 78.5398
+5: mul tmp19, radius_0, radius_0
+	in find_src_operand(int radius_0), value = 5
+	in find_src_operand(int radius_0), value = 5
+	in get_des_operand(int tmp19), new des (int tmp19), value = 0
+	des operand(int tmp19), value = 25
+6: fdef tmp20, 03.141592653589793
+	in get_des_operand(float tmp20), new des (float tmp20), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp20), value = 1078530011
+7: cvt_i2f tmp22, tmp19
+	in get_des_operand(float tmp22), new des (float tmp22), value = 0
+	in find_src_operand(int tmp19), value = 25
+	des operand(float tmp22), value = 25
+8: fmul tmp23, tmp22, tmp20
+	in find_src_operand(float tmp22), value = 25
+	in find_src_operand(float tmp20), value = 3.14159
+	in get_des_operand(float tmp23), new des (float tmp23), value = 0
+	des operand(float tmp23), value = 78.5398
+9: fadd tmp24, tmp18, tmp23
+	in find_src_operand(float tmp18), value = 78.5398
+	in find_src_operand(float tmp23), value = 78.5398
+	in get_des_operand(float tmp24), new des (float tmp24), value = 0
+	des operand(float tmp24), value = 157.08
+10: def tmp25, 2
+	in get_des_operand(int tmp25), new des (int tmp25), value = 0
+	in find_src_operand(intLiteral 2)	eval_int: 2
+	des operand(int tmp25), value = 2
+11: cvt_i2f tmp27, tmp25
+	in get_des_operand(float tmp27), new des (float tmp27), value = 0
+	in find_src_operand(int tmp25), value = 2
+	des operand(float tmp27), value = 2
+12: fdiv tmp28, tmp24, tmp27
+	in find_src_operand(float tmp24), value = 157.08
+	in find_src_operand(float tmp27), value = 2
+	in get_des_operand(float tmp28), new des (float tmp28), value = 0
+	des operand(float tmp28), value = 78.5398
+13: return tmp28
+	in find_src_operand(float tmp28), value = 78.5398
+10: call tmp65, circle_area(5)
+	in get_des_operand(float tmp65), new des (float tmp65), value = 0
+	in find_src_operand(intLiteral 5)	eval_int: 5
+0: fdef tmp12, 03.141592653589793
+	in get_des_operand(float tmp12), new des (float tmp12), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp12), value = 1078530011
+1: cvt_i2f tmp14, radius_0
+	in get_des_operand(float tmp14), new des (float tmp14), value = 0
+	in find_src_operand(int radius_0), value = 5
+	des operand(float tmp14), value = 5
+2: fmul tmp15, tmp12, tmp14
+	in find_src_operand(float tmp12), value = 3.14159
+	in find_src_operand(float tmp14), value = 5
+	in get_des_operand(float tmp15), new des (float tmp15), value = 0
+	des operand(float tmp15), value = 15.708
+3: cvt_i2f tmp17, radius_0
+	in get_des_operand(float tmp17), new des (float tmp17), value = 0
+	in find_src_operand(int radius_0), value = 5
+	des operand(float tmp17), value = 5
+4: fmul tmp18, tmp15, tmp17
+	in find_src_operand(float tmp15), value = 15.708
+	in find_src_operand(float tmp17), value = 5
+	in get_des_operand(float tmp18), new des (float tmp18), value = 0
+	des operand(float tmp18), value = 78.5398
+5: mul tmp19, radius_0, radius_0
+	in find_src_operand(int radius_0), value = 5
+	in find_src_operand(int radius_0), value = 5
+	in get_des_operand(int tmp19), new des (int tmp19), value = 0
+	des operand(int tmp19), value = 25
+6: fdef tmp20, 03.141592653589793
+	in get_des_operand(float tmp20), new des (float tmp20), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp20), value = 1078530011
+7: cvt_i2f tmp22, tmp19
+	in get_des_operand(float tmp22), new des (float tmp22), value = 0
+	in find_src_operand(int tmp19), value = 25
+	des operand(float tmp22), value = 25
+8: fmul tmp23, tmp22, tmp20
+	in find_src_operand(float tmp22), value = 25
+	in find_src_operand(float tmp20), value = 3.14159
+	in get_des_operand(float tmp23), new des (float tmp23), value = 0
+	des operand(float tmp23), value = 78.5398
+9: fadd tmp24, tmp18, tmp23
+	in find_src_operand(float tmp18), value = 78.5398
+	in find_src_operand(float tmp23), value = 78.5398
+	in get_des_operand(float tmp24), new des (float tmp24), value = 0
+	des operand(float tmp24), value = 157.08
+10: def tmp25, 2
+	in get_des_operand(int tmp25), new des (int tmp25), value = 0
+	in find_src_operand(intLiteral 2)	eval_int: 2
+	des operand(int tmp25), value = 2
+11: cvt_i2f tmp27, tmp25
+	in get_des_operand(float tmp27), new des (float tmp27), value = 0
+	in find_src_operand(int tmp25), value = 2
+	des operand(float tmp27), value = 2
+12: fdiv tmp28, tmp24, tmp27
+	in find_src_operand(float tmp24), value = 157.08
+	in find_src_operand(float tmp27), value = 2
+	in get_des_operand(float tmp28), new des (float tmp28), value = 0
+	des operand(float tmp28), value = 78.5398
+13: return tmp28
+	in find_src_operand(float tmp28), value = 78.5398
+11: call tmp63, float_eq(tmp64, tmp65)
+	in get_des_operand(int tmp63), new des (int tmp63), value = 0
+	in find_src_operand(float tmp64), value = 78.5398
+	in find_src_operand(float tmp65), value = 78.5398
+0: fsub tmp30, a_0, b_0
+	in find_src_operand(float a_0), value = 78.5398
+	in find_src_operand(float b_0), value = 78.5398
+	in get_des_operand(float tmp30), new des (float tmp30), value = 0
+	des operand(float tmp30), value = 0
+1: call tmp29, float_abs(tmp30)
+	in get_des_operand(float tmp29), new des (float tmp29), value = 0
+	in find_src_operand(float tmp30), value = 0
+0: def tmp0, 0
+	in get_des_operand(int tmp0), new des (int tmp0), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int tmp0), value = 0
+1: cvt_i2f tmp2, tmp0
+	in get_des_operand(float tmp2), new des (float tmp2), value = 0
+	in find_src_operand(int tmp0), value = 0
+	des operand(float tmp2), value = 0
+2: flss tmp3, x_0, tmp2
+	in find_src_operand(float x_0), value = 0
+	in find_src_operand(float tmp2), value = 0
+	in get_des_operand(float tmp3), new des (float tmp3), value = 0
+	des operand(float tmp3), value = 0
+3: fdef tmp6, 0.0
+	in get_des_operand(float tmp6), new des (float tmp6), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp6), value = 0
+4: fdef tmp7, 0.0
+	in get_des_operand(float tmp7), new des (float tmp7), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp7), value = 0
+5: feq tmp6, tmp3, tmp7
+	in find_src_operand(float tmp3), value = 0
+	in find_src_operand(float tmp7), value = 0
+	in get_des_operand(float tmp6), value = 0
+	des operand(float tmp6), value = 1
+6: cvt_f2i tmp5, tmp6
+	in get_des_operand(int tmp5), new des (int tmp5), value = 0
+	in find_src_operand(float tmp6), value = 1
+	des operand(int tmp5), value = 1
+7: if tmp5 goto [pc, 5]
+	in find_src_operand(intLiteral 5)	eval_int: 5
+	in find_src_operand(int tmp5), value = 1
+	in goto: pc = 12
+12: return x_0
+	in find_src_operand(float x_0), value = 0
+2: fdef tmp31, 0.000001
+	in get_des_operand(float tmp31), new des (float tmp31), value = 0
+	in find_src_operand(floatLiteral 0.000001)	des operand(float tmp31), value = 897988541
+3: flss tmp32, tmp29, tmp31
+	in find_src_operand(float tmp29), value = 0
+	in find_src_operand(float tmp31), value = 1e-06
+	in get_des_operand(float tmp32), new des (float tmp32), value = 0
+	des operand(float tmp32), value = 1
+4: fdef tmp35, 0.0
+	in get_des_operand(float tmp35), new des (float tmp35), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp35), value = 0
+5: fdef tmp36, 0.0
+	in get_des_operand(float tmp36), new des (float tmp36), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp36), value = 0
+6: feq tmp35, tmp32, tmp36
+	in find_src_operand(float tmp32), value = 1
+	in find_src_operand(float tmp36), value = 0
+	in get_des_operand(float tmp35), value = 0
+	des operand(float tmp35), value = 0
+7: cvt_f2i tmp34, tmp35
+	in get_des_operand(int tmp34), new des (int tmp34), value = 0
+	in find_src_operand(float tmp35), value = 0
+	des operand(int tmp34), value = 0
+8: if tmp34 goto [pc, 3]
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	in find_src_operand(int tmp34), value = 0
+	in goto: pc = 9
+9: return 1
+	eval_int: 1
+12: call tmp62, assert(tmp63)
+	in find_src_operand(int tmp63), value = 1
+0: def tmp46, 0
+	in get_des_operand(int tmp46), new des (int tmp46), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int tmp46), value = 0
+1: not tmp47, cond_0
+	in get_des_operand(int tmp47), new des (int tmp47), value = 0
+	in find_src_operand(int cond_0), value = 1
+	des operand(int tmp47), value = 0
+2: not tmp49, tmp47
+	in get_des_operand(int tmp49), new des (int tmp49), value = 0
+	in find_src_operand(int tmp47), value = 0
+	des operand(int tmp49), value = 1
+3: if tmp49 goto [pc, 3]
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	in find_src_operand(int tmp49), value = 1
+	in goto: pc = 6
+6: call tmp51, ok()
+0: call tmp43, putch(111)
+	in find_src_operand(intLiteral 111)	eval_int: 111
+1: call tmp44, putch(107)
+	in find_src_operand(intLiteral 107)	eval_int: 107
+2: call tmp45, putch(10)
+	in find_src_operand(intLiteral 10)	eval_int: 10
+3: return null
+7: return null
+13: call tmp67, float_eq(233.000000, 4095.000000)
+	in get_des_operand(int tmp67), new des (int tmp67), value = 0
+	in find_src_operand(floatLiteral 233.000000)	in find_src_operand(floatLiteral 4095.000000)0: fsub tmp30, a_0, b_0
+	in find_src_operand(float a_0), value = 233
+	in find_src_operand(float b_0), value = 4095
+	in get_des_operand(float tmp30), new des (float tmp30), value = 0
+	des operand(float tmp30), value = -3862
+1: call tmp29, float_abs(tmp30)
+	in get_des_operand(float tmp29), new des (float tmp29), value = 0
+	in find_src_operand(float tmp30), value = -3862
+0: def tmp0, 0
+	in get_des_operand(int tmp0), new des (int tmp0), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int tmp0), value = 0
+1: cvt_i2f tmp2, tmp0
+	in get_des_operand(float tmp2), new des (float tmp2), value = 0
+	in find_src_operand(int tmp0), value = 0
+	des operand(float tmp2), value = 0
+2: flss tmp3, x_0, tmp2
+	in find_src_operand(float x_0), value = -3862
+	in find_src_operand(float tmp2), value = 0
+	in get_des_operand(float tmp3), new des (float tmp3), value = 0
+	des operand(float tmp3), value = 1
+3: fdef tmp6, 0.0
+	in get_des_operand(float tmp6), new des (float tmp6), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp6), value = 0
+4: fdef tmp7, 0.0
+	in get_des_operand(float tmp7), new des (float tmp7), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp7), value = 0
+5: feq tmp6, tmp3, tmp7
+	in find_src_operand(float tmp3), value = 1
+	in find_src_operand(float tmp7), value = 0
+	in get_des_operand(float tmp6), value = 0
+	des operand(float tmp6), value = 0
+6: cvt_f2i tmp5, tmp6
+	in get_des_operand(int tmp5), new des (int tmp5), value = 0
+	in find_src_operand(float tmp6), value = 0
+	des operand(int tmp5), value = 0
+7: if tmp5 goto [pc, 5]
+	in find_src_operand(intLiteral 5)	eval_int: 5
+	in find_src_operand(int tmp5), value = 0
+	in goto: pc = 8
+8: def tmp8, -1
+	in get_des_operand(int tmp8), new des (int tmp8), value = 0
+	in find_src_operand(intLiteral -1)	eval_int: -1
+	des operand(int tmp8), value = -1
+9: cvt_i2f tmp10, tmp8
+	in get_des_operand(float tmp10), new des (float tmp10), value = 0
+	in find_src_operand(int tmp8), value = -1
+	des operand(float tmp10), value = -1
+10: fmul tmp11, tmp10, x_0
+	in find_src_operand(float tmp10), value = -1
+	in find_src_operand(float x_0), value = -3862
+	in get_des_operand(float tmp11), new des (float tmp11), value = 0
+	des operand(float tmp11), value = 3862
+11: return tmp11
+	in find_src_operand(float tmp11), value = 3862
+2: fdef tmp31, 0.000001
+	in get_des_operand(float tmp31), new des (float tmp31), value = 0
+	in find_src_operand(floatLiteral 0.000001)	des operand(float tmp31), value = 897988541
+3: flss tmp32, tmp29, tmp31
+	in find_src_operand(float tmp29), value = 3862
+	in find_src_operand(float tmp31), value = 1e-06
+	in get_des_operand(float tmp32), new des (float tmp32), value = 0
+	des operand(float tmp32), value = 0
+4: fdef tmp35, 0.0
+	in get_des_operand(float tmp35), new des (float tmp35), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp35), value = 0
+5: fdef tmp36, 0.0
+	in get_des_operand(float tmp36), new des (float tmp36), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp36), value = 0
+6: feq tmp35, tmp32, tmp36
+	in find_src_operand(float tmp32), value = 0
+	in find_src_operand(float tmp36), value = 0
+	in get_des_operand(float tmp35), value = 0
+	des operand(float tmp35), value = 1
+7: cvt_f2i tmp34, tmp35
+	in get_des_operand(int tmp34), new des (int tmp34), value = 0
+	in find_src_operand(float tmp35), value = 1
+	des operand(int tmp34), value = 1
+8: if tmp34 goto [pc, 3]
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	in find_src_operand(int tmp34), value = 1
+	in goto: pc = 11
+11: return 0
+	eval_int: 0
+14: call tmp66, assert_not(tmp67)
+	in find_src_operand(int tmp67), value = 0
+0: not tmp53, cond_0
+	in get_des_operand(int tmp53), new des (int tmp53), value = 0
+	in find_src_operand(int cond_0), value = 0
+	des operand(int tmp53), value = 1
+1: if tmp53 goto [pc, 3]
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	in find_src_operand(int tmp53), value = 1
+	in goto: pc = 4
+4: call tmp55, ok()
+0: call tmp43, putch(111)
+	in find_src_operand(intLiteral 111)	eval_int: 111
+1: call tmp44, putch(107)
+	in find_src_operand(intLiteral 107)	eval_int: 107
+2: call tmp45, putch(10)
+	in find_src_operand(intLiteral 10)	eval_int: 10
+3: return null
+5: return null
+15: fdef tmp69, 1.5
+	in get_des_operand(float tmp69), new des (float tmp69), value = 0
+	in find_src_operand(floatLiteral 1.5)	des operand(float tmp69), value = 1069547520
+16: fdef tmp71, 0.0
+	in get_des_operand(float tmp71), new des (float tmp71), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp71), value = 0
+17: fdef tmp72, 0.0
+	in get_des_operand(float tmp72), new des (float tmp72), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp72), value = 0
+18: feq tmp71, tmp69, tmp72
+	in find_src_operand(float tmp69), value = 1.5
+	in find_src_operand(float tmp72), value = 0
+	in get_des_operand(float tmp71), value = 0
+	des operand(float tmp71), value = 0
+19: cvt_f2i tmp70, tmp71
+	in get_des_operand(int tmp70), new des (int tmp70), value = 0
+	in find_src_operand(float tmp71), value = 0
+	des operand(int tmp70), value = 0
+20: if tmp70 goto [pc, 2]
+	in find_src_operand(intLiteral 2)	eval_int: 2
+	in find_src_operand(int tmp70), value = 0
+	in goto: pc = 21
+21: call tmp73, ok()
+0: call tmp43, putch(111)
+	in find_src_operand(intLiteral 111)	eval_int: 111
+1: call tmp44, putch(107)
+	in find_src_operand(intLiteral 107)	eval_int: 107
+2: call tmp45, putch(10)
+	in find_src_operand(intLiteral 10)	eval_int: 10
+3: return null
+22: fdef tmp75, 1
+	in get_des_operand(float tmp75), new des (float tmp75), value = 0
+	in find_src_operand(floatLiteral 1)	des operand(float tmp75), value = 1065353216
+23: fdef tmp77, 0.0
+	in get_des_operand(float tmp77), new des (float tmp77), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp77), value = 0
+24: fdef tmp78, 0.0
+	in get_des_operand(float tmp78), new des (float tmp78), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp78), value = 0
+25: feq tmp77, tmp75, tmp78
+	in find_src_operand(float tmp75), value = 1
+	in find_src_operand(float tmp78), value = 0
+	in get_des_operand(float tmp77), value = 0
+	des operand(float tmp77), value = 0
+26: cvt_f2i tmp76, tmp77
+	in get_des_operand(int tmp76), new des (int tmp76), value = 0
+	in find_src_operand(float tmp77), value = 0
+	des operand(int tmp76), value = 0
+27: if tmp76 goto [pc, 2]
+	in find_src_operand(intLiteral 2)	eval_int: 2
+	in find_src_operand(int tmp76), value = 0
+	in goto: pc = 28
+28: call tmp79, ok()
+0: call tmp43, putch(111)
+	in find_src_operand(intLiteral 111)	eval_int: 111
+1: call tmp44, putch(107)
+	in find_src_operand(intLiteral 107)	eval_int: 107
+2: call tmp45, putch(10)
+	in find_src_operand(intLiteral 10)	eval_int: 10
+3: return null
+29: fdef tmp81, .0
+	in get_des_operand(float tmp81), new des (float tmp81), value = 0
+	in find_src_operand(floatLiteral .0)	des operand(float tmp81), value = 0
+30: fdef tmp83, 0.0
+	in get_des_operand(float tmp83), new des (float tmp83), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp83), value = 0
+31: fdef tmp84, 0.0
+	in get_des_operand(float tmp84), new des (float tmp84), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp84), value = 0
+32: feq tmp83, tmp81, tmp84
+	in find_src_operand(float tmp81), value = 0
+	in find_src_operand(float tmp84), value = 0
+	in get_des_operand(float tmp83), value = 0
+	des operand(float tmp83), value = 1
+33: cvt_f2i tmp82, tmp83
+	in get_des_operand(int tmp82), new des (int tmp82), value = 0
+	in find_src_operand(float tmp83), value = 1
+	des operand(int tmp82), value = 1
+34: if tmp82 goto [pc, 8]
+	in find_src_operand(intLiteral 8)	eval_int: 8
+	in find_src_operand(int tmp82), value = 1
+	in goto: pc = 42
+42: def tmp91, 0
+	in get_des_operand(int tmp91), new des (int tmp91), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int tmp91), value = 0
+43: if tmp91 goto [pc, 7]
+	in find_src_operand(intLiteral 7)	eval_int: 7
+	in find_src_operand(int tmp91), value = 0
+	in goto: pc = 44
+44: fdef tmp93, 0.3
+	in get_des_operand(float tmp93), new des (float tmp93), value = 0
+	in find_src_operand(floatLiteral 0.3)	des operand(float tmp93), value = 1050253722
+45: fdef tmp95, 0.0
+	in get_des_operand(float tmp95), new des (float tmp95), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp95), value = 0
+46: fdef tmp96, 0.0
+	in get_des_operand(float tmp96), new des (float tmp96), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp96), value = 0
+47: feq tmp95, tmp93, tmp96
+	in find_src_operand(float tmp93), value = 0.3
+	in find_src_operand(float tmp96), value = 0
+	in get_des_operand(float tmp95), value = 0
+	des operand(float tmp95), value = 0
+48: cvt_f2i tmp94, tmp95
+	in get_des_operand(int tmp94), new des (int tmp94), value = 0
+	in find_src_operand(float tmp95), value = 0
+	des operand(int tmp94), value = 0
+49: if tmp94 goto [pc, 2]
+	in find_src_operand(intLiteral 2)	eval_int: 2
+	in find_src_operand(int tmp94), value = 0
+	in goto: pc = 50
+50: call tmp97, ok()
+0: call tmp43, putch(111)
+	in find_src_operand(intLiteral 111)	eval_int: 111
+1: call tmp44, putch(107)
+	in find_src_operand(intLiteral 107)	eval_int: 107
+2: call tmp45, putch(10)
+	in find_src_operand(intLiteral 10)	eval_int: 10
+3: return null
+51: def i_0, 0
+	in get_des_operand(int i_0), new des (int i_0), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int i_0), value = 0
+52: mov i_0, 1
+	in get_des_operand(int i_0), value = 0
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int i_0), value = 1
+53: def p_0, 0
+	in get_des_operand(int p_0), new des (int p_0), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int p_0), value = 0
+54: mov p_0, 0
+	in get_des_operand(int p_0), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int p_0), value = 0
+55: alloc arr_0, 10
+	in find_src_operand(intLiteral 10)	eval_int: 10
+	in get_des_operand(float* arr_0), new des (float* arr_0), value = 0
+56: fdef tmp98, 1.
+	in get_des_operand(float tmp98), new des (float tmp98), value = 0
+	in find_src_operand(floatLiteral 1.)	des operand(float tmp98), value = 1065353216
+57: store tmp98, arr_0, 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	in find_src_operand(float tmp98), value = 1
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+58: fdef tmp99, 2.000000
+	in get_des_operand(float tmp99), new des (float tmp99), value = 0
+	in find_src_operand(floatLiteral 2.000000)	des operand(float tmp99), value = 1073741824
+59: store tmp99, arr_0, 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	in find_src_operand(float tmp99), value = 2
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+60: fdef tmp100, 0.0
+	in get_des_operand(float tmp100), new des (float tmp100), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp100), value = 0
+61: store tmp100, arr_0, 2
+	in find_src_operand(intLiteral 2)	eval_int: 2
+	in find_src_operand(float tmp100), value = 0
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+62: fdef tmp101, 0.0
+	in get_des_operand(float tmp101), new des (float tmp101), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp101), value = 0
+63: store tmp101, arr_0, 3
+	in find_src_operand(intLiteral 3)	eval_int: 3
+	in find_src_operand(float tmp101), value = 0
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+64: fdef tmp102, 0.0
+	in get_des_operand(float tmp102), new des (float tmp102), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp102), value = 0
+65: store tmp102, arr_0, 4
+	in find_src_operand(intLiteral 4)	eval_int: 4
+	in find_src_operand(float tmp102), value = 0
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+66: fdef tmp103, 0.0
+	in get_des_operand(float tmp103), new des (float tmp103), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp103), value = 0
+67: store tmp103, arr_0, 5
+	in find_src_operand(intLiteral 5)	eval_int: 5
+	in find_src_operand(float tmp103), value = 0
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+68: fdef tmp104, 0.0
+	in get_des_operand(float tmp104), new des (float tmp104), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp104), value = 0
+69: store tmp104, arr_0, 6
+	in find_src_operand(intLiteral 6)	eval_int: 6
+	in find_src_operand(float tmp104), value = 0
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+70: fdef tmp105, 0.0
+	in get_des_operand(float tmp105), new des (float tmp105), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp105), value = 0
+71: store tmp105, arr_0, 7
+	in find_src_operand(intLiteral 7)	eval_int: 7
+	in find_src_operand(float tmp105), value = 0
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+72: fdef tmp106, 0.0
+	in get_des_operand(float tmp106), new des (float tmp106), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp106), value = 0
+73: store tmp106, arr_0, 8
+	in find_src_operand(intLiteral 8)	eval_int: 8
+	in find_src_operand(float tmp106), value = 0
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+74: fdef tmp107, 0.0
+	in get_des_operand(float tmp107), new des (float tmp107), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float tmp107), value = 0
+75: store tmp107, arr_0, 9
+	in find_src_operand(intLiteral 9)	eval_int: 9
+	in find_src_operand(float tmp107), value = 0
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+76: def len_0, 0
+	in get_des_operand(int len_0), new des (int len_0), value = 0
+	in find_src_operand(intLiteral 0)	eval_int: 0
+	des operand(int len_0), value = 0
+77: call tmp108, getfarray(arr_0)
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+	in get_des_operand(int tmp108), new des (int tmp108), value = 0
+78: mov len_0, tmp108
+	in get_des_operand(int len_0), value = 0
+	in find_src_operand(int tmp108), value = 10
+	des operand(int len_0), value = 10
+79: def tmp109, 1000000000
+	in get_des_operand(int tmp109), new des (int tmp109), value = 0
+	in find_src_operand(intLiteral 1000000000)	eval_int: 1000000000
+	des operand(int tmp109), value = 1000000000
+80: lss tmp110, i_0, tmp109
+	in find_src_operand(int i_0), value = 1
+	in find_src_operand(int tmp109), value = 1000000000
+	in get_des_operand(int tmp110), new des (int tmp110), value = 0
+	des operand(int tmp110), value = 1
+81: not tmp112, tmp110
+	in get_des_operand(int tmp112), new des (int tmp112), value = 0
+	in find_src_operand(int tmp110), value = 1
+	des operand(int tmp112), value = 0
+82: if tmp112 goto [pc, 30]
+	in find_src_operand(intLiteral 30)	eval_int: 30
+	in find_src_operand(int tmp112), value = 0
+	in goto: pc = 83
+83: fdef input_1, 0.0
+	in get_des_operand(float input_1), new des (float input_1), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float input_1), value = 0
+84: call tmp113, getfloat()
+	in get_des_operand(float tmp113), new des (float tmp113), value = 0
+85: fmov input_1, tmp113
+	in get_des_operand(float input_1), value = 0
+	in find_src_operand(float tmp113), value = 1.1
+	des operand(float input_1), value = 1066192077
+86: fdef area_1, 0.0
+	in get_des_operand(float area_1), new des (float area_1), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float area_1), value = 0
+87: fdef tmp114, 03.141592653589793
+	in get_des_operand(float tmp114), new des (float tmp114), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp114), value = 1078530011
+88: fmul tmp115, tmp114, input_1
+	in find_src_operand(float tmp114), value = 3.14159
+	in find_src_operand(float input_1), value = 1.1
+	in get_des_operand(float tmp115), new des (float tmp115), value = 0
+	des operand(float tmp115), value = 3.45575
+89: fmul tmp116, tmp115, input_1
+	in find_src_operand(float tmp115), value = 3.45575
+	in find_src_operand(float input_1), value = 1.1
+	in get_des_operand(float tmp116), new des (float tmp116), value = 0
+	des operand(float tmp116), value = 3.80133
+90: fmov area_1, tmp116
+	in get_des_operand(float area_1), value = 0
+	in find_src_operand(float tmp116), value = 3.80133
+	des operand(float area_1), value = 1081297139
+91: fdef area_trunc_1, 0.0
+	in get_des_operand(float area_trunc_1), new des (float area_trunc_1), value = 0
+	in find_src_operand(floatLiteral 0.0)	des operand(float area_trunc_1), value = 0
+92: cvt_f2i tmp118, input_1
+	in get_des_operand(int tmp118), new des (int tmp118), value = 0
+	in find_src_operand(float input_1), value = 1.1
+	des operand(int tmp118), value = 1
+93: call tmp117, circle_area(tmp118)
+	in get_des_operand(float tmp117), new des (float tmp117), value = 0
+	in find_src_operand(int tmp118), value = 1
+0: fdef tmp12, 03.141592653589793
+	in get_des_operand(float tmp12), new des (float tmp12), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp12), value = 1078530011
+1: cvt_i2f tmp14, radius_0
+	in get_des_operand(float tmp14), new des (float tmp14), value = 0
+	in find_src_operand(int radius_0), value = 1
+	des operand(float tmp14), value = 1
+2: fmul tmp15, tmp12, tmp14
+	in find_src_operand(float tmp12), value = 3.14159
+	in find_src_operand(float tmp14), value = 1
+	in get_des_operand(float tmp15), new des (float tmp15), value = 0
+	des operand(float tmp15), value = 3.14159
+3: cvt_i2f tmp17, radius_0
+	in get_des_operand(float tmp17), new des (float tmp17), value = 0
+	in find_src_operand(int radius_0), value = 1
+	des operand(float tmp17), value = 1
+4: fmul tmp18, tmp15, tmp17
+	in find_src_operand(float tmp15), value = 3.14159
+	in find_src_operand(float tmp17), value = 1
+	in get_des_operand(float tmp18), new des (float tmp18), value = 0
+	des operand(float tmp18), value = 3.14159
+5: mul tmp19, radius_0, radius_0
+	in find_src_operand(int radius_0), value = 1
+	in find_src_operand(int radius_0), value = 1
+	in get_des_operand(int tmp19), new des (int tmp19), value = 0
+	des operand(int tmp19), value = 1
+6: fdef tmp20, 03.141592653589793
+	in get_des_operand(float tmp20), new des (float tmp20), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp20), value = 1078530011
+7: cvt_i2f tmp22, tmp19
+	in get_des_operand(float tmp22), new des (float tmp22), value = 0
+	in find_src_operand(int tmp19), value = 1
+	des operand(float tmp22), value = 1
+8: fmul tmp23, tmp22, tmp20
+	in find_src_operand(float tmp22), value = 1
+	in find_src_operand(float tmp20), value = 3.14159
+	in get_des_operand(float tmp23), new des (float tmp23), value = 0
+	des operand(float tmp23), value = 3.14159
+9: fadd tmp24, tmp18, tmp23
+	in find_src_operand(float tmp18), value = 3.14159
+	in find_src_operand(float tmp23), value = 3.14159
+	in get_des_operand(float tmp24), new des (float tmp24), value = 0
+	des operand(float tmp24), value = 6.28319
+10: def tmp25, 2
+	in get_des_operand(int tmp25), new des (int tmp25), value = 0
+	in find_src_operand(intLiteral 2)	eval_int: 2
+	des operand(int tmp25), value = 2
+11: cvt_i2f tmp27, tmp25
+	in get_des_operand(float tmp27), new des (float tmp27), value = 0
+	in find_src_operand(int tmp25), value = 2
+	des operand(float tmp27), value = 2
+12: fdiv tmp28, tmp24, tmp27
+	in find_src_operand(float tmp24), value = 6.28319
+	in find_src_operand(float tmp27), value = 2
+	in get_des_operand(float tmp28), new des (float tmp28), value = 0
+	des operand(float tmp28), value = 3.14159
+13: return tmp28
+	in find_src_operand(float tmp28), value = 3.14159
+94: fmov area_trunc_1, tmp117
+	in get_des_operand(float area_trunc_1), value = 0
+	in find_src_operand(float tmp117), value = 3.14159
+	des operand(float area_trunc_1), value = 1078530011
+95: def tmp119, p_0
+	in get_des_operand(int tmp119), new des (int tmp119), value = 0
+	in find_src_operand(int p_0), value = 0
+	des operand(int tmp119), value = 0
+96: def tmp121, p_0
+	in get_des_operand(int tmp121), new des (int tmp121), value = 0
+	in find_src_operand(int p_0), value = 0
+	des operand(int tmp121), value = 0
+97: load tmp122, arr_0, tmp121
+	in find_src_operand(int tmp121), value = 0
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+	in get_des_operand(float tmp122), new des (float tmp122), value = 0
+98: fadd tmp123, tmp122, input_1
+	in find_src_operand(float tmp122), value = 0.1
+	in find_src_operand(float input_1), value = 1.1
+	in get_des_operand(float tmp123), new des (float tmp123), value = 0
+	des operand(float tmp123), value = 1.2
+99: store tmp123, arr_0, tmp119
+	in find_src_operand(int tmp119), value = 0
+	in find_src_operand(float tmp123), value = 1.2
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+100: call tmp124, putfloat(area_1)
+	in find_src_operand(float area_1), value = 3.80133
+101: call tmp125, putch(32)
+	in find_src_operand(intLiteral 32)	eval_int: 32
+102: cvt_f2i tmp127, area_trunc_1
+	in get_des_operand(int tmp127), new des (int tmp127), value = 0
+	in find_src_operand(float area_trunc_1), value = 3.14159
+	des operand(int tmp127), value = 3
+103: call tmp126, putint(tmp127)
+	in find_src_operand(int tmp127), value = 3
+104: call tmp128, putch(10)
+	in find_src_operand(intLiteral 10)	eval_int: 10
+105: def tmp129, 10
+	in get_des_operand(int tmp129), new des (int tmp129), value = 0
+	in find_src_operand(intLiteral 10)	eval_int: 10
+	des operand(int tmp129), value = 10
+106: mul tmp130, i_0, tmp129
+	in find_src_operand(int i_0), value = 1
+	in find_src_operand(int tmp129), value = 10
+	in get_des_operand(int tmp130), new des (int tmp130), value = 0
+	des operand(int tmp130), value = 10
+107: mov i_0, tmp130
+	in get_des_operand(int i_0), value = 1
+	in find_src_operand(int tmp130), value = 10
+	des operand(int i_0), value = 10
+108: def tmp131, 1
+	in get_des_operand(int tmp131), new des (int tmp131), value = 0
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp131), value = 1
+109: add tmp132, p_0, tmp131
+	in find_src_operand(int p_0), value = 0
+	in find_src_operand(int tmp131), value = 1
+	in get_des_operand(int tmp132), new des (int tmp132), value = 0
+	des operand(int tmp132), value = 1
+110: mov p_0, tmp132
+	in get_des_operand(int p_0), value = 0
+	in find_src_operand(int tmp132), value = 1
+	des operand(int p_0), value = 1
+111: goto [pc, -32]
+	in find_src_operand(intLiteral -32)	eval_int: -32
+	in goto: pc = 79
+79: def tmp109, 1000000000
+	in get_des_operand(int tmp109), value = 1000000000
+	in find_src_operand(intLiteral 1000000000)	eval_int: 1000000000
+	des operand(int tmp109), value = 1000000000
+80: lss tmp110, i_0, tmp109
+	in find_src_operand(int i_0), value = 10
+	in find_src_operand(int tmp109), value = 1000000000
+	in get_des_operand(int tmp110), value = 1
+	des operand(int tmp110), value = 1
+81: not tmp112, tmp110
+	in get_des_operand(int tmp112), value = 0
+	in find_src_operand(int tmp110), value = 1
+	des operand(int tmp112), value = 0
+82: if tmp112 goto [pc, 30]
+	in find_src_operand(intLiteral 30)	eval_int: 30
+	in find_src_operand(int tmp112), value = 0
+	in goto: pc = 83
+83: fdef input_1, 0.0
+	in get_des_operand(float input_1), value = 1.1
+	in find_src_operand(floatLiteral 0.0)	des operand(float input_1), value = 0
+84: call tmp113, getfloat()
+	in get_des_operand(float tmp113), value = 1.1
+85: fmov input_1, tmp113
+	in get_des_operand(float input_1), value = 0
+	in find_src_operand(float tmp113), value = 2.2
+	des operand(float input_1), value = 1074580685
+86: fdef area_1, 0.0
+	in get_des_operand(float area_1), value = 3.80133
+	in find_src_operand(floatLiteral 0.0)	des operand(float area_1), value = 0
+87: fdef tmp114, 03.141592653589793
+	in get_des_operand(float tmp114), value = 3.14159
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp114), value = 1078530011
+88: fmul tmp115, tmp114, input_1
+	in find_src_operand(float tmp114), value = 3.14159
+	in find_src_operand(float input_1), value = 2.2
+	in get_des_operand(float tmp115), value = 3.45575
+	des operand(float tmp115), value = 6.9115
+89: fmul tmp116, tmp115, input_1
+	in find_src_operand(float tmp115), value = 6.9115
+	in find_src_operand(float input_1), value = 2.2
+	in get_des_operand(float tmp116), value = 3.80133
+	des operand(float tmp116), value = 15.2053
+90: fmov area_1, tmp116
+	in get_des_operand(float area_1), value = 0
+	in find_src_operand(float tmp116), value = 15.2053
+	des operand(float area_1), value = 1098074355
+91: fdef area_trunc_1, 0.0
+	in get_des_operand(float area_trunc_1), value = 3.14159
+	in find_src_operand(floatLiteral 0.0)	des operand(float area_trunc_1), value = 0
+92: cvt_f2i tmp118, input_1
+	in get_des_operand(int tmp118), value = 1
+	in find_src_operand(float input_1), value = 2.2
+	des operand(int tmp118), value = 2
+93: call tmp117, circle_area(tmp118)
+	in get_des_operand(float tmp117), value = 3.14159
+	in find_src_operand(int tmp118), value = 2
+0: fdef tmp12, 03.141592653589793
+	in get_des_operand(float tmp12), new des (float tmp12), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp12), value = 1078530011
+1: cvt_i2f tmp14, radius_0
+	in get_des_operand(float tmp14), new des (float tmp14), value = 0
+	in find_src_operand(int radius_0), value = 2
+	des operand(float tmp14), value = 2
+2: fmul tmp15, tmp12, tmp14
+	in find_src_operand(float tmp12), value = 3.14159
+	in find_src_operand(float tmp14), value = 2
+	in get_des_operand(float tmp15), new des (float tmp15), value = 0
+	des operand(float tmp15), value = 6.28319
+3: cvt_i2f tmp17, radius_0
+	in get_des_operand(float tmp17), new des (float tmp17), value = 0
+	in find_src_operand(int radius_0), value = 2
+	des operand(float tmp17), value = 2
+4: fmul tmp18, tmp15, tmp17
+	in find_src_operand(float tmp15), value = 6.28319
+	in find_src_operand(float tmp17), value = 2
+	in get_des_operand(float tmp18), new des (float tmp18), value = 0
+	des operand(float tmp18), value = 12.5664
+5: mul tmp19, radius_0, radius_0
+	in find_src_operand(int radius_0), value = 2
+	in find_src_operand(int radius_0), value = 2
+	in get_des_operand(int tmp19), new des (int tmp19), value = 0
+	des operand(int tmp19), value = 4
+6: fdef tmp20, 03.141592653589793
+	in get_des_operand(float tmp20), new des (float tmp20), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp20), value = 1078530011
+7: cvt_i2f tmp22, tmp19
+	in get_des_operand(float tmp22), new des (float tmp22), value = 0
+	in find_src_operand(int tmp19), value = 4
+	des operand(float tmp22), value = 4
+8: fmul tmp23, tmp22, tmp20
+	in find_src_operand(float tmp22), value = 4
+	in find_src_operand(float tmp20), value = 3.14159
+	in get_des_operand(float tmp23), new des (float tmp23), value = 0
+	des operand(float tmp23), value = 12.5664
+9: fadd tmp24, tmp18, tmp23
+	in find_src_operand(float tmp18), value = 12.5664
+	in find_src_operand(float tmp23), value = 12.5664
+	in get_des_operand(float tmp24), new des (float tmp24), value = 0
+	des operand(float tmp24), value = 25.1327
+10: def tmp25, 2
+	in get_des_operand(int tmp25), new des (int tmp25), value = 0
+	in find_src_operand(intLiteral 2)	eval_int: 2
+	des operand(int tmp25), value = 2
+11: cvt_i2f tmp27, tmp25
+	in get_des_operand(float tmp27), new des (float tmp27), value = 0
+	in find_src_operand(int tmp25), value = 2
+	des operand(float tmp27), value = 2
+12: fdiv tmp28, tmp24, tmp27
+	in find_src_operand(float tmp24), value = 25.1327
+	in find_src_operand(float tmp27), value = 2
+	in get_des_operand(float tmp28), new des (float tmp28), value = 0
+	des operand(float tmp28), value = 12.5664
+13: return tmp28
+	in find_src_operand(float tmp28), value = 12.5664
+94: fmov area_trunc_1, tmp117
+	in get_des_operand(float area_trunc_1), value = 0
+	in find_src_operand(float tmp117), value = 12.5664
+	des operand(float area_trunc_1), value = 1095307227
+95: def tmp119, p_0
+	in get_des_operand(int tmp119), value = 0
+	in find_src_operand(int p_0), value = 1
+	des operand(int tmp119), value = 1
+96: def tmp121, p_0
+	in get_des_operand(int tmp121), value = 0
+	in find_src_operand(int p_0), value = 1
+	des operand(int tmp121), value = 1
+97: load tmp122, arr_0, tmp121
+	in find_src_operand(int tmp121), value = 1
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+	in get_des_operand(float tmp122), value = 0.1
+98: fadd tmp123, tmp122, input_1
+	in find_src_operand(float tmp122), value = 0.2
+	in find_src_operand(float input_1), value = 2.2
+	in get_des_operand(float tmp123), value = 1.2
+	des operand(float tmp123), value = 2.4
+99: store tmp123, arr_0, tmp119
+	in find_src_operand(int tmp119), value = 1
+	in find_src_operand(float tmp123), value = 2.4
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+100: call tmp124, putfloat(area_1)
+	in find_src_operand(float area_1), value = 15.2053
+101: call tmp125, putch(32)
+	in find_src_operand(intLiteral 32)	eval_int: 32
+102: cvt_f2i tmp127, area_trunc_1
+	in get_des_operand(int tmp127), value = 3
+	in find_src_operand(float area_trunc_1), value = 12.5664
+	des operand(int tmp127), value = 12
+103: call tmp126, putint(tmp127)
+	in find_src_operand(int tmp127), value = 12
+104: call tmp128, putch(10)
+	in find_src_operand(intLiteral 10)	eval_int: 10
+105: def tmp129, 10
+	in get_des_operand(int tmp129), value = 10
+	in find_src_operand(intLiteral 10)	eval_int: 10
+	des operand(int tmp129), value = 10
+106: mul tmp130, i_0, tmp129
+	in find_src_operand(int i_0), value = 10
+	in find_src_operand(int tmp129), value = 10
+	in get_des_operand(int tmp130), value = 10
+	des operand(int tmp130), value = 100
+107: mov i_0, tmp130
+	in get_des_operand(int i_0), value = 10
+	in find_src_operand(int tmp130), value = 100
+	des operand(int i_0), value = 100
+108: def tmp131, 1
+	in get_des_operand(int tmp131), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp131), value = 1
+109: add tmp132, p_0, tmp131
+	in find_src_operand(int p_0), value = 1
+	in find_src_operand(int tmp131), value = 1
+	in get_des_operand(int tmp132), value = 1
+	des operand(int tmp132), value = 2
+110: mov p_0, tmp132
+	in get_des_operand(int p_0), value = 1
+	in find_src_operand(int tmp132), value = 2
+	des operand(int p_0), value = 2
+111: goto [pc, -32]
+	in find_src_operand(intLiteral -32)	eval_int: -32
+	in goto: pc = 79
+79: def tmp109, 1000000000
+	in get_des_operand(int tmp109), value = 1000000000
+	in find_src_operand(intLiteral 1000000000)	eval_int: 1000000000
+	des operand(int tmp109), value = 1000000000
+80: lss tmp110, i_0, tmp109
+	in find_src_operand(int i_0), value = 100
+	in find_src_operand(int tmp109), value = 1000000000
+	in get_des_operand(int tmp110), value = 1
+	des operand(int tmp110), value = 1
+81: not tmp112, tmp110
+	in get_des_operand(int tmp112), value = 0
+	in find_src_operand(int tmp110), value = 1
+	des operand(int tmp112), value = 0
+82: if tmp112 goto [pc, 30]
+	in find_src_operand(intLiteral 30)	eval_int: 30
+	in find_src_operand(int tmp112), value = 0
+	in goto: pc = 83
+83: fdef input_1, 0.0
+	in get_des_operand(float input_1), value = 2.2
+	in find_src_operand(floatLiteral 0.0)	des operand(float input_1), value = 0
+84: call tmp113, getfloat()
+	in get_des_operand(float tmp113), value = 2.2
+85: fmov input_1, tmp113
+	in get_des_operand(float input_1), value = 0
+	in find_src_operand(float tmp113), value = 3.3
+	des operand(float input_1), value = 1079194419
+86: fdef area_1, 0.0
+	in get_des_operand(float area_1), value = 15.2053
+	in find_src_operand(floatLiteral 0.0)	des operand(float area_1), value = 0
+87: fdef tmp114, 03.141592653589793
+	in get_des_operand(float tmp114), value = 3.14159
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp114), value = 1078530011
+88: fmul tmp115, tmp114, input_1
+	in find_src_operand(float tmp114), value = 3.14159
+	in find_src_operand(float input_1), value = 3.3
+	in get_des_operand(float tmp115), value = 6.9115
+	des operand(float tmp115), value = 10.3673
+89: fmul tmp116, tmp115, input_1
+	in find_src_operand(float tmp115), value = 10.3673
+	in find_src_operand(float input_1), value = 3.3
+	in get_des_operand(float tmp116), value = 15.2053
+	des operand(float tmp116), value = 34.2119
+90: fmov area_1, tmp116
+	in get_des_operand(float area_1), value = 0
+	in find_src_operand(float tmp116), value = 34.2119
+	des operand(float area_1), value = 1107876104
+91: fdef area_trunc_1, 0.0
+	in get_des_operand(float area_trunc_1), value = 12.5664
+	in find_src_operand(floatLiteral 0.0)	des operand(float area_trunc_1), value = 0
+92: cvt_f2i tmp118, input_1
+	in get_des_operand(int tmp118), value = 2
+	in find_src_operand(float input_1), value = 3.3
+	des operand(int tmp118), value = 3
+93: call tmp117, circle_area(tmp118)
+	in get_des_operand(float tmp117), value = 12.5664
+	in find_src_operand(int tmp118), value = 3
+0: fdef tmp12, 03.141592653589793
+	in get_des_operand(float tmp12), new des (float tmp12), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp12), value = 1078530011
+1: cvt_i2f tmp14, radius_0
+	in get_des_operand(float tmp14), new des (float tmp14), value = 0
+	in find_src_operand(int radius_0), value = 3
+	des operand(float tmp14), value = 3
+2: fmul tmp15, tmp12, tmp14
+	in find_src_operand(float tmp12), value = 3.14159
+	in find_src_operand(float tmp14), value = 3
+	in get_des_operand(float tmp15), new des (float tmp15), value = 0
+	des operand(float tmp15), value = 9.42478
+3: cvt_i2f tmp17, radius_0
+	in get_des_operand(float tmp17), new des (float tmp17), value = 0
+	in find_src_operand(int radius_0), value = 3
+	des operand(float tmp17), value = 3
+4: fmul tmp18, tmp15, tmp17
+	in find_src_operand(float tmp15), value = 9.42478
+	in find_src_operand(float tmp17), value = 3
+	in get_des_operand(float tmp18), new des (float tmp18), value = 0
+	des operand(float tmp18), value = 28.2743
+5: mul tmp19, radius_0, radius_0
+	in find_src_operand(int radius_0), value = 3
+	in find_src_operand(int radius_0), value = 3
+	in get_des_operand(int tmp19), new des (int tmp19), value = 0
+	des operand(int tmp19), value = 9
+6: fdef tmp20, 03.141592653589793
+	in get_des_operand(float tmp20), new des (float tmp20), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp20), value = 1078530011
+7: cvt_i2f tmp22, tmp19
+	in get_des_operand(float tmp22), new des (float tmp22), value = 0
+	in find_src_operand(int tmp19), value = 9
+	des operand(float tmp22), value = 9
+8: fmul tmp23, tmp22, tmp20
+	in find_src_operand(float tmp22), value = 9
+	in find_src_operand(float tmp20), value = 3.14159
+	in get_des_operand(float tmp23), new des (float tmp23), value = 0
+	des operand(float tmp23), value = 28.2743
+9: fadd tmp24, tmp18, tmp23
+	in find_src_operand(float tmp18), value = 28.2743
+	in find_src_operand(float tmp23), value = 28.2743
+	in get_des_operand(float tmp24), new des (float tmp24), value = 0
+	des operand(float tmp24), value = 56.5487
+10: def tmp25, 2
+	in get_des_operand(int tmp25), new des (int tmp25), value = 0
+	in find_src_operand(intLiteral 2)	eval_int: 2
+	des operand(int tmp25), value = 2
+11: cvt_i2f tmp27, tmp25
+	in get_des_operand(float tmp27), new des (float tmp27), value = 0
+	in find_src_operand(int tmp25), value = 2
+	des operand(float tmp27), value = 2
+12: fdiv tmp28, tmp24, tmp27
+	in find_src_operand(float tmp24), value = 56.5487
+	in find_src_operand(float tmp27), value = 2
+	in get_des_operand(float tmp28), new des (float tmp28), value = 0
+	des operand(float tmp28), value = 28.2743
+13: return tmp28
+	in find_src_operand(float tmp28), value = 28.2743
+94: fmov area_trunc_1, tmp117
+	in get_des_operand(float area_trunc_1), value = 0
+	in find_src_operand(float tmp117), value = 28.2743
+	des operand(float area_trunc_1), value = 1105342934
+95: def tmp119, p_0
+	in get_des_operand(int tmp119), value = 1
+	in find_src_operand(int p_0), value = 2
+	des operand(int tmp119), value = 2
+96: def tmp121, p_0
+	in get_des_operand(int tmp121), value = 1
+	in find_src_operand(int p_0), value = 2
+	des operand(int tmp121), value = 2
+97: load tmp122, arr_0, tmp121
+	in find_src_operand(int tmp121), value = 2
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+	in get_des_operand(float tmp122), value = 0.2
+98: fadd tmp123, tmp122, input_1
+	in find_src_operand(float tmp122), value = 0.3
+	in find_src_operand(float input_1), value = 3.3
+	in get_des_operand(float tmp123), value = 2.4
+	des operand(float tmp123), value = 3.6
+99: store tmp123, arr_0, tmp119
+	in find_src_operand(int tmp119), value = 2
+	in find_src_operand(float tmp123), value = 3.6
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+100: call tmp124, putfloat(area_1)
+	in find_src_operand(float area_1), value = 34.2119
+101: call tmp125, putch(32)
+	in find_src_operand(intLiteral 32)	eval_int: 32
+102: cvt_f2i tmp127, area_trunc_1
+	in get_des_operand(int tmp127), value = 12
+	in find_src_operand(float area_trunc_1), value = 28.2743
+	des operand(int tmp127), value = 28
+103: call tmp126, putint(tmp127)
+	in find_src_operand(int tmp127), value = 28
+104: call tmp128, putch(10)
+	in find_src_operand(intLiteral 10)	eval_int: 10
+105: def tmp129, 10
+	in get_des_operand(int tmp129), value = 10
+	in find_src_operand(intLiteral 10)	eval_int: 10
+	des operand(int tmp129), value = 10
+106: mul tmp130, i_0, tmp129
+	in find_src_operand(int i_0), value = 100
+	in find_src_operand(int tmp129), value = 10
+	in get_des_operand(int tmp130), value = 100
+	des operand(int tmp130), value = 1000
+107: mov i_0, tmp130
+	in get_des_operand(int i_0), value = 100
+	in find_src_operand(int tmp130), value = 1000
+	des operand(int i_0), value = 1000
+108: def tmp131, 1
+	in get_des_operand(int tmp131), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp131), value = 1
+109: add tmp132, p_0, tmp131
+	in find_src_operand(int p_0), value = 2
+	in find_src_operand(int tmp131), value = 1
+	in get_des_operand(int tmp132), value = 2
+	des operand(int tmp132), value = 3
+110: mov p_0, tmp132
+	in get_des_operand(int p_0), value = 2
+	in find_src_operand(int tmp132), value = 3
+	des operand(int p_0), value = 3
+111: goto [pc, -32]
+	in find_src_operand(intLiteral -32)	eval_int: -32
+	in goto: pc = 79
+79: def tmp109, 1000000000
+	in get_des_operand(int tmp109), value = 1000000000
+	in find_src_operand(intLiteral 1000000000)	eval_int: 1000000000
+	des operand(int tmp109), value = 1000000000
+80: lss tmp110, i_0, tmp109
+	in find_src_operand(int i_0), value = 1000
+	in find_src_operand(int tmp109), value = 1000000000
+	in get_des_operand(int tmp110), value = 1
+	des operand(int tmp110), value = 1
+81: not tmp112, tmp110
+	in get_des_operand(int tmp112), value = 0
+	in find_src_operand(int tmp110), value = 1
+	des operand(int tmp112), value = 0
+82: if tmp112 goto [pc, 30]
+	in find_src_operand(intLiteral 30)	eval_int: 30
+	in find_src_operand(int tmp112), value = 0
+	in goto: pc = 83
+83: fdef input_1, 0.0
+	in get_des_operand(float input_1), value = 3.3
+	in find_src_operand(floatLiteral 0.0)	des operand(float input_1), value = 0
+84: call tmp113, getfloat()
+	in get_des_operand(float tmp113), value = 3.3
+85: fmov input_1, tmp113
+	in get_des_operand(float input_1), value = 0
+	in find_src_operand(float tmp113), value = 4.4
+	des operand(float input_1), value = 1082969293
+86: fdef area_1, 0.0
+	in get_des_operand(float area_1), value = 34.2119
+	in find_src_operand(floatLiteral 0.0)	des operand(float area_1), value = 0
+87: fdef tmp114, 03.141592653589793
+	in get_des_operand(float tmp114), value = 3.14159
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp114), value = 1078530011
+88: fmul tmp115, tmp114, input_1
+	in find_src_operand(float tmp114), value = 3.14159
+	in find_src_operand(float input_1), value = 4.4
+	in get_des_operand(float tmp115), value = 10.3673
+	des operand(float tmp115), value = 13.823
+89: fmul tmp116, tmp115, input_1
+	in find_src_operand(float tmp115), value = 13.823
+	in find_src_operand(float input_1), value = 4.4
+	in get_des_operand(float tmp116), value = 34.2119
+	des operand(float tmp116), value = 60.8212
+90: fmov area_1, tmp116
+	in get_des_operand(float area_1), value = 0
+	in find_src_operand(float tmp116), value = 60.8212
+	des operand(float area_1), value = 1114851571
+91: fdef area_trunc_1, 0.0
+	in get_des_operand(float area_trunc_1), value = 28.2743
+	in find_src_operand(floatLiteral 0.0)	des operand(float area_trunc_1), value = 0
+92: cvt_f2i tmp118, input_1
+	in get_des_operand(int tmp118), value = 3
+	in find_src_operand(float input_1), value = 4.4
+	des operand(int tmp118), value = 4
+93: call tmp117, circle_area(tmp118)
+	in get_des_operand(float tmp117), value = 28.2743
+	in find_src_operand(int tmp118), value = 4
+0: fdef tmp12, 03.141592653589793
+	in get_des_operand(float tmp12), new des (float tmp12), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp12), value = 1078530011
+1: cvt_i2f tmp14, radius_0
+	in get_des_operand(float tmp14), new des (float tmp14), value = 0
+	in find_src_operand(int radius_0), value = 4
+	des operand(float tmp14), value = 4
+2: fmul tmp15, tmp12, tmp14
+	in find_src_operand(float tmp12), value = 3.14159
+	in find_src_operand(float tmp14), value = 4
+	in get_des_operand(float tmp15), new des (float tmp15), value = 0
+	des operand(float tmp15), value = 12.5664
+3: cvt_i2f tmp17, radius_0
+	in get_des_operand(float tmp17), new des (float tmp17), value = 0
+	in find_src_operand(int radius_0), value = 4
+	des operand(float tmp17), value = 4
+4: fmul tmp18, tmp15, tmp17
+	in find_src_operand(float tmp15), value = 12.5664
+	in find_src_operand(float tmp17), value = 4
+	in get_des_operand(float tmp18), new des (float tmp18), value = 0
+	des operand(float tmp18), value = 50.2655
+5: mul tmp19, radius_0, radius_0
+	in find_src_operand(int radius_0), value = 4
+	in find_src_operand(int radius_0), value = 4
+	in get_des_operand(int tmp19), new des (int tmp19), value = 0
+	des operand(int tmp19), value = 16
+6: fdef tmp20, 03.141592653589793
+	in get_des_operand(float tmp20), new des (float tmp20), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp20), value = 1078530011
+7: cvt_i2f tmp22, tmp19
+	in get_des_operand(float tmp22), new des (float tmp22), value = 0
+	in find_src_operand(int tmp19), value = 16
+	des operand(float tmp22), value = 16
+8: fmul tmp23, tmp22, tmp20
+	in find_src_operand(float tmp22), value = 16
+	in find_src_operand(float tmp20), value = 3.14159
+	in get_des_operand(float tmp23), new des (float tmp23), value = 0
+	des operand(float tmp23), value = 50.2655
+9: fadd tmp24, tmp18, tmp23
+	in find_src_operand(float tmp18), value = 50.2655
+	in find_src_operand(float tmp23), value = 50.2655
+	in get_des_operand(float tmp24), new des (float tmp24), value = 0
+	des operand(float tmp24), value = 100.531
+10: def tmp25, 2
+	in get_des_operand(int tmp25), new des (int tmp25), value = 0
+	in find_src_operand(intLiteral 2)	eval_int: 2
+	des operand(int tmp25), value = 2
+11: cvt_i2f tmp27, tmp25
+	in get_des_operand(float tmp27), new des (float tmp27), value = 0
+	in find_src_operand(int tmp25), value = 2
+	des operand(float tmp27), value = 2
+12: fdiv tmp28, tmp24, tmp27
+	in find_src_operand(float tmp24), value = 100.531
+	in find_src_operand(float tmp27), value = 2
+	in get_des_operand(float tmp28), new des (float tmp28), value = 0
+	des operand(float tmp28), value = 50.2655
+13: return tmp28
+	in find_src_operand(float tmp28), value = 50.2655
+94: fmov area_trunc_1, tmp117
+	in get_des_operand(float area_trunc_1), value = 0
+	in find_src_operand(float tmp117), value = 50.2655
+	des operand(float area_trunc_1), value = 1112084443
+95: def tmp119, p_0
+	in get_des_operand(int tmp119), value = 2
+	in find_src_operand(int p_0), value = 3
+	des operand(int tmp119), value = 3
+96: def tmp121, p_0
+	in get_des_operand(int tmp121), value = 2
+	in find_src_operand(int p_0), value = 3
+	des operand(int tmp121), value = 3
+97: load tmp122, arr_0, tmp121
+	in find_src_operand(int tmp121), value = 3
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+	in get_des_operand(float tmp122), value = 0.3
+98: fadd tmp123, tmp122, input_1
+	in find_src_operand(float tmp122), value = 0.4
+	in find_src_operand(float input_1), value = 4.4
+	in get_des_operand(float tmp123), value = 3.6
+	des operand(float tmp123), value = 4.8
+99: store tmp123, arr_0, tmp119
+	in find_src_operand(int tmp119), value = 3
+	in find_src_operand(float tmp123), value = 4.8
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+100: call tmp124, putfloat(area_1)
+	in find_src_operand(float area_1), value = 60.8212
+101: call tmp125, putch(32)
+	in find_src_operand(intLiteral 32)	eval_int: 32
+102: cvt_f2i tmp127, area_trunc_1
+	in get_des_operand(int tmp127), value = 28
+	in find_src_operand(float area_trunc_1), value = 50.2655
+	des operand(int tmp127), value = 50
+103: call tmp126, putint(tmp127)
+	in find_src_operand(int tmp127), value = 50
+104: call tmp128, putch(10)
+	in find_src_operand(intLiteral 10)	eval_int: 10
+105: def tmp129, 10
+	in get_des_operand(int tmp129), value = 10
+	in find_src_operand(intLiteral 10)	eval_int: 10
+	des operand(int tmp129), value = 10
+106: mul tmp130, i_0, tmp129
+	in find_src_operand(int i_0), value = 1000
+	in find_src_operand(int tmp129), value = 10
+	in get_des_operand(int tmp130), value = 1000
+	des operand(int tmp130), value = 10000
+107: mov i_0, tmp130
+	in get_des_operand(int i_0), value = 1000
+	in find_src_operand(int tmp130), value = 10000
+	des operand(int i_0), value = 10000
+108: def tmp131, 1
+	in get_des_operand(int tmp131), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp131), value = 1
+109: add tmp132, p_0, tmp131
+	in find_src_operand(int p_0), value = 3
+	in find_src_operand(int tmp131), value = 1
+	in get_des_operand(int tmp132), value = 3
+	des operand(int tmp132), value = 4
+110: mov p_0, tmp132
+	in get_des_operand(int p_0), value = 3
+	in find_src_operand(int tmp132), value = 4
+	des operand(int p_0), value = 4
+111: goto [pc, -32]
+	in find_src_operand(intLiteral -32)	eval_int: -32
+	in goto: pc = 79
+79: def tmp109, 1000000000
+	in get_des_operand(int tmp109), value = 1000000000
+	in find_src_operand(intLiteral 1000000000)	eval_int: 1000000000
+	des operand(int tmp109), value = 1000000000
+80: lss tmp110, i_0, tmp109
+	in find_src_operand(int i_0), value = 10000
+	in find_src_operand(int tmp109), value = 1000000000
+	in get_des_operand(int tmp110), value = 1
+	des operand(int tmp110), value = 1
+81: not tmp112, tmp110
+	in get_des_operand(int tmp112), value = 0
+	in find_src_operand(int tmp110), value = 1
+	des operand(int tmp112), value = 0
+82: if tmp112 goto [pc, 30]
+	in find_src_operand(intLiteral 30)	eval_int: 30
+	in find_src_operand(int tmp112), value = 0
+	in goto: pc = 83
+83: fdef input_1, 0.0
+	in get_des_operand(float input_1), value = 4.4
+	in find_src_operand(floatLiteral 0.0)	des operand(float input_1), value = 0
+84: call tmp113, getfloat()
+	in get_des_operand(float tmp113), value = 4.4
+85: fmov input_1, tmp113
+	in get_des_operand(float input_1), value = 0
+	in find_src_operand(float tmp113), value = 5.5
+	des operand(float input_1), value = 1085276160
+86: fdef area_1, 0.0
+	in get_des_operand(float area_1), value = 60.8212
+	in find_src_operand(floatLiteral 0.0)	des operand(float area_1), value = 0
+87: fdef tmp114, 03.141592653589793
+	in get_des_operand(float tmp114), value = 3.14159
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp114), value = 1078530011
+88: fmul tmp115, tmp114, input_1
+	in find_src_operand(float tmp114), value = 3.14159
+	in find_src_operand(float input_1), value = 5.5
+	in get_des_operand(float tmp115), value = 13.823
+	des operand(float tmp115), value = 17.2788
+89: fmul tmp116, tmp115, input_1
+	in find_src_operand(float tmp115), value = 17.2788
+	in find_src_operand(float input_1), value = 5.5
+	in get_des_operand(float tmp116), value = 60.8212
+	des operand(float tmp116), value = 95.0332
+90: fmov area_1, tmp116
+	in get_des_operand(float area_1), value = 0
+	in find_src_operand(float tmp116), value = 95.0332
+	des operand(float area_1), value = 1119752446
+91: fdef area_trunc_1, 0.0
+	in get_des_operand(float area_trunc_1), value = 50.2655
+	in find_src_operand(floatLiteral 0.0)	des operand(float area_trunc_1), value = 0
+92: cvt_f2i tmp118, input_1
+	in get_des_operand(int tmp118), value = 4
+	in find_src_operand(float input_1), value = 5.5
+	des operand(int tmp118), value = 5
+93: call tmp117, circle_area(tmp118)
+	in get_des_operand(float tmp117), value = 50.2655
+	in find_src_operand(int tmp118), value = 5
+0: fdef tmp12, 03.141592653589793
+	in get_des_operand(float tmp12), new des (float tmp12), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp12), value = 1078530011
+1: cvt_i2f tmp14, radius_0
+	in get_des_operand(float tmp14), new des (float tmp14), value = 0
+	in find_src_operand(int radius_0), value = 5
+	des operand(float tmp14), value = 5
+2: fmul tmp15, tmp12, tmp14
+	in find_src_operand(float tmp12), value = 3.14159
+	in find_src_operand(float tmp14), value = 5
+	in get_des_operand(float tmp15), new des (float tmp15), value = 0
+	des operand(float tmp15), value = 15.708
+3: cvt_i2f tmp17, radius_0
+	in get_des_operand(float tmp17), new des (float tmp17), value = 0
+	in find_src_operand(int radius_0), value = 5
+	des operand(float tmp17), value = 5
+4: fmul tmp18, tmp15, tmp17
+	in find_src_operand(float tmp15), value = 15.708
+	in find_src_operand(float tmp17), value = 5
+	in get_des_operand(float tmp18), new des (float tmp18), value = 0
+	des operand(float tmp18), value = 78.5398
+5: mul tmp19, radius_0, radius_0
+	in find_src_operand(int radius_0), value = 5
+	in find_src_operand(int radius_0), value = 5
+	in get_des_operand(int tmp19), new des (int tmp19), value = 0
+	des operand(int tmp19), value = 25
+6: fdef tmp20, 03.141592653589793
+	in get_des_operand(float tmp20), new des (float tmp20), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp20), value = 1078530011
+7: cvt_i2f tmp22, tmp19
+	in get_des_operand(float tmp22), new des (float tmp22), value = 0
+	in find_src_operand(int tmp19), value = 25
+	des operand(float tmp22), value = 25
+8: fmul tmp23, tmp22, tmp20
+	in find_src_operand(float tmp22), value = 25
+	in find_src_operand(float tmp20), value = 3.14159
+	in get_des_operand(float tmp23), new des (float tmp23), value = 0
+	des operand(float tmp23), value = 78.5398
+9: fadd tmp24, tmp18, tmp23
+	in find_src_operand(float tmp18), value = 78.5398
+	in find_src_operand(float tmp23), value = 78.5398
+	in get_des_operand(float tmp24), new des (float tmp24), value = 0
+	des operand(float tmp24), value = 157.08
+10: def tmp25, 2
+	in get_des_operand(int tmp25), new des (int tmp25), value = 0
+	in find_src_operand(intLiteral 2)	eval_int: 2
+	des operand(int tmp25), value = 2
+11: cvt_i2f tmp27, tmp25
+	in get_des_operand(float tmp27), new des (float tmp27), value = 0
+	in find_src_operand(int tmp25), value = 2
+	des operand(float tmp27), value = 2
+12: fdiv tmp28, tmp24, tmp27
+	in find_src_operand(float tmp24), value = 157.08
+	in find_src_operand(float tmp27), value = 2
+	in get_des_operand(float tmp28), new des (float tmp28), value = 0
+	des operand(float tmp28), value = 78.5398
+13: return tmp28
+	in find_src_operand(float tmp28), value = 78.5398
+94: fmov area_trunc_1, tmp117
+	in get_des_operand(float area_trunc_1), value = 0
+	in find_src_operand(float tmp117), value = 78.5398
+	des operand(float area_trunc_1), value = 1117590627
+95: def tmp119, p_0
+	in get_des_operand(int tmp119), value = 3
+	in find_src_operand(int p_0), value = 4
+	des operand(int tmp119), value = 4
+96: def tmp121, p_0
+	in get_des_operand(int tmp121), value = 3
+	in find_src_operand(int p_0), value = 4
+	des operand(int tmp121), value = 4
+97: load tmp122, arr_0, tmp121
+	in find_src_operand(int tmp121), value = 4
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+	in get_des_operand(float tmp122), value = 0.4
+98: fadd tmp123, tmp122, input_1
+	in find_src_operand(float tmp122), value = 0.5
+	in find_src_operand(float input_1), value = 5.5
+	in get_des_operand(float tmp123), value = 4.8
+	des operand(float tmp123), value = 6
+99: store tmp123, arr_0, tmp119
+	in find_src_operand(int tmp119), value = 4
+	in find_src_operand(float tmp123), value = 6
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+100: call tmp124, putfloat(area_1)
+	in find_src_operand(float area_1), value = 95.0332
+101: call tmp125, putch(32)
+	in find_src_operand(intLiteral 32)	eval_int: 32
+102: cvt_f2i tmp127, area_trunc_1
+	in get_des_operand(int tmp127), value = 50
+	in find_src_operand(float area_trunc_1), value = 78.5398
+	des operand(int tmp127), value = 78
+103: call tmp126, putint(tmp127)
+	in find_src_operand(int tmp127), value = 78
+104: call tmp128, putch(10)
+	in find_src_operand(intLiteral 10)	eval_int: 10
+105: def tmp129, 10
+	in get_des_operand(int tmp129), value = 10
+	in find_src_operand(intLiteral 10)	eval_int: 10
+	des operand(int tmp129), value = 10
+106: mul tmp130, i_0, tmp129
+	in find_src_operand(int i_0), value = 10000
+	in find_src_operand(int tmp129), value = 10
+	in get_des_operand(int tmp130), value = 10000
+	des operand(int tmp130), value = 100000
+107: mov i_0, tmp130
+	in get_des_operand(int i_0), value = 10000
+	in find_src_operand(int tmp130), value = 100000
+	des operand(int i_0), value = 100000
+108: def tmp131, 1
+	in get_des_operand(int tmp131), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp131), value = 1
+109: add tmp132, p_0, tmp131
+	in find_src_operand(int p_0), value = 4
+	in find_src_operand(int tmp131), value = 1
+	in get_des_operand(int tmp132), value = 4
+	des operand(int tmp132), value = 5
+110: mov p_0, tmp132
+	in get_des_operand(int p_0), value = 4
+	in find_src_operand(int tmp132), value = 5
+	des operand(int p_0), value = 5
+111: goto [pc, -32]
+	in find_src_operand(intLiteral -32)	eval_int: -32
+	in goto: pc = 79
+79: def tmp109, 1000000000
+	in get_des_operand(int tmp109), value = 1000000000
+	in find_src_operand(intLiteral 1000000000)	eval_int: 1000000000
+	des operand(int tmp109), value = 1000000000
+80: lss tmp110, i_0, tmp109
+	in find_src_operand(int i_0), value = 100000
+	in find_src_operand(int tmp109), value = 1000000000
+	in get_des_operand(int tmp110), value = 1
+	des operand(int tmp110), value = 1
+81: not tmp112, tmp110
+	in get_des_operand(int tmp112), value = 0
+	in find_src_operand(int tmp110), value = 1
+	des operand(int tmp112), value = 0
+82: if tmp112 goto [pc, 30]
+	in find_src_operand(intLiteral 30)	eval_int: 30
+	in find_src_operand(int tmp112), value = 0
+	in goto: pc = 83
+83: fdef input_1, 0.0
+	in get_des_operand(float input_1), value = 5.5
+	in find_src_operand(floatLiteral 0.0)	des operand(float input_1), value = 0
+84: call tmp113, getfloat()
+	in get_des_operand(float tmp113), value = 5.5
+85: fmov input_1, tmp113
+	in get_des_operand(float input_1), value = 0
+	in find_src_operand(float tmp113), value = 6.6
+	des operand(float input_1), value = 1087583027
+86: fdef area_1, 0.0
+	in get_des_operand(float area_1), value = 95.0332
+	in find_src_operand(floatLiteral 0.0)	des operand(float area_1), value = 0
+87: fdef tmp114, 03.141592653589793
+	in get_des_operand(float tmp114), value = 3.14159
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp114), value = 1078530011
+88: fmul tmp115, tmp114, input_1
+	in find_src_operand(float tmp114), value = 3.14159
+	in find_src_operand(float input_1), value = 6.6
+	in get_des_operand(float tmp115), value = 17.2788
+	des operand(float tmp115), value = 20.7345
+89: fmul tmp116, tmp115, input_1
+	in find_src_operand(float tmp115), value = 20.7345
+	in find_src_operand(float input_1), value = 6.6
+	in get_des_operand(float tmp116), value = 95.0332
+	des operand(float tmp116), value = 136.848
+90: fmov area_1, tmp116
+	in get_des_operand(float area_1), value = 0
+	in find_src_operand(float tmp116), value = 136.848
+	des operand(float area_1), value = 1124653320
+91: fdef area_trunc_1, 0.0
+	in get_des_operand(float area_trunc_1), value = 78.5398
+	in find_src_operand(floatLiteral 0.0)	des operand(float area_trunc_1), value = 0
+92: cvt_f2i tmp118, input_1
+	in get_des_operand(int tmp118), value = 5
+	in find_src_operand(float input_1), value = 6.6
+	des operand(int tmp118), value = 6
+93: call tmp117, circle_area(tmp118)
+	in get_des_operand(float tmp117), value = 78.5398
+	in find_src_operand(int tmp118), value = 6
+0: fdef tmp12, 03.141592653589793
+	in get_des_operand(float tmp12), new des (float tmp12), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp12), value = 1078530011
+1: cvt_i2f tmp14, radius_0
+	in get_des_operand(float tmp14), new des (float tmp14), value = 0
+	in find_src_operand(int radius_0), value = 6
+	des operand(float tmp14), value = 6
+2: fmul tmp15, tmp12, tmp14
+	in find_src_operand(float tmp12), value = 3.14159
+	in find_src_operand(float tmp14), value = 6
+	in get_des_operand(float tmp15), new des (float tmp15), value = 0
+	des operand(float tmp15), value = 18.8496
+3: cvt_i2f tmp17, radius_0
+	in get_des_operand(float tmp17), new des (float tmp17), value = 0
+	in find_src_operand(int radius_0), value = 6
+	des operand(float tmp17), value = 6
+4: fmul tmp18, tmp15, tmp17
+	in find_src_operand(float tmp15), value = 18.8496
+	in find_src_operand(float tmp17), value = 6
+	in get_des_operand(float tmp18), new des (float tmp18), value = 0
+	des operand(float tmp18), value = 113.097
+5: mul tmp19, radius_0, radius_0
+	in find_src_operand(int radius_0), value = 6
+	in find_src_operand(int radius_0), value = 6
+	in get_des_operand(int tmp19), new des (int tmp19), value = 0
+	des operand(int tmp19), value = 36
+6: fdef tmp20, 03.141592653589793
+	in get_des_operand(float tmp20), new des (float tmp20), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp20), value = 1078530011
+7: cvt_i2f tmp22, tmp19
+	in get_des_operand(float tmp22), new des (float tmp22), value = 0
+	in find_src_operand(int tmp19), value = 36
+	des operand(float tmp22), value = 36
+8: fmul tmp23, tmp22, tmp20
+	in find_src_operand(float tmp22), value = 36
+	in find_src_operand(float tmp20), value = 3.14159
+	in get_des_operand(float tmp23), new des (float tmp23), value = 0
+	des operand(float tmp23), value = 113.097
+9: fadd tmp24, tmp18, tmp23
+	in find_src_operand(float tmp18), value = 113.097
+	in find_src_operand(float tmp23), value = 113.097
+	in get_des_operand(float tmp24), new des (float tmp24), value = 0
+	des operand(float tmp24), value = 226.195
+10: def tmp25, 2
+	in get_des_operand(int tmp25), new des (int tmp25), value = 0
+	in find_src_operand(intLiteral 2)	eval_int: 2
+	des operand(int tmp25), value = 2
+11: cvt_i2f tmp27, tmp25
+	in get_des_operand(float tmp27), new des (float tmp27), value = 0
+	in find_src_operand(int tmp25), value = 2
+	des operand(float tmp27), value = 2
+12: fdiv tmp28, tmp24, tmp27
+	in find_src_operand(float tmp24), value = 226.195
+	in find_src_operand(float tmp27), value = 2
+	in get_des_operand(float tmp28), new des (float tmp28), value = 0
+	des operand(float tmp28), value = 113.097
+13: return tmp28
+	in find_src_operand(float tmp28), value = 113.097
+94: fmov area_trunc_1, tmp117
+	in get_des_operand(float area_trunc_1), value = 0
+	in find_src_operand(float tmp117), value = 113.097
+	des operand(float area_trunc_1), value = 1122120150
+95: def tmp119, p_0
+	in get_des_operand(int tmp119), value = 4
+	in find_src_operand(int p_0), value = 5
+	des operand(int tmp119), value = 5
+96: def tmp121, p_0
+	in get_des_operand(int tmp121), value = 4
+	in find_src_operand(int p_0), value = 5
+	des operand(int tmp121), value = 5
+97: load tmp122, arr_0, tmp121
+	in find_src_operand(int tmp121), value = 5
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+	in get_des_operand(float tmp122), value = 0.5
+98: fadd tmp123, tmp122, input_1
+	in find_src_operand(float tmp122), value = 0.6
+	in find_src_operand(float input_1), value = 6.6
+	in get_des_operand(float tmp123), value = 6
+	des operand(float tmp123), value = 7.2
+99: store tmp123, arr_0, tmp119
+	in find_src_operand(int tmp119), value = 5
+	in find_src_operand(float tmp123), value = 7.2
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+100: call tmp124, putfloat(area_1)
+	in find_src_operand(float area_1), value = 136.848
+101: call tmp125, putch(32)
+	in find_src_operand(intLiteral 32)	eval_int: 32
+102: cvt_f2i tmp127, area_trunc_1
+	in get_des_operand(int tmp127), value = 78
+	in find_src_operand(float area_trunc_1), value = 113.097
+	des operand(int tmp127), value = 113
+103: call tmp126, putint(tmp127)
+	in find_src_operand(int tmp127), value = 113
+104: call tmp128, putch(10)
+	in find_src_operand(intLiteral 10)	eval_int: 10
+105: def tmp129, 10
+	in get_des_operand(int tmp129), value = 10
+	in find_src_operand(intLiteral 10)	eval_int: 10
+	des operand(int tmp129), value = 10
+106: mul tmp130, i_0, tmp129
+	in find_src_operand(int i_0), value = 100000
+	in find_src_operand(int tmp129), value = 10
+	in get_des_operand(int tmp130), value = 100000
+	des operand(int tmp130), value = 1000000
+107: mov i_0, tmp130
+	in get_des_operand(int i_0), value = 100000
+	in find_src_operand(int tmp130), value = 1000000
+	des operand(int i_0), value = 1000000
+108: def tmp131, 1
+	in get_des_operand(int tmp131), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp131), value = 1
+109: add tmp132, p_0, tmp131
+	in find_src_operand(int p_0), value = 5
+	in find_src_operand(int tmp131), value = 1
+	in get_des_operand(int tmp132), value = 5
+	des operand(int tmp132), value = 6
+110: mov p_0, tmp132
+	in get_des_operand(int p_0), value = 5
+	in find_src_operand(int tmp132), value = 6
+	des operand(int p_0), value = 6
+111: goto [pc, -32]
+	in find_src_operand(intLiteral -32)	eval_int: -32
+	in goto: pc = 79
+79: def tmp109, 1000000000
+	in get_des_operand(int tmp109), value = 1000000000
+	in find_src_operand(intLiteral 1000000000)	eval_int: 1000000000
+	des operand(int tmp109), value = 1000000000
+80: lss tmp110, i_0, tmp109
+	in find_src_operand(int i_0), value = 1000000
+	in find_src_operand(int tmp109), value = 1000000000
+	in get_des_operand(int tmp110), value = 1
+	des operand(int tmp110), value = 1
+81: not tmp112, tmp110
+	in get_des_operand(int tmp112), value = 0
+	in find_src_operand(int tmp110), value = 1
+	des operand(int tmp112), value = 0
+82: if tmp112 goto [pc, 30]
+	in find_src_operand(intLiteral 30)	eval_int: 30
+	in find_src_operand(int tmp112), value = 0
+	in goto: pc = 83
+83: fdef input_1, 0.0
+	in get_des_operand(float input_1), value = 6.6
+	in find_src_operand(floatLiteral 0.0)	des operand(float input_1), value = 0
+84: call tmp113, getfloat()
+	in get_des_operand(float tmp113), value = 6.6
+85: fmov input_1, tmp113
+	in get_des_operand(float input_1), value = 0
+	in find_src_operand(float tmp113), value = 7.7
+	des operand(float input_1), value = 1089889894
+86: fdef area_1, 0.0
+	in get_des_operand(float area_1), value = 136.848
+	in find_src_operand(floatLiteral 0.0)	des operand(float area_1), value = 0
+87: fdef tmp114, 03.141592653589793
+	in get_des_operand(float tmp114), value = 3.14159
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp114), value = 1078530011
+88: fmul tmp115, tmp114, input_1
+	in find_src_operand(float tmp114), value = 3.14159
+	in find_src_operand(float input_1), value = 7.7
+	in get_des_operand(float tmp115), value = 20.7345
+	des operand(float tmp115), value = 24.1903
+89: fmul tmp116, tmp115, input_1
+	in find_src_operand(float tmp115), value = 24.1903
+	in find_src_operand(float input_1), value = 7.7
+	in get_des_operand(float tmp116), value = 136.848
+	des operand(float tmp116), value = 186.265
+90: fmov area_1, tmp116
+	in get_des_operand(float area_1), value = 0
+	in find_src_operand(float tmp116), value = 186.265
+	des operand(float area_1), value = 1127891929
+91: fdef area_trunc_1, 0.0
+	in get_des_operand(float area_trunc_1), value = 113.097
+	in find_src_operand(floatLiteral 0.0)	des operand(float area_trunc_1), value = 0
+92: cvt_f2i tmp118, input_1
+	in get_des_operand(int tmp118), value = 6
+	in find_src_operand(float input_1), value = 7.7
+	des operand(int tmp118), value = 7
+93: call tmp117, circle_area(tmp118)
+	in get_des_operand(float tmp117), value = 113.097
+	in find_src_operand(int tmp118), value = 7
+0: fdef tmp12, 03.141592653589793
+	in get_des_operand(float tmp12), new des (float tmp12), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp12), value = 1078530011
+1: cvt_i2f tmp14, radius_0
+	in get_des_operand(float tmp14), new des (float tmp14), value = 0
+	in find_src_operand(int radius_0), value = 7
+	des operand(float tmp14), value = 7
+2: fmul tmp15, tmp12, tmp14
+	in find_src_operand(float tmp12), value = 3.14159
+	in find_src_operand(float tmp14), value = 7
+	in get_des_operand(float tmp15), new des (float tmp15), value = 0
+	des operand(float tmp15), value = 21.9911
+3: cvt_i2f tmp17, radius_0
+	in get_des_operand(float tmp17), new des (float tmp17), value = 0
+	in find_src_operand(int radius_0), value = 7
+	des operand(float tmp17), value = 7
+4: fmul tmp18, tmp15, tmp17
+	in find_src_operand(float tmp15), value = 21.9911
+	in find_src_operand(float tmp17), value = 7
+	in get_des_operand(float tmp18), new des (float tmp18), value = 0
+	des operand(float tmp18), value = 153.938
+5: mul tmp19, radius_0, radius_0
+	in find_src_operand(int radius_0), value = 7
+	in find_src_operand(int radius_0), value = 7
+	in get_des_operand(int tmp19), new des (int tmp19), value = 0
+	des operand(int tmp19), value = 49
+6: fdef tmp20, 03.141592653589793
+	in get_des_operand(float tmp20), new des (float tmp20), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp20), value = 1078530011
+7: cvt_i2f tmp22, tmp19
+	in get_des_operand(float tmp22), new des (float tmp22), value = 0
+	in find_src_operand(int tmp19), value = 49
+	des operand(float tmp22), value = 49
+8: fmul tmp23, tmp22, tmp20
+	in find_src_operand(float tmp22), value = 49
+	in find_src_operand(float tmp20), value = 3.14159
+	in get_des_operand(float tmp23), new des (float tmp23), value = 0
+	des operand(float tmp23), value = 153.938
+9: fadd tmp24, tmp18, tmp23
+	in find_src_operand(float tmp18), value = 153.938
+	in find_src_operand(float tmp23), value = 153.938
+	in get_des_operand(float tmp24), new des (float tmp24), value = 0
+	des operand(float tmp24), value = 307.876
+10: def tmp25, 2
+	in get_des_operand(int tmp25), new des (int tmp25), value = 0
+	in find_src_operand(intLiteral 2)	eval_int: 2
+	des operand(int tmp25), value = 2
+11: cvt_i2f tmp27, tmp25
+	in get_des_operand(float tmp27), new des (float tmp27), value = 0
+	in find_src_operand(int tmp25), value = 2
+	des operand(float tmp27), value = 2
+12: fdiv tmp28, tmp24, tmp27
+	in find_src_operand(float tmp24), value = 307.876
+	in find_src_operand(float tmp27), value = 2
+	in get_des_operand(float tmp28), new des (float tmp28), value = 0
+	des operand(float tmp28), value = 153.938
+13: return tmp28
+	in find_src_operand(float tmp28), value = 153.938
+94: fmov area_trunc_1, tmp117
+	in get_des_operand(float area_trunc_1), value = 0
+	in find_src_operand(float tmp117), value = 153.938
+	des operand(float area_trunc_1), value = 1125773348
+95: def tmp119, p_0
+	in get_des_operand(int tmp119), value = 5
+	in find_src_operand(int p_0), value = 6
+	des operand(int tmp119), value = 6
+96: def tmp121, p_0
+	in get_des_operand(int tmp121), value = 5
+	in find_src_operand(int p_0), value = 6
+	des operand(int tmp121), value = 6
+97: load tmp122, arr_0, tmp121
+	in find_src_operand(int tmp121), value = 6
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+	in get_des_operand(float tmp122), value = 0.6
+98: fadd tmp123, tmp122, input_1
+	in find_src_operand(float tmp122), value = 0.7
+	in find_src_operand(float input_1), value = 7.7
+	in get_des_operand(float tmp123), value = 7.2
+	des operand(float tmp123), value = 8.4
+99: store tmp123, arr_0, tmp119
+	in find_src_operand(int tmp119), value = 6
+	in find_src_operand(float tmp123), value = 8.4
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+100: call tmp124, putfloat(area_1)
+	in find_src_operand(float area_1), value = 186.265
+101: call tmp125, putch(32)
+	in find_src_operand(intLiteral 32)	eval_int: 32
+102: cvt_f2i tmp127, area_trunc_1
+	in get_des_operand(int tmp127), value = 113
+	in find_src_operand(float area_trunc_1), value = 153.938
+	des operand(int tmp127), value = 153
+103: call tmp126, putint(tmp127)
+	in find_src_operand(int tmp127), value = 153
+104: call tmp128, putch(10)
+	in find_src_operand(intLiteral 10)	eval_int: 10
+105: def tmp129, 10
+	in get_des_operand(int tmp129), value = 10
+	in find_src_operand(intLiteral 10)	eval_int: 10
+	des operand(int tmp129), value = 10
+106: mul tmp130, i_0, tmp129
+	in find_src_operand(int i_0), value = 1000000
+	in find_src_operand(int tmp129), value = 10
+	in get_des_operand(int tmp130), value = 1000000
+	des operand(int tmp130), value = 10000000
+107: mov i_0, tmp130
+	in get_des_operand(int i_0), value = 1000000
+	in find_src_operand(int tmp130), value = 10000000
+	des operand(int i_0), value = 10000000
+108: def tmp131, 1
+	in get_des_operand(int tmp131), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp131), value = 1
+109: add tmp132, p_0, tmp131
+	in find_src_operand(int p_0), value = 6
+	in find_src_operand(int tmp131), value = 1
+	in get_des_operand(int tmp132), value = 6
+	des operand(int tmp132), value = 7
+110: mov p_0, tmp132
+	in get_des_operand(int p_0), value = 6
+	in find_src_operand(int tmp132), value = 7
+	des operand(int p_0), value = 7
+111: goto [pc, -32]
+	in find_src_operand(intLiteral -32)	eval_int: -32
+	in goto: pc = 79
+79: def tmp109, 1000000000
+	in get_des_operand(int tmp109), value = 1000000000
+	in find_src_operand(intLiteral 1000000000)	eval_int: 1000000000
+	des operand(int tmp109), value = 1000000000
+80: lss tmp110, i_0, tmp109
+	in find_src_operand(int i_0), value = 10000000
+	in find_src_operand(int tmp109), value = 1000000000
+	in get_des_operand(int tmp110), value = 1
+	des operand(int tmp110), value = 1
+81: not tmp112, tmp110
+	in get_des_operand(int tmp112), value = 0
+	in find_src_operand(int tmp110), value = 1
+	des operand(int tmp112), value = 0
+82: if tmp112 goto [pc, 30]
+	in find_src_operand(intLiteral 30)	eval_int: 30
+	in find_src_operand(int tmp112), value = 0
+	in goto: pc = 83
+83: fdef input_1, 0.0
+	in get_des_operand(float input_1), value = 7.7
+	in find_src_operand(floatLiteral 0.0)	des operand(float input_1), value = 0
+84: call tmp113, getfloat()
+	in get_des_operand(float tmp113), value = 7.7
+85: fmov input_1, tmp113
+	in get_des_operand(float input_1), value = 0
+	in find_src_operand(float tmp113), value = 8.8
+	des operand(float input_1), value = 1091357901
+86: fdef area_1, 0.0
+	in get_des_operand(float area_1), value = 186.265
+	in find_src_operand(floatLiteral 0.0)	des operand(float area_1), value = 0
+87: fdef tmp114, 03.141592653589793
+	in get_des_operand(float tmp114), value = 3.14159
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp114), value = 1078530011
+88: fmul tmp115, tmp114, input_1
+	in find_src_operand(float tmp114), value = 3.14159
+	in find_src_operand(float input_1), value = 8.8
+	in get_des_operand(float tmp115), value = 24.1903
+	des operand(float tmp115), value = 27.646
+89: fmul tmp116, tmp115, input_1
+	in find_src_operand(float tmp115), value = 27.646
+	in find_src_operand(float input_1), value = 8.8
+	in get_des_operand(float tmp116), value = 186.265
+	des operand(float tmp116), value = 243.285
+90: fmov area_1, tmp116
+	in get_des_operand(float area_1), value = 0
+	in find_src_operand(float tmp116), value = 243.285
+	des operand(float area_1), value = 1131628787
+91: fdef area_trunc_1, 0.0
+	in get_des_operand(float area_trunc_1), value = 153.938
+	in find_src_operand(floatLiteral 0.0)	des operand(float area_trunc_1), value = 0
+92: cvt_f2i tmp118, input_1
+	in get_des_operand(int tmp118), value = 7
+	in find_src_operand(float input_1), value = 8.8
+	des operand(int tmp118), value = 8
+93: call tmp117, circle_area(tmp118)
+	in get_des_operand(float tmp117), value = 153.938
+	in find_src_operand(int tmp118), value = 8
+0: fdef tmp12, 03.141592653589793
+	in get_des_operand(float tmp12), new des (float tmp12), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp12), value = 1078530011
+1: cvt_i2f tmp14, radius_0
+	in get_des_operand(float tmp14), new des (float tmp14), value = 0
+	in find_src_operand(int radius_0), value = 8
+	des operand(float tmp14), value = 8
+2: fmul tmp15, tmp12, tmp14
+	in find_src_operand(float tmp12), value = 3.14159
+	in find_src_operand(float tmp14), value = 8
+	in get_des_operand(float tmp15), new des (float tmp15), value = 0
+	des operand(float tmp15), value = 25.1327
+3: cvt_i2f tmp17, radius_0
+	in get_des_operand(float tmp17), new des (float tmp17), value = 0
+	in find_src_operand(int radius_0), value = 8
+	des operand(float tmp17), value = 8
+4: fmul tmp18, tmp15, tmp17
+	in find_src_operand(float tmp15), value = 25.1327
+	in find_src_operand(float tmp17), value = 8
+	in get_des_operand(float tmp18), new des (float tmp18), value = 0
+	des operand(float tmp18), value = 201.062
+5: mul tmp19, radius_0, radius_0
+	in find_src_operand(int radius_0), value = 8
+	in find_src_operand(int radius_0), value = 8
+	in get_des_operand(int tmp19), new des (int tmp19), value = 0
+	des operand(int tmp19), value = 64
+6: fdef tmp20, 03.141592653589793
+	in get_des_operand(float tmp20), new des (float tmp20), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp20), value = 1078530011
+7: cvt_i2f tmp22, tmp19
+	in get_des_operand(float tmp22), new des (float tmp22), value = 0
+	in find_src_operand(int tmp19), value = 64
+	des operand(float tmp22), value = 64
+8: fmul tmp23, tmp22, tmp20
+	in find_src_operand(float tmp22), value = 64
+	in find_src_operand(float tmp20), value = 3.14159
+	in get_des_operand(float tmp23), new des (float tmp23), value = 0
+	des operand(float tmp23), value = 201.062
+9: fadd tmp24, tmp18, tmp23
+	in find_src_operand(float tmp18), value = 201.062
+	in find_src_operand(float tmp23), value = 201.062
+	in get_des_operand(float tmp24), new des (float tmp24), value = 0
+	des operand(float tmp24), value = 402.124
+10: def tmp25, 2
+	in get_des_operand(int tmp25), new des (int tmp25), value = 0
+	in find_src_operand(intLiteral 2)	eval_int: 2
+	des operand(int tmp25), value = 2
+11: cvt_i2f tmp27, tmp25
+	in get_des_operand(float tmp27), new des (float tmp27), value = 0
+	in find_src_operand(int tmp25), value = 2
+	des operand(float tmp27), value = 2
+12: fdiv tmp28, tmp24, tmp27
+	in find_src_operand(float tmp24), value = 402.124
+	in find_src_operand(float tmp27), value = 2
+	in get_des_operand(float tmp28), new des (float tmp28), value = 0
+	des operand(float tmp28), value = 201.062
+13: return tmp28
+	in find_src_operand(float tmp28), value = 201.062
+94: fmov area_trunc_1, tmp117
+	in get_des_operand(float area_trunc_1), value = 0
+	in find_src_operand(float tmp117), value = 201.062
+	des operand(float area_trunc_1), value = 1128861659
+95: def tmp119, p_0
+	in get_des_operand(int tmp119), value = 6
+	in find_src_operand(int p_0), value = 7
+	des operand(int tmp119), value = 7
+96: def tmp121, p_0
+	in get_des_operand(int tmp121), value = 6
+	in find_src_operand(int p_0), value = 7
+	des operand(int tmp121), value = 7
+97: load tmp122, arr_0, tmp121
+	in find_src_operand(int tmp121), value = 7
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+	in get_des_operand(float tmp122), value = 0.7
+98: fadd tmp123, tmp122, input_1
+	in find_src_operand(float tmp122), value = 0.8
+	in find_src_operand(float input_1), value = 8.8
+	in get_des_operand(float tmp123), value = 8.4
+	des operand(float tmp123), value = 9.6
+99: store tmp123, arr_0, tmp119
+	in find_src_operand(int tmp119), value = 7
+	in find_src_operand(float tmp123), value = 9.6
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+100: call tmp124, putfloat(area_1)
+	in find_src_operand(float area_1), value = 243.285
+101: call tmp125, putch(32)
+	in find_src_operand(intLiteral 32)	eval_int: 32
+102: cvt_f2i tmp127, area_trunc_1
+	in get_des_operand(int tmp127), value = 153
+	in find_src_operand(float area_trunc_1), value = 201.062
+	des operand(int tmp127), value = 201
+103: call tmp126, putint(tmp127)
+	in find_src_operand(int tmp127), value = 201
+104: call tmp128, putch(10)
+	in find_src_operand(intLiteral 10)	eval_int: 10
+105: def tmp129, 10
+	in get_des_operand(int tmp129), value = 10
+	in find_src_operand(intLiteral 10)	eval_int: 10
+	des operand(int tmp129), value = 10
+106: mul tmp130, i_0, tmp129
+	in find_src_operand(int i_0), value = 10000000
+	in find_src_operand(int tmp129), value = 10
+	in get_des_operand(int tmp130), value = 10000000
+	des operand(int tmp130), value = 100000000
+107: mov i_0, tmp130
+	in get_des_operand(int i_0), value = 10000000
+	in find_src_operand(int tmp130), value = 100000000
+	des operand(int i_0), value = 100000000
+108: def tmp131, 1
+	in get_des_operand(int tmp131), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp131), value = 1
+109: add tmp132, p_0, tmp131
+	in find_src_operand(int p_0), value = 7
+	in find_src_operand(int tmp131), value = 1
+	in get_des_operand(int tmp132), value = 7
+	des operand(int tmp132), value = 8
+110: mov p_0, tmp132
+	in get_des_operand(int p_0), value = 7
+	in find_src_operand(int tmp132), value = 8
+	des operand(int p_0), value = 8
+111: goto [pc, -32]
+	in find_src_operand(intLiteral -32)	eval_int: -32
+	in goto: pc = 79
+79: def tmp109, 1000000000
+	in get_des_operand(int tmp109), value = 1000000000
+	in find_src_operand(intLiteral 1000000000)	eval_int: 1000000000
+	des operand(int tmp109), value = 1000000000
+80: lss tmp110, i_0, tmp109
+	in find_src_operand(int i_0), value = 100000000
+	in find_src_operand(int tmp109), value = 1000000000
+	in get_des_operand(int tmp110), value = 1
+	des operand(int tmp110), value = 1
+81: not tmp112, tmp110
+	in get_des_operand(int tmp112), value = 0
+	in find_src_operand(int tmp110), value = 1
+	des operand(int tmp112), value = 0
+82: if tmp112 goto [pc, 30]
+	in find_src_operand(intLiteral 30)	eval_int: 30
+	in find_src_operand(int tmp112), value = 0
+	in goto: pc = 83
+83: fdef input_1, 0.0
+	in get_des_operand(float input_1), value = 8.8
+	in find_src_operand(floatLiteral 0.0)	des operand(float input_1), value = 0
+84: call tmp113, getfloat()
+	in get_des_operand(float tmp113), value = 8.8
+85: fmov input_1, tmp113
+	in get_des_operand(float input_1), value = 0
+	in find_src_operand(float tmp113), value = 9.9
+	des operand(float input_1), value = 1092511334
+86: fdef area_1, 0.0
+	in get_des_operand(float area_1), value = 243.285
+	in find_src_operand(floatLiteral 0.0)	des operand(float area_1), value = 0
+87: fdef tmp114, 03.141592653589793
+	in get_des_operand(float tmp114), value = 3.14159
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp114), value = 1078530011
+88: fmul tmp115, tmp114, input_1
+	in find_src_operand(float tmp114), value = 3.14159
+	in find_src_operand(float input_1), value = 9.9
+	in get_des_operand(float tmp115), value = 27.646
+	des operand(float tmp115), value = 31.1018
+89: fmul tmp116, tmp115, input_1
+	in find_src_operand(float tmp115), value = 31.1018
+	in find_src_operand(float input_1), value = 9.9
+	in get_des_operand(float tmp116), value = 243.285
+	des operand(float tmp116), value = 307.907
+90: fmov area_1, tmp116
+	in get_des_operand(float area_1), value = 0
+	in find_src_operand(float tmp116), value = 307.907
+	des operand(float area_1), value = 1134162984
+91: fdef area_trunc_1, 0.0
+	in get_des_operand(float area_trunc_1), value = 201.062
+	in find_src_operand(floatLiteral 0.0)	des operand(float area_trunc_1), value = 0
+92: cvt_f2i tmp118, input_1
+	in get_des_operand(int tmp118), value = 8
+	in find_src_operand(float input_1), value = 9.9
+	des operand(int tmp118), value = 9
+93: call tmp117, circle_area(tmp118)
+	in get_des_operand(float tmp117), value = 201.062
+	in find_src_operand(int tmp118), value = 9
+0: fdef tmp12, 03.141592653589793
+	in get_des_operand(float tmp12), new des (float tmp12), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp12), value = 1078530011
+1: cvt_i2f tmp14, radius_0
+	in get_des_operand(float tmp14), new des (float tmp14), value = 0
+	in find_src_operand(int radius_0), value = 9
+	des operand(float tmp14), value = 9
+2: fmul tmp15, tmp12, tmp14
+	in find_src_operand(float tmp12), value = 3.14159
+	in find_src_operand(float tmp14), value = 9
+	in get_des_operand(float tmp15), new des (float tmp15), value = 0
+	des operand(float tmp15), value = 28.2743
+3: cvt_i2f tmp17, radius_0
+	in get_des_operand(float tmp17), new des (float tmp17), value = 0
+	in find_src_operand(int radius_0), value = 9
+	des operand(float tmp17), value = 9
+4: fmul tmp18, tmp15, tmp17
+	in find_src_operand(float tmp15), value = 28.2743
+	in find_src_operand(float tmp17), value = 9
+	in get_des_operand(float tmp18), new des (float tmp18), value = 0
+	des operand(float tmp18), value = 254.469
+5: mul tmp19, radius_0, radius_0
+	in find_src_operand(int radius_0), value = 9
+	in find_src_operand(int radius_0), value = 9
+	in get_des_operand(int tmp19), new des (int tmp19), value = 0
+	des operand(int tmp19), value = 81
+6: fdef tmp20, 03.141592653589793
+	in get_des_operand(float tmp20), new des (float tmp20), value = 0
+	in find_src_operand(floatLiteral 03.141592653589793)	des operand(float tmp20), value = 1078530011
+7: cvt_i2f tmp22, tmp19
+	in get_des_operand(float tmp22), new des (float tmp22), value = 0
+	in find_src_operand(int tmp19), value = 81
+	des operand(float tmp22), value = 81
+8: fmul tmp23, tmp22, tmp20
+	in find_src_operand(float tmp22), value = 81
+	in find_src_operand(float tmp20), value = 3.14159
+	in get_des_operand(float tmp23), new des (float tmp23), value = 0
+	des operand(float tmp23), value = 254.469
+9: fadd tmp24, tmp18, tmp23
+	in find_src_operand(float tmp18), value = 254.469
+	in find_src_operand(float tmp23), value = 254.469
+	in get_des_operand(float tmp24), new des (float tmp24), value = 0
+	des operand(float tmp24), value = 508.938
+10: def tmp25, 2
+	in get_des_operand(int tmp25), new des (int tmp25), value = 0
+	in find_src_operand(intLiteral 2)	eval_int: 2
+	des operand(int tmp25), value = 2
+11: cvt_i2f tmp27, tmp25
+	in get_des_operand(float tmp27), new des (float tmp27), value = 0
+	in find_src_operand(int tmp25), value = 2
+	des operand(float tmp27), value = 2
+12: fdiv tmp28, tmp24, tmp27
+	in find_src_operand(float tmp24), value = 508.938
+	in find_src_operand(float tmp27), value = 2
+	in get_des_operand(float tmp28), new des (float tmp28), value = 0
+	des operand(float tmp28), value = 254.469
+13: return tmp28
+	in find_src_operand(float tmp28), value = 254.469
+94: fmov area_trunc_1, tmp117
+	in get_des_operand(float area_trunc_1), value = 0
+	in find_src_operand(float tmp117), value = 254.469
+	des operand(float area_trunc_1), value = 1132361745
+95: def tmp119, p_0
+	in get_des_operand(int tmp119), value = 7
+	in find_src_operand(int p_0), value = 8
+	des operand(int tmp119), value = 8
+96: def tmp121, p_0
+	in get_des_operand(int tmp121), value = 7
+	in find_src_operand(int p_0), value = 8
+	des operand(int tmp121), value = 8
+97: load tmp122, arr_0, tmp121
+	in find_src_operand(int tmp121), value = 8
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+	in get_des_operand(float tmp122), value = 0.8
+98: fadd tmp123, tmp122, input_1
+	in find_src_operand(float tmp122), value = 0.9
+	in find_src_operand(float input_1), value = 9.9
+	in get_des_operand(float tmp123), value = 9.6
+	des operand(float tmp123), value = 10.8
+99: store tmp123, arr_0, tmp119
+	in find_src_operand(int tmp119), value = 8
+	in find_src_operand(float tmp123), value = 10.8
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+100: call tmp124, putfloat(area_1)
+	in find_src_operand(float area_1), value = 307.907
+101: call tmp125, putch(32)
+	in find_src_operand(intLiteral 32)	eval_int: 32
+102: cvt_f2i tmp127, area_trunc_1
+	in get_des_operand(int tmp127), value = 201
+	in find_src_operand(float area_trunc_1), value = 254.469
+	des operand(int tmp127), value = 254
+103: call tmp126, putint(tmp127)
+	in find_src_operand(int tmp127), value = 254
+104: call tmp128, putch(10)
+	in find_src_operand(intLiteral 10)	eval_int: 10
+105: def tmp129, 10
+	in get_des_operand(int tmp129), value = 10
+	in find_src_operand(intLiteral 10)	eval_int: 10
+	des operand(int tmp129), value = 10
+106: mul tmp130, i_0, tmp129
+	in find_src_operand(int i_0), value = 100000000
+	in find_src_operand(int tmp129), value = 10
+	in get_des_operand(int tmp130), value = 100000000
+	des operand(int tmp130), value = 1000000000
+107: mov i_0, tmp130
+	in get_des_operand(int i_0), value = 100000000
+	in find_src_operand(int tmp130), value = 1000000000
+	des operand(int i_0), value = 1000000000
+108: def tmp131, 1
+	in get_des_operand(int tmp131), value = 1
+	in find_src_operand(intLiteral 1)	eval_int: 1
+	des operand(int tmp131), value = 1
+109: add tmp132, p_0, tmp131
+	in find_src_operand(int p_0), value = 8
+	in find_src_operand(int tmp131), value = 1
+	in get_des_operand(int tmp132), value = 8
+	des operand(int tmp132), value = 9
+110: mov p_0, tmp132
+	in get_des_operand(int p_0), value = 8
+	in find_src_operand(int tmp132), value = 9
+	des operand(int p_0), value = 9
+111: goto [pc, -32]
+	in find_src_operand(intLiteral -32)	eval_int: -32
+	in goto: pc = 79
+79: def tmp109, 1000000000
+	in get_des_operand(int tmp109), value = 1000000000
+	in find_src_operand(intLiteral 1000000000)	eval_int: 1000000000
+	des operand(int tmp109), value = 1000000000
+80: lss tmp110, i_0, tmp109
+	in find_src_operand(int i_0), value = 1000000000
+	in find_src_operand(int tmp109), value = 1000000000
+	in get_des_operand(int tmp110), value = 1
+	des operand(int tmp110), value = 0
+81: not tmp112, tmp110
+	in get_des_operand(int tmp112), value = 0
+	in find_src_operand(int tmp110), value = 0
+	des operand(int tmp112), value = 1
+82: if tmp112 goto [pc, 30]
+	in find_src_operand(intLiteral 30)	eval_int: 30
+	in find_src_operand(int tmp112), value = 1
+	in goto: pc = 112
+112: call tmp133, putfarray(len_0, arr_0)
+	in find_src_operand(int len_0), value = 10
+	in find_src_operand(float* arr_0), value = 0x1e465120e70
+113: return 0
+	eval_int: 0

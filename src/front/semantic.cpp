@@ -291,6 +291,17 @@ int frontend::Analyzer::Atoi(std::string s)
     return ret;
 }
 
+ir::Operand frontend::Analyzer::perform_op_(ir::Operand& op1,ir::Operand& op2,TokenType t){
+    if(literal_check(op1.type) && literal_check(op2.type)){
+        return perform_literal(op1,op2,t);
+    }
+    else {
+        op1 = op_to_var(op1);
+        op2 = op_to_var(op2);
+        return perform_var(op1,op2,t);
+    }
+}
+
 //任意操作
 std::string frontend::Analyzer::perform_string(std::string s1,std::string s2, frontend::TokenType op, ir::Type addtype){
     if(addtype==ir::Type::IntLiteral){
@@ -413,10 +424,16 @@ ir::Operand frontend::Analyzer::perform_literal(Operand op1,Operand op2, fronten
 
 //变量操作
 ir::Operand frontend::Analyzer::perform_var(Operand op1, Operand op2, frontend::TokenType op){
-    if(literal_check(op1.type) || literal_check(op2.type)){
+    if(literal_check(op1.type) ){
         error();
     }
-    sync_varop_type(op1,op2);
+    if(op!=TokenType::NOT){
+        //双目运算符对齐参数类型
+        if(literal_check(op2.type)){
+            error();
+        }
+        sync_varop_type(op1,op2);
+    }
     Operand tmp_op = {get_tmp_name(),op1.type};
     if(op==TokenType::PLUS){
         if(op1.type==ir::Type::Int){
@@ -583,11 +600,14 @@ ir::Operand frontend::Analyzer::perform_var(Operand op1, Operand op2, frontend::
         //逻辑运算,op2 不使用
         // tmp_op.type = ir::Type::Int;
         if(op1.type==ir::Type::Int){
-            ADD_INST__NOT(add1,op1,tmp_op);
+            ADD_INST__NOT(no,op1,tmp_op);
         }
         else if(op1.type==ir::Type::Float) {
             warning_todo();
-            ADD_INST__NOT(add1,op1,tmp_op);
+            Operand tmp_op2 = op_to_var(get_default_opeand(ir::Type::FloatLiteral));
+            ADD_INST_FEQ(add1,op1,op_to_var(get_default_opeand(ir::Type::FloatLiteral)),tmp_op2);
+            tmp_op.type = ir::Type::Int;
+            ADD_INST_CVT_F2I(cv,tmp_op2,tmp_op);
         }
         else{
             error();
@@ -1679,7 +1699,7 @@ def_analyze(Cond){
     //添加一个false跳转
     Operand not_op = {get_tmp_name(),ir::Type::Int};
     root->op = op_to_var(root->op);
-    ADD_INST__NOT(no_ins,root->op,not_op)
+    not_op = perform_var(root->op,not_op,TokenType::NOT);
     ADD_INST_GOTO(goto_ins,not_op,get_default_opeand(ir::Type::null))
     root->go_ins.push_back({goto_ins,get_nowins_ind(),GoToType::ENDCOND});
 }
@@ -1847,14 +1867,17 @@ def_analyze(UnaryExp){
             }
         }
         else if(node_uop->op==TokenType::NOT){
-           if(root->is_computable){
+            // if(float_check(node_ue->op.type)){
+            //     node_ue->op = sync_to_int(node_ue->op);
+            // }
+            if(root->is_computable){
                 root->op = perform_literal(node_ue->op,get_default_opeand(ir::Type::IntLiteral),TokenType::NOT);
-           }
-           else{
+            }
+            else{
                 Operand tmp_op =  op_to_var(get_default_opeand(ir::Type::IntLiteral)); 
                 node_ue->op = op_to_var(node_ue->op); 
                 root->op = perform_var(node_ue->op,tmp_op,TokenType::NOT);
-           }
+            }
         }
         else if(node_uop->op==TokenType::PLUS){
             root->op = node_ue->op;
@@ -1943,7 +1966,7 @@ def_analyze(RelExp){
         root->is_computable = root->is_computable && node_ad_1->is_computable;
         PERFROM_OP(node_ad_1,node_rlop);
     }
-    root->op = sync_to_int(root->op);
+    // root->op = sync_to_int(root->op);
 }
 
 //28. EqExp -> RelExp { ('==' | '!=') RelExp }
@@ -1962,7 +1985,7 @@ def_analyze(EqExp){
         root->is_computable = root->is_computable && node_rl_1->is_computable;
         PERFROM_OP(node_rl_1,node_eqop)
     }
-    root->op = sync_to_int(root->op);
+    // root->op = sync_to_int(root->op);
 }
 
 //29. LAndExp -> EqExp [ '&&' LAndExp ]
@@ -1972,10 +1995,10 @@ def_analyze_withparams(LAndExp,frontend::LOrExp* lor_father){
     analyzeEqExp(node_eq);
     root_exp_assign(node_eq);
     //生成GOTO
-    root->op = sync_to_int(root->op);
+    // root->op = sync_to_int(root->op);
     if(b_ptr<root->children.size() && cur_termtoken_is(TokenType::AND)){
         Operand not_op = {get_tmp_name(),ir::Type::Int};
-        ADD_INST__NOT(no_ins,node_eq->op,not_op)
+        not_op = perform_op_(node_eq->op,not_op,TokenType::NOT);
         ADD_INST_GOTO(goto_ins,not_op,get_default_opeand(ir::Type::null))
         lor_father->go_ins.push_back({goto_ins,get_nowins_ind(),GoToType::AND});
     }
@@ -1996,7 +2019,7 @@ def_analyze_withparams(LOrExp,frontend::Cond* cond_father){
     analyzeLAndExp(node_la,root);
     root_exp_assign(node_la);
     //生成GOTO
-    root->op = sync_to_int(root->op);//必须是int
+    // root->op = sync_to_int(root->op);//必须是int
     if(b_ptr<root->children.size() && cur_termtoken_is(TokenType::OR)){
         ADD_INST_GOTO(goto_ins,op_to_var(root->op),get_default_opeand(ir::Type::null))//偏移量先留空
         cond_father->go_ins.push_back({goto_ins,get_nowins_ind(),GoToType::OR});
