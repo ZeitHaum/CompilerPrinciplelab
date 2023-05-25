@@ -13,7 +13,7 @@ elif step == "-s1":
 elif step == "-s2":
     oftype = "ir"
 elif step == "-S":
-    oftype = "S"
+    oftype = "S"#
 else:
     print("illegal input")
     exit()
