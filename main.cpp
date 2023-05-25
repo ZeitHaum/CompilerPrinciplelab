@@ -3,6 +3,7 @@
 #include"front/semantic.h"
 #include"ir/ir.h"
 #include"tools/ir_executor.h"
+#include"backend/generator.h"
 
 #include<string>
 #include<vector>
@@ -12,7 +13,6 @@
 
 using std::string;
 using std::vector;
-#define debug_reach() std::cerr<<"successfully reach "<<__LINE__<<"!\n"
 
 /**
  * commad line:
@@ -31,7 +31,6 @@ using std::vector;
  */
 
 int main(int argc, char** argv) {
-    // assert(0);
     assert((argc == 5 || argc == 6) && "command line should be: compiler <src_filename> -step -o <output_filename> [opt]");
     string src = argv[1];
     string step = argv[2];
@@ -78,8 +77,14 @@ int main(int argc, char** argv) {
         ir::reopen_input_file =  fopen(input_file_name.c_str(), "r");
 
         auto executor = ir::Executor(&program);
-        std::cout << program.draw();
-        fprintf(ir::reopen_output_file, "\n%d", ((uint8_t)executor.run()));
+        std::cout << program.draw() << "--------------------------- Executor::run() ---------------------------" << std::endl;
+        fprintf(ir::reopen_output_file, "\n%d", (uint8_t)executor.run());
+    }
+
+    // compiler <src_filename> -e -o <output_filename>
+    if(step == "-S") {
+        backend::Generator generator(program, output_file);
+        generator.gen();
     }
     return 0;
 }

@@ -56,7 +56,7 @@ using ir::Operator;
 #define ADD_INST__NOT(name,op1_,des_) Instruction* name = new Instruction();  name->op1 = op1_;    name->des = des_;   name->op = ir::Operator::_not;ADD_INST(name)
 #define ADD_INST__AND(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::_and;ADD_INST(name)
 #define ADD_INST__OR(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::_or;ADD_INST(name)
-#define ADD_INST_ALLOC(name,op1_,des_) Instruction* name = new Instruction();  name->op1 = op1_;    name->des = des_;   name->op = ir::Operator::alloc;ADD_INST(name) if(this->func==nullptr){this->anlyzed_p.globalVal.push_back({des_});}
+#define ADD_INST_ALLOC(name,op1_,des_) Instruction* name = new Instruction();  name->op1 = op1_;    name->des = des_;   name->op = ir::Operator::alloc;ADD_INST(name) 
 #define ADD_INST_LOAD(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::load;ADD_INST(name)
 #define ADD_INST_STORE(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::store;ADD_INST(name)
 #define ADD_INST_GETPTR(name,op1_,op2_,des_) Instruction* name = new Instruction();  name->op1 = op1_;   name->op2 = op2_;   name->des = des_;   name->op = ir::Operator::getptr;ADD_INST(name)
@@ -972,7 +972,13 @@ def_analyze_withparams(ConstDef,TokenType token_type){
         else{
             error();
         }
-        ADD_INST_ALLOC(al,sz,def_ste.operand);
+        if(this->func!=nullptr){
+            ADD_INST_ALLOC(al,sz,def_ste.operand);
+        }
+        else{
+            
+            this->anlyzed_p.globalVal.push_back({def_ste.operand,get_alloc_size(def_ste.dimension)});
+        }
     }
     if(def_ste.dimension.empty()){
         //值在ConstInitVal添加
@@ -1188,7 +1194,12 @@ def_analyze_withparams(VarDef,frontend::TokenType token_type){
         else{
             error();
         }
-        ADD_INST_ALLOC(al,sz,def_ste.operand);
+        if(this->func!=nullptr){
+            ADD_INST_ALLOC(al,sz,def_ste.operand);
+        }
+        else{
+            this->anlyzed_p.globalVal.push_back({def_ste.operand,get_alloc_size(def_ste.dimension)});
+        }
     }
     //def和initVal分离
     //赋值语句.
