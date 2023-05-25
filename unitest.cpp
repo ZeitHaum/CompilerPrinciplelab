@@ -4,12 +4,92 @@
 #define error() assert(0 && "Semantic anlysis error!")
 
 namespace semantic{
-
+int Atoi(std::string s)
+{
+    // 先判断进制和符号
+    int base = 0;
+    int begin = 0;
+    if(s[0]=='-'){
+        begin++;
+    }
+    if (s[begin] == '0' && s.size()-begin > 1)
+    {
+        if (s[begin+1] == 'b'){
+            base = 2;
+            begin += 2;
+        }
+        else if (s[begin+1] == 'x'){
+            base = 16;
+            begin += 2;
+        }
+        else if (s[begin+1] == 'h'){
+            base = 16;
+            begin += 2;
+        }
+            
+        else if (s[begin+1] == 'd'){
+            base = 10;
+            begin +=2;
+        }
+        else
+        {
+            base = 8;
+            begin++;
+        }
+    }
+    else
+    {
+        base = 10;
+    }
+    if (base == 0)
+        error();
+    int ret = 0;
+    auto mapping = [&](char x)
+    {
+        if (x <= '9' && x >= '0')
+        {
+            return x - '0';
+        }
+        else if (x <= 'Z' && x >= 'A')
+        {
+            return x - 'A' + 10;
+        }
+        else if (x <= 'z' && x >= 'a')
+        {
+            return x - 'a' + 10;
+        }
+        else
+        {
+            error();
+            return 0;
+        }
+    };
+    bool enable = false;
+    for (int i = begin; i < s.size(); i++)
+    {
+        if (enable)
+        {
+            ret = ret * base;
+        }
+        else
+        {
+            enable = true;
+        }
+        ret += mapping(s[i]);
+    }
+    if(s[0]=='-'){
+        ret = -ret;
+    }
+    return ret;
+}
 };
 #define f(type) f##type()
 
 void f2(){
-    std::cout<<"2\n";
+    for(int i = 0;i<10;i++){
+        std::cout<<"2\n";
+        std::cout<<"5"<<std::endl;
+    }
 }
 
 void global(){
@@ -47,6 +127,20 @@ int main(){
     // ar[1] = 3;
     // int arr[ar[1]]{0,1,2};
     // std::cout<<arr[2];
-    std::cout<<get_offset({1,2,3},{0,1,2});
+
+    // std::cout<<semantic::Atoi("-0xff");
+    /********修改cout输出路径***********/
+    // std::streambuf* now_buf = std::cout.rdbuf();
+    // std::ofstream of("run.out");
+    // std::streambuf* filebuf = of.rdbuf();
+    // std::cout.rdbuf(filebuf);
+    // /********************************/
+    // f2();
+    // /********恢复cout的指针******/
+    // of.flush();
+    // of.close();
+    // std::cout.rdbuf(now_buf);
+    // /***************************/
+    std::cout<<std::stof("0x1.199999999999ap+0");
     return 0;
 }

@@ -38,6 +38,20 @@ struct STE {//符号
     ir::Operand constVal;
 };
 
+enum GoToType{
+    AND,
+    OR,
+    BREAK,
+    CONTINUE,
+    ENDCOND,
+};
+
+struct gotoInst{
+    ir::Instruction* goto_ins;
+    int ins_index;
+    GoToType go_type;
+};
+
 // enumerate for node type
 enum class NodeType {
     TERMINAL,       // terminal lexical unit
@@ -242,9 +256,9 @@ struct BlockItem: AstNode{
 
 struct Stmt: AstNode{
     // for while & break & continue, we need a vector to remember break & continue instruction
-    std::set<ir::Instruction*> jump_eow;  // jump to end of while
-    std::set<ir::Instruction*> jump_bow;  // jump to begin of while
-
+    // std::set<ir::Instruction*> jump_eow;  // jump to end of while
+    // std::set<ir::Instruction*> jump_bow;  // jump to begin of while
+    vector<gotoInst>go_ins;
     /**
      * @brief constructor
      */
@@ -263,12 +277,13 @@ struct Exp: AstNode{
     Exp(AstNode* p = nullptr);
 };
 
+
 struct Cond: AstNode{
     bool is_computable = false;
     string v;
     Type t;
     ir::Operand op;
-
+    std::vector<gotoInst> go_ins;
     /**
      * @brief constructor
      */
@@ -406,6 +421,7 @@ struct LOrExp: AstNode{
     // string v;
     // Type t = Type::Int;
     ir::Operand op;
+    std::vector<gotoInst> go_ins;
 
     /**
      * @brief constructor
