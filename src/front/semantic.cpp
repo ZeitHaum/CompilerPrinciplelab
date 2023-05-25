@@ -65,7 +65,7 @@ using ir::Operator;
 #define ADD_INST_RETURN(name,op1_) Instruction* name = new Instruction();  name->op1 = op1_;     name->op = ir::Operator::_return;ADD_INST(name)
 #define ADD_INST_GOTO(name,op1_,des_) Instruction* name = new Instruction();  name->op1 = op1_;    name->des = des_;   name->op = ir::Operator::goto;ADD_INST(name)
 #define ADD_INST_UNUSE(name) Instruction* name = new Instruction();     name->op = ir::Operator::unuse;ADD_INST(name)
-// #define ADD_INST_CALL()  未实现
+// #define ADD_INST_CALL(name,op1_,des_,paraVec)  ir::CallInst* name = new ir::CallInst(); name->op1 = op_1; name->des = des_; name->
 #define ADD_INST_AUTOTYPE(name,type,inst_name,params) 
 #define ANALYZE_CHILD() for(auto child:root->children){analyzeAstNode(child);}
 #define cur_node_is(type_) ( (root->children[b_ptr]->type) == type_)
@@ -561,6 +561,10 @@ ir::Operand frontend::Analyzer::int_to_literal(int x){
 }
 
 Operand frontend::Analyzer::get_offset_op(std::vector<int>& dim,std::vector<Operand>& ind){
+    if(dim.size()!=ind.size()){
+        //ind小于dim时返回数组指针
+        todo();
+    }
     bool is_all_literal = true;
     for(int i = 0;i<ind.size();i++){
         is_all_literal = is_all_literal && literal_check(ind[i].type); 
@@ -1002,6 +1006,7 @@ def_analyze(FuncDef){
     FuncFParams* node_funcfparams = nullptr;
     if(cur_node_is(NodeType::FUNCFPARAMS)){
         parse_bptr_declared(FuncFParams,funcfparams);
+        analyzeFuncFParams(node_funcfparams);
     }
     b_ptr++;//跳过')'
     parse_bptr(Block,block);
@@ -1013,10 +1018,6 @@ def_analyze(FuncDef){
     func->name = node_funcname->token.value;
     //存入符号表
     this->symbol_table.functions[func->name] = func;
-    //生成函数参数
-    if(node_funcfparams!=nullptr){
-        todo();
-    }
     //main函数需要执行先加载global
     if(func->name=="main"){
         //添加global Func.
@@ -1031,7 +1032,19 @@ def_analyze(FuncDef){
         ir::CallInst* callins =  new ir::CallInst(ir::Operand("global",ir::Type::null),{});
         func->addInst((Instruction*)callins);
     }
-    //生成函数语句
+    /**分析函数Block*/
+    //生成符号表
+    this->symbol_table.add_scope(node_block);
+    //生成函数参数
+    if(node_funcfparams!=nullptr){
+        //添加函数参数中
+        for(auto se:node_funcfparams->param_stes){
+            std::string ident_name = se.operand.name;
+            se.operand.name = this->symbol_table.get_scoped_name(se.operand.name);
+            this->func->ParameterList.push_back(se.operand);
+            this->symbol_table.add_ste(ident_name,se);
+        }
+    }
     analyzeBlock(node_block);
     //检测main函数是否有返回值
     if(func->name=="main"){
@@ -1069,12 +1082,42 @@ def_analyze_withret(FuncType,ir::Type){
 
 //12. FuncFParam -> BType Ident ['[' ']' { '[' Exp ']' }]
 def_analyze(FuncFParam){
-    todo();
+    BEGIN_PTR_INIT()
+    root->param.is_const = false;
+    parse_bptr(BType,bt);
+    parse_bptr(Term,ident);
+    if(b_ptr<root->children.size() && cur_termtoken_is(TokenType::LBRACK)){
+        //数组
+        todo();
+    }
+    else{
+        //变量
+        TokenType tt =  analyzeBType(node_bt);
+        std::string name = node_ident->token.value;
+        if(tt==TokenType::INTTK){
+            root->param.operand = {name,ir::Type::Int};
+        }
+        else if(tt==TokenType::FLOATTK) {
+            root->param.operand = {name,ir::Type::Float};
+        }
+        else{
+            error();
+        }
+    }
 }
 
 //13. FuncFParams -> FuncFParam { ',' FuncFParam }
 def_analyze(FuncFParams){
-    todo();
+    BEGIN_PTR_INIT()
+    parse_bptr(FuncFParam,f_);
+    analyzeFuncFParam(node_f_);
+    root->param_stes.push_back(node_f_->param);
+    while(b_ptr<root->children.size() && cur_termtoken_is(TokenType::COMMA)){
+        b_ptr++;//跳过','
+        parse_bptr(FuncFParam,f);
+        analyzeFuncFParam(node_f);
+        root->param_stes.push_back(node_f->param);
+    }
 }
 
 //14. Block -> '{' { BlockItem } '}'
@@ -1082,7 +1125,6 @@ def_analyze(Block){
     //创建符号表 
     ASSERT_NULLFUNC()
     BEGIN_PTR_INIT()  
-    this->symbol_table.add_scope(root);
     b_ptr++;//忽略'{'
     while(cur_node_is(NodeType::BLOCKITEM)){
         parse_bptr(BlockItem,blockitem);
@@ -1292,7 +1334,25 @@ def_analyze(UnaryExp){
     }
     else if(cur_node_is(NodeType::TERMINAL)){
         //Ident '(' [FuncRParams] ')'
-        todo();
+        //parse
+        parse_bptr(Term,func_name);
+        b_ptr++;//跳过'('
+        Function* func_tmp = this->symbol_table.functions[node_func_name->token.value];
+        Operand func_op = {node_func_name->token.value,func_tmp->returnType};
+        Operand ret_op = {get_tmp_name(),func_tmp->returnType};
+        ir::CallInst* call_ins = new ir::CallInst(func_op,ret_op);
+        std::vector<Operand>&paraVec = call_ins->argumentList;
+        if(b_ptr<root->children.size() && cur_node_is(NodeType::FUNCRPARAMS)){
+            parse_bptr(FuncRParams,fr);
+            analyzeFuncRParams(node_fr);
+            //添加到paraVec中
+            for(auto op:node_fr->params){
+                paraVec.push_back(op);
+            }
+        }
+        root->op = ret_op;
+        root->is_computable = false;
+        ADD_INST(call_ins);
     }
     else if(cur_node_is(NodeType::UNARYOP)){
         //UnaryOp UnaryExp
@@ -1310,7 +1370,16 @@ def_analyze(UnaryOp){
 
 //24. FuncRParams -> Exp { ',' Exp }
 def_analyze(FuncRParams){
-    todo();
+    BEGIN_PTR_INIT()
+    parse_bptr(Exp,e_);
+    analyzeExp(node_e_);
+    root->params.push_back(node_e_->op);
+    while(b_ptr<root->children.size() && cur_node_is(NodeType::EXP)){
+        b_ptr++;
+        parse_bptr(Exp,e);
+        analyzeExp(node_e);
+        root->params.push_back(node_e->op);
+    }
 }
 
 //25. MulExp -> UnaryExp { ('*' | '/' | '%') UnaryExp }
