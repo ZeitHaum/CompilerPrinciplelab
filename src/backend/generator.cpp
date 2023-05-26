@@ -8,5 +8,5 @@
 backend::Generator::Generator(ir::Program& p, std::ofstream& f): program(p), fout(f) {}
 
 void backend::Generator::gen() {
-    todo();
+    
 }
