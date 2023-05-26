@@ -1,0 +1,38 @@
+int doubleWhile()
+	0: def i_0, 0
+	1: mov i_0, 5
+	2: def j_0, 0
+	3: mov j_0, 7
+	4: def tmp0, 100
+	5: lss tmp1, i_0, tmp0
+	6: not tmp3, tmp1
+	7: if tmp3 goto [pc, 16]
+	8: def tmp4, 30
+	9: add tmp5, i_0, tmp4
+	10: mov i_0, tmp5
+	11: def tmp6, 100
+	12: lss tmp7, j_0, tmp6
+	13: not tmp9, tmp7
+	14: if tmp9 goto [pc, 5]
+	15: def tmp10, 6
+	16: add tmp11, j_0, tmp10
+	17: mov j_0, tmp11
+	18: goto [pc, -7]
+	19: def tmp12, 100
+	20: sub tmp13, j_0, tmp12
+	21: mov j_0, tmp13
+	22: goto [pc, -18]
+	23: return j_0
+end
+
+void global()
+	0: return null
+end
+
+int main()
+	0: call null, global()
+	1: call tmp14, doubleWhile()
+	2: return tmp14
+end
+
+GVT:

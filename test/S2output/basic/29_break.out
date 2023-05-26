@@ -1,0 +1,29 @@
+void global()
+	0: return null
+end
+
+int main()
+	0: call null, global()
+	1: def i_0, 0
+	2: mov i_0, 0
+	3: def sum_0, 0
+	4: mov sum_0, 0
+	5: def tmp0, 100
+	6: lss tmp1, i_0, tmp0
+	7: not tmp3, tmp1
+	8: if tmp3 goto [pc, 12]
+	9: def tmp4, 50
+	10: eq tmp5, i_0, tmp4
+	11: not tmp7, tmp5
+	12: if tmp7 goto [pc, 2]
+	13: goto [pc, 7]
+	14: add tmp8, sum_0, i_0
+	15: mov sum_0, tmp8
+	16: def tmp9, 1
+	17: add tmp10, i_0, tmp9
+	18: mov i_0, tmp10
+	19: goto [pc, -14]
+	20: return sum_0
+end
+
+GVT:

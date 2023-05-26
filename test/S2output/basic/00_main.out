@@ -1,0 +1,10 @@
+void global()
+	0: return null
+end
+
+int main()
+	0: call null, global()
+	1: return 3
+end
+
+GVT:

@@ -1,0 +1,51 @@
+void global()
+	0: return null
+end
+
+int main()
+	0: call null, global()
+	1: alloc a_0, 8
+	2: def tmp0, 0
+	3: store tmp0, a_0, 0
+	4: def tmp1, 0
+	5: store tmp1, a_0, 1
+	6: def tmp2, 0
+	7: store tmp2, a_0, 2
+	8: def tmp3, 0
+	9: store tmp3, a_0, 3
+	10: def tmp4, 0
+	11: store tmp4, a_0, 4
+	12: def tmp5, 0
+	13: store tmp5, a_0, 5
+	14: def tmp6, 0
+	15: store tmp6, a_0, 6
+	16: def tmp7, 0
+	17: store tmp7, a_0, 7
+	18: alloc b_0, 8
+	19: def tmp8, 1
+	20: store tmp8, b_0, 0
+	21: def tmp9, 2
+	22: store tmp9, b_0, 1
+	23: def tmp10, 3
+	24: store tmp10, b_0, 2
+	25: def tmp11, 4
+	26: store tmp11, b_0, 3
+	27: def tmp12, 5
+	28: store tmp12, b_0, 4
+	29: def tmp13, 6
+	30: store tmp13, b_0, 5
+	31: def tmp14, 7
+	32: store tmp14, b_0, 6
+	33: def tmp15, 8
+	34: store tmp15, b_0, 7
+	35: load tmp16, b_0, 7
+	36: load tmp17, b_0, 0
+	37: add tmp18, tmp16, tmp17
+	38: load tmp19, b_0, 1
+	39: add tmp20, tmp18, tmp19
+	40: load tmp21, b_0, 4
+	41: add tmp22, tmp20, tmp21
+	42: return tmp22
+end
+
+GVT:

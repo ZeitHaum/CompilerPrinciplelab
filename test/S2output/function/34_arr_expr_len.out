@@ -1,0 +1,48 @@
+void global()
+	0: def N_, 0
+	1: mov N_, -1
+	2: def tmp0, 1
+	3: store tmp0, arr_, 0
+	4: def tmp1, 2
+	5: store tmp1, arr_, 1
+	6: def tmp2, 33
+	7: store tmp2, arr_, 2
+	8: def tmp3, 4
+	9: store tmp3, arr_, 3
+	10: def tmp4, 5
+	11: store tmp4, arr_, 4
+	12: def tmp5, 6
+	13: store tmp5, arr_, 5
+	14: return null
+end
+
+int main()
+	0: call null, global()
+	1: def i_0, 0
+	2: mov i_0, 0
+	3: def sum_0, 0
+	4: mov sum_0, 0
+	5: def tmp6, 6
+	6: lss tmp7, i_0, tmp6
+	7: not tmp9, tmp7
+	8: if tmp9 goto [pc, 9]
+	9: def tmp10, i_0
+	10: load tmp11, arr_, tmp10
+	11: add tmp12, sum_0, tmp11
+	12: mov sum_0, tmp12
+	13: def tmp13, 1
+	14: add tmp14, i_0, tmp13
+	15: mov i_0, tmp14
+	16: goto [pc, -11]
+	17: return sum_0
+end
+
+GVT:
+	N_ int 0
+	arr_ int* 6
+	tmp0 int 0
+	tmp1 int 0
+	tmp2 int 0
+	tmp3 int 0
+	tmp4 int 0
+	tmp5 int 0

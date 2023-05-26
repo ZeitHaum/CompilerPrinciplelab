@@ -1,0 +1,112 @@
+int my_getint()
+	0: def sum_0, 0
+	1: mov sum_0, 0
+	2: def c_0, 0
+	3: def tmp1, 1
+	4: not tmp2, tmp1
+	5: if tmp2 goto [pc, 16]
+	6: call tmp3, getch()
+	7: def tmp4, 48
+	8: sub tmp5, tmp3, tmp4
+	9: mov c_0, tmp5
+	10: def tmp6, 0
+	11: lss tmp7, c_0, tmp6
+	12: if tmp7 goto [pc, 5]
+	13: def tmp8, 9
+	14: gtr tmp9, c_0, tmp8
+	15: not tmp11, tmp9
+	16: if tmp11 goto [pc, 3]
+	17: goto [pc, -14]
+	18: goto [pc, 2]
+	19: goto [pc, 2]
+	20: goto [pc, -17]
+	21: mov sum_0, c_0
+	22: def tmp13, 1
+	23: not tmp14, tmp13
+	24: if tmp14 goto [pc, 20]
+	25: call tmp15, getch()
+	26: def tmp16, 48
+	27: sub tmp17, tmp15, tmp16
+	28: mov c_0, tmp17
+	29: def tmp18, 0
+	30: geq tmp19, c_0, tmp18
+	31: not tmp21, tmp19
+	32: if tmp21 goto [pc, 10]
+	33: def tmp22, 9
+	34: leq tmp23, c_0, tmp22
+	35: not tmp25, tmp23
+	36: if tmp25 goto [pc, 6]
+	37: def tmp26, 10
+	38: mul tmp27, sum_0, tmp26
+	39: add tmp28, tmp27, c_0
+	40: mov sum_0, tmp28
+	41: goto [pc, 2]
+	42: goto [pc, 2]
+	43: goto [pc, -21]
+	44: return sum_0
+end
+
+void my_putint(int a_0)
+	0: alloc b_0, 16
+	1: def i_0, 0
+	2: mov i_0, 0
+	3: def tmp29, 0
+	4: gtr tmp30, a_0, tmp29
+	5: not tmp32, tmp30
+	6: if tmp32 goto [pc, 14]
+	7: def tmp33, i_0
+	8: def tmp35, 10
+	9: mod tmp36, a_0, tmp35
+	10: def tmp37, 48
+	11: add tmp38, tmp36, tmp37
+	12: store tmp38, b_0, tmp33
+	13: def tmp39, 10
+	14: div tmp40, a_0, tmp39
+	15: mov a_0, tmp40
+	16: def tmp41, 1
+	17: add tmp42, i_0, tmp41
+	18: mov i_0, tmp42
+	19: goto [pc, -16]
+	20: def tmp43, 0
+	21: gtr tmp44, i_0, tmp43
+	22: not tmp46, tmp44
+	23: if tmp46 goto [pc, 8]
+	24: def tmp47, 1
+	25: sub tmp48, i_0, tmp47
+	26: mov i_0, tmp48
+	27: def tmp50, i_0
+	28: load tmp51, b_0, tmp50
+	29: call tmp49, putch(tmp51)
+	30: goto [pc, -10]
+	31: return null
+end
+
+void global()
+	0: def ascii_0_, 0
+	1: mov ascii_0_, 48
+	2: return null
+end
+
+int main()
+	0: call null, global()
+	1: def n_0, 0
+	2: call tmp52, my_getint()
+	3: mov n_0, tmp52
+	4: def tmp53, 0
+	5: gtr tmp54, n_0, tmp53
+	6: not tmp56, tmp54
+	7: if tmp56 goto [pc, 10]
+	8: def m_1, 0
+	9: call tmp57, my_getint()
+	10: mov m_1, tmp57
+	11: call tmp58, my_putint(m_1)
+	12: call tmp59, putch(10)
+	13: def tmp60, 1
+	14: sub tmp61, n_0, tmp60
+	15: mov n_0, tmp61
+	16: goto [pc, -12]
+	17: return 0
+end
+
+GVT:
+	ascii_0_ int 0

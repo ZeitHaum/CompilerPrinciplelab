@@ -1,0 +1,47 @@
+void global()
+	0: def a_, 0
+	1: mov a_, 1
+	2: def b_, 0
+	3: mov b_, 0
+	4: def c_, 0
+	5: mov c_, 1
+	6: def d_, 0
+	7: mov d_, 2
+	8: def e_, 0
+	9: mov e_, 4
+	10: return null
+end
+
+int main()
+	0: call null, global()
+	1: def flag_0, 0
+	2: mov flag_0, 0
+	3: mul tmp0, a_, b_
+	4: div tmp1, tmp0, c_
+	5: add tmp2, e_, d_
+	6: eq tmp3, tmp1, tmp2
+	7: not tmp5, tmp3
+	8: if tmp5 goto [pc, 7]
+	9: add tmp6, a_, b_
+	10: mul tmp7, a_, tmp6
+	11: add tmp8, tmp7, c_
+	12: add tmp9, d_, e_
+	13: leq tmp10, tmp8, tmp9
+	14: if tmp10 goto [pc, 8]
+	15: mul tmp11, b_, c_
+	16: sub tmp12, a_, tmp11
+	17: div tmp13, a_, c_
+	18: sub tmp14, d_, tmp13
+	19: eq tmp15, tmp12, tmp14
+	20: not tmp17, tmp15
+	21: if tmp17 goto [pc, 2]
+	22: mov flag_0, 1
+	23: return flag_0
+end
+
+GVT:
+	a_ int 0
+	b_ int 0
+	c_ int 0
+	d_ int 0
+	e_ int 0

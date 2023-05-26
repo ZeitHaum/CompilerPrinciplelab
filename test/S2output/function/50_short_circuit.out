@@ -1,0 +1,78 @@
+int func(int n_0)
+	0: add tmp0, g_, n_0
+	1: mov g_, tmp0
+	2: call tmp1, putint(g_)
+	3: return g_
+end
+
+void global()
+	0: def g_, 0
+	1: mov g_, 0
+	2: return null
+end
+
+int main()
+	0: call null, global()
+	1: def i_0, 0
+	2: call tmp2, getint()
+	3: mov i_0, tmp2
+	4: def tmp3, 10
+	5: gtr tmp4, i_0, tmp3
+	6: not tmp6, tmp4
+	7: if tmp6 goto [pc, 6]
+	8: call tmp7, func(i_0)
+	9: not tmp9, tmp7
+	10: if tmp9 goto [pc, 3]
+	11: mov i_0, 1
+	12: goto [pc, 2]
+	13: mov i_0, 0
+	14: call tmp10, getint()
+	15: mov i_0, tmp10
+	16: def tmp11, 11
+	17: gtr tmp12, i_0, tmp11
+	18: not tmp14, tmp12
+	19: if tmp14 goto [pc, 6]
+	20: call tmp15, func(i_0)
+	21: not tmp17, tmp15
+	22: if tmp17 goto [pc, 3]
+	23: mov i_0, 1
+	24: goto [pc, 2]
+	25: mov i_0, 0
+	26: call tmp18, getint()
+	27: mov i_0, tmp18
+	28: def tmp19, 99
+	29: leq tmp20, i_0, tmp19
+	30: if tmp20 goto [pc, 4]
+	31: call tmp21, func(i_0)
+	32: not tmp23, tmp21
+	33: if tmp23 goto [pc, 3]
+	34: mov i_0, 1
+	35: goto [pc, 2]
+	36: mov i_0, 0
+	37: call tmp24, getint()
+	38: mov i_0, tmp24
+	39: def tmp25, 100
+	40: leq tmp26, i_0, tmp25
+	41: if tmp26 goto [pc, 4]
+	42: call tmp27, func(i_0)
+	43: not tmp29, tmp27
+	44: if tmp29 goto [pc, 3]
+	45: mov i_0, 1
+	46: goto [pc, 2]
+	47: mov i_0, 0
+	48: call tmp30, func(99)
+	49: def tmp31, 0
+	50: not tmp32, tmp30
+	51: not tmp34, tmp32
+	52: if tmp34 goto [pc, 6]
+	53: call tmp35, func(100)
+	54: not tmp37, tmp35
+	55: if tmp37 goto [pc, 3]
+	56: mov i_0, 1
+	57: goto [pc, 2]
+	58: mov i_0, 0
+	59: return 0
+end
+
+GVT:
+	g_ int 0

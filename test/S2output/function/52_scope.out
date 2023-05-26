@@ -1,0 +1,56 @@
+int func()
+	0: def b_0, 0
+	1: mov b_0, a_
+	2: def a_0, 0
+	3: mov a_0, 1
+	4: eq tmp0, a_0, b_0
+	5: not tmp2, tmp0
+	6: if tmp2 goto [pc, 6]
+	7: def tmp3, 1
+	8: add tmp4, a_0, tmp3
+	9: mov a_0, tmp4
+	10: return 1
+	11: goto [pc, 2]
+	12: return 0
+end
+
+void global()
+	0: def a_, 0
+	1: mov a_, 7
+	2: return null
+end
+
+int main()
+	0: call null, global()
+	1: def result_0, 0
+	2: mov result_0, 0
+	3: def i_0, 0
+	4: mov i_0, 0
+	5: def tmp5, 100
+	6: lss tmp6, i_0, tmp5
+	7: not tmp8, tmp6
+	8: if tmp8 goto [pc, 13]
+	9: call tmp9, func()
+	10: def tmp10, 1
+	11: eq tmp11, tmp9, tmp10
+	12: not tmp13, tmp11
+	13: if tmp13 goto [pc, 4]
+	14: def tmp14, 1
+	15: add tmp15, result_0, tmp14
+	16: mov result_0, tmp15
+	17: def tmp16, 1
+	18: add tmp17, i_0, tmp16
+	19: mov i_0, tmp17
+	20: goto [pc, -15]
+	21: def tmp18, 100
+	22: lss tmp19, result_0, tmp18
+	23: not tmp21, tmp19
+	24: if tmp21 goto [pc, 3]
+	25: call tmp22, putint(1)
+	26: goto [pc, 2]
+	27: call tmp23, putint(0)
+	28: return 0
+end
+
+GVT:
+	a_ int 0

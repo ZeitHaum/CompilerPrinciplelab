@@ -1,0 +1,30 @@
+void global()
+	0: return null
+end
+
+int main()
+	0: call null, global()
+	1: def a_0, 0
+	2: def b_0, 0
+	3: mov a_0, 0
+	4: def tmp0, 1
+	5: add tmp1, a_0, tmp0
+	6: mov a_0, tmp1
+	7: def tmp2, 2
+	8: add tmp3, a_0, tmp2
+	9: mov a_0, tmp3
+	10: def tmp4, 1
+	11: add tmp5, a_0, tmp4
+	12: mov a_0, tmp5
+	13: def tmp6, 3
+	14: sub tmp7, a_0, tmp6
+	15: mov a_0, tmp7
+	16: def tmp8, 2
+	17: add tmp9, a_0, tmp8
+	18: mov a_0, tmp9
+	19: mov b_0, 2
+	20: div tmp10, a_0, b_0
+	21: return tmp10
+end
+
+GVT:

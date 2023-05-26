@@ -1,0 +1,207 @@
+void init(int n_0)
+	0: def i_0, 0
+	1: mov i_0, 1
+	2: mul tmp0, n_0, n_0
+	3: def tmp1, 1
+	4: add tmp2, tmp0, tmp1
+	5: leq tmp3, i_0, tmp2
+	6: not tmp5, tmp3
+	7: if tmp5 goto [pc, 8]
+	8: def tmp6, i_0
+	9: def tmp8, -1
+	10: store tmp8, array_, tmp6
+	11: def tmp9, 1
+	12: add tmp10, i_0, tmp9
+	13: mov i_0, tmp10
+	14: goto [pc, -12]
+	15: return null
+end
+
+int findfa(int a_0)
+	0: def tmp11, a_0
+	1: load tmp12, array_, tmp11
+	2: eq tmp13, tmp12, a_0
+	3: not tmp15, tmp13
+	4: if tmp15 goto [pc, 3]
+	5: return a_0
+	6: goto [pc, 9]
+	7: def tmp16, a_0
+	8: def tmp19, a_0
+	9: load tmp20, array_, tmp19
+	10: call tmp18, findfa(tmp20)
+	11: store tmp18, array_, tmp16
+	12: def tmp21, a_0
+	13: load tmp22, array_, tmp21
+	14: return tmp22
+end
+
+void mmerge(int a_0,int b_0)
+	0: def m_0, 0
+	1: call tmp23, findfa(a_0)
+	2: mov m_0, tmp23
+	3: def n_0, 0
+	4: call tmp24, findfa(b_0)
+	5: mov n_0, tmp24
+	6: neq tmp25, m_0, n_0
+	7: not tmp27, tmp25
+	8: if tmp27 goto [pc, 3]
+	9: def tmp28, m_0
+	10: store n_0, array_, tmp28
+	11: return null
+end
+
+void global()
+	0: def n_, 0
+	1: return null
+end
+
+int main()
+	0: call null, global()
+	1: def t_0, 0
+	2: def m_0, 0
+	3: def a_0, 0
+	4: def b_0, 0
+	5: mov t_0, 1
+	6: not tmp31, t_0
+	7: if tmp31 goto [pc, 136]
+	8: def tmp32, 1
+	9: sub tmp33, t_0, tmp32
+	10: mov t_0, tmp33
+	11: mov n_, 4
+	12: mov m_0, 10
+	13: def i_1, 0
+	14: mov i_1, 0
+	15: def flag_1, 0
+	16: mov flag_1, 0
+	17: call tmp34, init(n_)
+	18: def k_1, 0
+	19: mul tmp35, n_, n_
+	20: def tmp36, 1
+	21: add tmp37, tmp35, tmp36
+	22: mov k_1, tmp37
+	23: lss tmp38, i_1, m_0
+	24: not tmp40, tmp38
+	25: if tmp40 goto [pc, 111]
+	26: call tmp41, getint()
+	27: mov a_0, tmp41
+	28: call tmp42, getint()
+	29: mov b_0, tmp42
+	30: def tmp43, 0
+	31: not tmp44, flag_1
+	32: not tmp46, tmp44
+	33: if tmp46 goto [pc, 99]
+	34: def loc_3, 0
+	35: def tmp47, 1
+	36: sub tmp48, a_0, tmp47
+	37: mul tmp49, n_, tmp48
+	38: add tmp50, tmp49, b_0
+	39: mov loc_3, tmp50
+	40: def tmp51, loc_3
+	41: store loc_3, array_, tmp51
+	42: def tmp53, 1
+	43: eq tmp54, a_0, tmp53
+	44: not tmp56, tmp54
+	45: if tmp56 goto [pc, 4]
+	46: def tmp58, 0
+	47: store tmp58, array_, 0
+	48: call tmp59, mmerge(loc_3, 0)
+	49: eq tmp60, a_0, n_
+	50: not tmp62, tmp60
+	51: if tmp62 goto [pc, 4]
+	52: def tmp63, k_1
+	53: store k_1, array_, tmp63
+	54: call tmp65, mmerge(loc_3, k_1)
+	55: lss tmp66, b_0, n_
+	56: not tmp68, tmp66
+	57: if tmp68 goto [pc, 12]
+	58: def tmp69, 1
+	59: add tmp70, loc_3, tmp69
+	60: def tmp71, tmp70
+	61: load tmp72, array_, tmp71
+	62: def tmp73, -1
+	63: neq tmp74, tmp72, tmp73
+	64: not tmp76, tmp74
+	65: if tmp76 goto [pc, 4]
+	66: def tmp78, 1
+	67: add tmp79, loc_3, tmp78
+	68: call tmp77, mmerge(loc_3, tmp79)
+	69: def tmp80, 1
+	70: gtr tmp81, b_0, tmp80
+	71: not tmp83, tmp81
+	72: if tmp83 goto [pc, 12]
+	73: def tmp84, 1
+	74: sub tmp85, loc_3, tmp84
+	75: def tmp86, tmp85
+	76: load tmp87, array_, tmp86
+	77: def tmp88, -1
+	78: neq tmp89, tmp87, tmp88
+	79: not tmp91, tmp89
+	80: if tmp91 goto [pc, 4]
+	81: def tmp93, 1
+	82: sub tmp94, loc_3, tmp93
+	83: call tmp92, mmerge(loc_3, tmp94)
+	84: lss tmp95, a_0, n_
+	85: not tmp97, tmp95
+	86: if tmp97 goto [pc, 10]
+	87: add tmp98, loc_3, n_
+	88: def tmp99, tmp98
+	89: load tmp100, array_, tmp99
+	90: def tmp101, -1
+	91: neq tmp102, tmp100, tmp101
+	92: not tmp104, tmp102
+	93: if tmp104 goto [pc, 3]
+	94: add tmp106, loc_3, n_
+	95: call tmp105, mmerge(loc_3, tmp106)
+	96: def tmp107, 1
+	97: gtr tmp108, a_0, tmp107
+	98: not tmp110, tmp108
+	99: if tmp110 goto [pc, 10]
+	100: sub tmp111, loc_3, n_
+	101: def tmp112, tmp111
+	102: load tmp113, array_, tmp112
+	103: def tmp114, -1
+	104: neq tmp115, tmp113, tmp114
+	105: not tmp117, tmp115
+	106: if tmp117 goto [pc, 3]
+	107: sub tmp119, loc_3, n_
+	108: call tmp118, mmerge(loc_3, tmp119)
+	109: load tmp120, array_, 0
+	110: def tmp121, -1
+	111: neq tmp122, tmp120, tmp121
+	112: not tmp124, tmp122
+	113: if tmp124 goto [pc, 19]
+	114: def tmp125, k_1
+	115: load tmp126, array_, tmp125
+	116: def tmp127, -1
+	117: neq tmp128, tmp126, tmp127
+	118: not tmp130, tmp128
+	119: if tmp130 goto [pc, 13]
+	120: call tmp131, findfa(0)
+	121: call tmp132, findfa(k_1)
+	122: eq tmp133, tmp131, tmp132
+	123: not tmp135, tmp133
+	124: if tmp135 goto [pc, 8]
+	125: mov flag_1, 1
+	126: def tmp_4, 0
+	127: def tmp136, 1
+	128: add tmp137, i_1, tmp136
+	129: mov tmp_4, tmp137
+	130: call tmp138, putint(tmp_4)
+	131: call tmp139, putch(10)
+	132: def tmp140, 1
+	133: add tmp141, i_1, tmp140
+	134: mov i_1, tmp141
+	135: goto [pc, -112]
+	136: def tmp142, 0
+	137: not tmp143, flag_1
+	138: not tmp145, tmp143
+	139: if tmp145 goto [pc, 3]
+	140: call tmp146, putint(-1)
+	141: call tmp147, putch(10)
+	142: goto [pc, -136]
+	143: return 0
+end
+
+GVT:
+	array_ int* 110
+	n_ int 0

@@ -1,0 +1,101 @@
+int bubblesort(int* arr_0)
+	0: def i_0, 0
+	1: def j_0, 0
+	2: mov i_0, 0
+	3: def tmp0, 1
+	4: sub tmp1, n_, tmp0
+	5: lss tmp2, i_0, tmp1
+	6: not tmp4, tmp2
+	7: if tmp4 goto [pc, 39]
+	8: mov j_0, 0
+	9: sub tmp5, n_, i_0
+	10: def tmp6, 1
+	11: sub tmp7, tmp5, tmp6
+	12: lss tmp8, j_0, tmp7
+	13: not tmp10, tmp8
+	14: if tmp10 goto [pc, 28]
+	15: def tmp11, j_0
+	16: load tmp12, arr_0, tmp11
+	17: def tmp13, 1
+	18: add tmp14, j_0, tmp13
+	19: def tmp15, tmp14
+	20: load tmp16, arr_0, tmp15
+	21: gtr tmp17, tmp12, tmp16
+	22: not tmp19, tmp17
+	23: if tmp19 goto [pc, 15]
+	24: def tmp_3, 0
+	25: def tmp20, 1
+	26: add tmp21, j_0, tmp20
+	27: def tmp22, tmp21
+	28: load tmp23, arr_0, tmp22
+	29: mov tmp_3, tmp23
+	30: def tmp24, 1
+	31: add tmp25, j_0, tmp24
+	32: def tmp26, tmp25
+	33: def tmp28, j_0
+	34: load tmp29, arr_0, tmp28
+	35: store tmp29, arr_0, tmp26
+	36: def tmp30, j_0
+	37: store tmp_3, arr_0, tmp30
+	38: def tmp32, 1
+	39: add tmp33, j_0, tmp32
+	40: mov j_0, tmp33
+	41: goto [pc, -32]
+	42: def tmp34, 1
+	43: add tmp35, i_0, tmp34
+	44: mov i_0, tmp35
+	45: goto [pc, -42]
+	46: return 0
+end
+
+void global()
+	0: def n_, 0
+	1: return null
+end
+
+int main()
+	0: call null, global()
+	1: mov n_, 10
+	2: alloc a_0, 10
+	3: def tmp37, 4
+	4: store tmp37, a_0, 0
+	5: def tmp39, 3
+	6: store tmp39, a_0, 1
+	7: def tmp41, 9
+	8: store tmp41, a_0, 2
+	9: def tmp43, 2
+	10: store tmp43, a_0, 3
+	11: def tmp45, 0
+	12: store tmp45, a_0, 4
+	13: def tmp47, 1
+	14: store tmp47, a_0, 5
+	15: def tmp49, 6
+	16: store tmp49, a_0, 6
+	17: def tmp51, 5
+	18: store tmp51, a_0, 7
+	19: def tmp53, 7
+	20: store tmp53, a_0, 8
+	21: def tmp55, 8
+	22: store tmp55, a_0, 9
+	23: def i_0, 0
+	24: call tmp56, bubblesort(a_0)
+	25: mov i_0, tmp56
+	26: lss tmp57, i_0, n_
+	27: not tmp59, tmp57
+	28: if tmp59 goto [pc, 12]
+	29: def tmp_1, 0
+	30: def tmp60, i_0
+	31: load tmp61, a_0, tmp60
+	32: mov tmp_1, tmp61
+	33: call tmp62, putint(tmp_1)
+	34: mov tmp_1, 10
+	35: call tmp63, putch(tmp_1)
+	36: def tmp64, 1
+	37: add tmp65, i_0, tmp64
+	38: mov i_0, tmp65
+	39: goto [pc, -13]
+	40: return 0
+end
+
+GVT:
+	n_ int 0

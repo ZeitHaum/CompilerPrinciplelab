@@ -1,0 +1,12 @@
+void global()
+	0: return null
+end
+
+int main()
+	0: call null, global()
+	1: def a_0, 0
+	2: mov a_0, 5
+	3: return a_0
+end
+
+GVT:

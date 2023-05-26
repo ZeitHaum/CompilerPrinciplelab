@@ -1,0 +1,578 @@
+int isdigit(int x_0)
+	0: def tmp0, 48
+	1: geq tmp1, x_0, tmp0
+	2: not tmp3, tmp1
+	3: if tmp3 goto [pc, 6]
+	4: def tmp4, 57
+	5: leq tmp5, x_0, tmp4
+	6: not tmp7, tmp5
+	7: if tmp7 goto [pc, 2]
+	8: return 1
+	9: return 0
+end
+
+int power(int b_0,int a_0)
+	0: def result_0, 0
+	1: mov result_0, 1
+	2: def tmp8, 0
+	3: neq tmp9, a_0, tmp8
+	4: not tmp11, tmp9
+	5: if tmp11 goto [pc, 7]
+	6: mul tmp12, result_0, b_0
+	7: mov result_0, tmp12
+	8: def tmp13, 1
+	9: sub tmp14, a_0, tmp13
+	10: mov a_0, tmp14
+	11: goto [pc, -9]
+	12: return result_0
+end
+
+int getstr(int* get_0)
+	0: def x_0, 0
+	1: call tmp15, getch()
+	2: mov x_0, tmp15
+	3: def length_0, 0
+	4: mov length_0, 0
+	5: def tmp16, 13
+	6: neq tmp17, x_0, tmp16
+	7: not tmp19, tmp17
+	8: if tmp19 goto [pc, 13]
+	9: def tmp20, 10
+	10: neq tmp21, x_0, tmp20
+	11: not tmp23, tmp21
+	12: if tmp23 goto [pc, 9]
+	13: def tmp24, length_0
+	14: store x_0, get_0, tmp24
+	15: def tmp26, 1
+	16: add tmp27, length_0, tmp26
+	17: mov length_0, tmp27
+	18: call tmp28, getch()
+	19: mov x_0, tmp28
+	20: goto [pc, -15]
+	21: return length_0
+end
+
+void intpush(int x_0)
+	0: def tmp29, 1
+	1: add tmp30, intt_, tmp29
+	2: mov intt_, tmp30
+	3: def tmp31, intt_
+	4: store x_0, ints_, tmp31
+	5: return null
+end
+
+void chapush(int x_0)
+	0: def tmp33, 1
+	1: add tmp34, chat_, tmp33
+	2: mov chat_, tmp34
+	3: def tmp35, chat_
+	4: store x_0, chas_, tmp35
+	5: return null
+end
+
+int intpop()
+	0: def tmp37, 1
+	1: sub tmp38, intt_, tmp37
+	2: mov intt_, tmp38
+	3: def tmp39, 1
+	4: add tmp40, intt_, tmp39
+	5: def tmp41, tmp40
+	6: load tmp42, ints_, tmp41
+	7: return tmp42
+end
+
+int chapop()
+	0: def tmp43, 1
+	1: sub tmp44, chat_, tmp43
+	2: mov chat_, tmp44
+	3: def tmp45, 1
+	4: add tmp46, chat_, tmp45
+	5: def tmp47, tmp46
+	6: load tmp48, chas_, tmp47
+	7: return tmp48
+end
+
+void intadd(int x_0)
+	0: def tmp49, intt_
+	1: def tmp51, intt_
+	2: load tmp52, ints_, tmp51
+	3: def tmp53, 10
+	4: mul tmp54, tmp52, tmp53
+	5: store tmp54, ints_, tmp49
+	6: def tmp55, intt_
+	7: def tmp57, intt_
+	8: load tmp58, ints_, tmp57
+	9: add tmp59, tmp58, x_0
+	10: store tmp59, ints_, tmp55
+	11: return null
+end
+
+int find()
+	0: call tmp60, chapop()
+	1: mov c_, tmp60
+	2: def tmp61, ii_
+	3: def tmp63, 32
+	4: store tmp63, get2_, tmp61
+	5: def tmp64, 1
+	6: add tmp65, ii_, tmp64
+	7: def tmp66, tmp65
+	8: store c_, get2_, tmp66
+	9: def tmp68, 2
+	10: add tmp69, ii_, tmp68
+	11: mov ii_, tmp69
+	12: def tmp70, 0
+	13: eq tmp71, chat_, tmp70
+	14: not tmp73, tmp71
+	15: if tmp73 goto [pc, 2]
+	16: return 0
+	17: return 1
+end
+
+void global()
+	0: def intt_, 0
+	1: def chat_, 0
+	2: def i_, 0
+	3: mov i_, 0
+	4: def ii_, 0
+	5: mov ii_, 1
+	6: def c_, 0
+	7: return null
+end
+
+int main()
+	0: call null, global()
+	1: mov intt_, 0
+	2: mov chat_, 0
+	3: def lengets_0, 0
+	4: call tmp74, getstr(get_)
+	5: mov lengets_0, tmp74
+	6: lss tmp75, i_, lengets_0
+	7: not tmp77, tmp75
+	8: if tmp77 goto [pc, 260]
+	9: def tmp79, i_
+	10: load tmp80, get_, tmp79
+	11: call tmp78, isdigit(tmp80)
+	12: def tmp81, 1
+	13: eq tmp82, tmp78, tmp81
+	14: not tmp84, tmp82
+	15: if tmp84 goto [pc, 9]
+	16: def tmp85, ii_
+	17: def tmp87, i_
+	18: load tmp88, get_, tmp87
+	19: store tmp88, get2_, tmp85
+	20: def tmp89, 1
+	21: add tmp90, ii_, tmp89
+	22: mov ii_, tmp90
+	23: goto [pc, 241]
+	24: def tmp91, i_
+	25: load tmp92, get_, tmp91
+	26: def tmp93, 40
+	27: eq tmp94, tmp92, tmp93
+	28: not tmp96, tmp94
+	29: if tmp96 goto [pc, 2]
+	30: call tmp97, chapush(40)
+	31: def tmp98, i_
+	32: load tmp99, get_, tmp98
+	33: def tmp100, 94
+	34: eq tmp101, tmp99, tmp100
+	35: not tmp103, tmp101
+	36: if tmp103 goto [pc, 2]
+	37: call tmp104, chapush(94)
+	38: def tmp105, i_
+	39: load tmp106, get_, tmp105
+	40: def tmp107, 41
+	41: eq tmp108, tmp106, tmp107
+	42: not tmp110, tmp108
+	43: if tmp110 goto [pc, 20]
+	44: call tmp111, chapop()
+	45: mov c_, tmp111
+	46: def tmp112, 40
+	47: neq tmp113, c_, tmp112
+	48: not tmp115, tmp113
+	49: if tmp115 goto [pc, 14]
+	50: def tmp116, ii_
+	51: def tmp118, 32
+	52: store tmp118, get2_, tmp116
+	53: def tmp119, 1
+	54: add tmp120, ii_, tmp119
+	55: def tmp121, tmp120
+	56: store c_, get2_, tmp121
+	57: def tmp123, 2
+	58: add tmp124, ii_, tmp123
+	59: mov ii_, tmp124
+	60: call tmp125, chapop()
+	61: mov c_, tmp125
+	62: goto [pc, -16]
+	63: def tmp126, i_
+	64: load tmp127, get_, tmp126
+	65: def tmp128, 43
+	66: eq tmp129, tmp127, tmp128
+	67: not tmp131, tmp129
+	68: if tmp131 goto [pc, 40]
+	69: def tmp132, chat_
+	70: load tmp133, chas_, tmp132
+	71: def tmp134, 43
+	72: eq tmp135, tmp133, tmp134
+	73: if tmp135 goto [pc, 27]
+	74: def tmp136, chat_
+	75: load tmp137, chas_, tmp136
+	76: def tmp138, 45
+	77: eq tmp139, tmp137, tmp138
+	78: if tmp139 goto [pc, 22]
+	79: def tmp140, chat_
+	80: load tmp141, chas_, tmp140
+	81: def tmp142, 42
+	82: eq tmp143, tmp141, tmp142
+	83: if tmp143 goto [pc, 17]
+	84: def tmp144, chat_
+	85: load tmp145, chas_, tmp144
+	86: def tmp146, 47
+	87: eq tmp147, tmp145, tmp146
+	88: if tmp147 goto [pc, 12]
+	89: def tmp148, chat_
+	90: load tmp149, chas_, tmp148
+	91: def tmp150, 37
+	92: eq tmp151, tmp149, tmp150
+	93: if tmp151 goto [pc, 7]
+	94: def tmp152, chat_
+	95: load tmp153, chas_, tmp152
+	96: def tmp154, 94
+	97: eq tmp155, tmp153, tmp154
+	98: not tmp157, tmp155
+	99: if tmp157 goto [pc, 8]
+	100: call tmp158, find()
+	101: def tmp159, 0
+	102: eq tmp160, tmp158, tmp159
+	103: not tmp162, tmp160
+	104: if tmp162 goto [pc, 2]
+	105: goto [pc, 2]
+	106: goto [pc, -37]
+	107: call tmp163, chapush(43)
+	108: def tmp164, i_
+	109: load tmp165, get_, tmp164
+	110: def tmp166, 45
+	111: eq tmp167, tmp165, tmp166
+	112: not tmp169, tmp167
+	113: if tmp169 goto [pc, 40]
+	114: def tmp170, chat_
+	115: load tmp171, chas_, tmp170
+	116: def tmp172, 43
+	117: eq tmp173, tmp171, tmp172
+	118: if tmp173 goto [pc, 27]
+	119: def tmp174, chat_
+	120: load tmp175, chas_, tmp174
+	121: def tmp176, 45
+	122: eq tmp177, tmp175, tmp176
+	123: if tmp177 goto [pc, 22]
+	124: def tmp178, chat_
+	125: load tmp179, chas_, tmp178
+	126: def tmp180, 42
+	127: eq tmp181, tmp179, tmp180
+	128: if tmp181 goto [pc, 17]
+	129: def tmp182, chat_
+	130: load tmp183, chas_, tmp182
+	131: def tmp184, 47
+	132: eq tmp185, tmp183, tmp184
+	133: if tmp185 goto [pc, 12]
+	134: def tmp186, chat_
+	135: load tmp187, chas_, tmp186
+	136: def tmp188, 37
+	137: eq tmp189, tmp187, tmp188
+	138: if tmp189 goto [pc, 7]
+	139: def tmp190, chat_
+	140: load tmp191, chas_, tmp190
+	141: def tmp192, 94
+	142: eq tmp193, tmp191, tmp192
+	143: not tmp195, tmp193
+	144: if tmp195 goto [pc, 8]
+	145: call tmp196, find()
+	146: def tmp197, 0
+	147: eq tmp198, tmp196, tmp197
+	148: not tmp200, tmp198
+	149: if tmp200 goto [pc, 2]
+	150: goto [pc, 2]
+	151: goto [pc, -37]
+	152: call tmp201, chapush(45)
+	153: def tmp202, i_
+	154: load tmp203, get_, tmp202
+	155: def tmp204, 42
+	156: eq tmp205, tmp203, tmp204
+	157: not tmp207, tmp205
+	158: if tmp207 goto [pc, 30]
+	159: def tmp208, chat_
+	160: load tmp209, chas_, tmp208
+	161: def tmp210, 42
+	162: eq tmp211, tmp209, tmp210
+	163: if tmp211 goto [pc, 17]
+	164: def tmp212, chat_
+	165: load tmp213, chas_, tmp212
+	166: def tmp214, 47
+	167: eq tmp215, tmp213, tmp214
+	168: if tmp215 goto [pc, 12]
+	169: def tmp216, chat_
+	170: load tmp217, chas_, tmp216
+	171: def tmp218, 37
+	172: eq tmp219, tmp217, tmp218
+	173: if tmp219 goto [pc, 7]
+	174: def tmp220, chat_
+	175: load tmp221, chas_, tmp220
+	176: def tmp222, 94
+	177: eq tmp223, tmp221, tmp222
+	178: not tmp225, tmp223
+	179: if tmp225 goto [pc, 8]
+	180: call tmp226, find()
+	181: def tmp227, 0
+	182: eq tmp228, tmp226, tmp227
+	183: not tmp230, tmp228
+	184: if tmp230 goto [pc, 2]
+	185: goto [pc, 2]
+	186: goto [pc, -27]
+	187: call tmp231, chapush(42)
+	188: def tmp232, i_
+	189: load tmp233, get_, tmp232
+	190: def tmp234, 47
+	191: eq tmp235, tmp233, tmp234
+	192: not tmp237, tmp235
+	193: if tmp237 goto [pc, 30]
+	194: def tmp238, chat_
+	195: load tmp239, chas_, tmp238
+	196: def tmp240, 42
+	197: eq tmp241, tmp239, tmp240
+	198: if tmp241 goto [pc, 17]
+	199: def tmp242, chat_
+	200: load tmp243, chas_, tmp242
+	201: def tmp244, 47
+	202: eq tmp245, tmp243, tmp244
+	203: if tmp245 goto [pc, 12]
+	204: def tmp246, chat_
+	205: load tmp247, chas_, tmp246
+	206: def tmp248, 37
+	207: eq tmp249, tmp247, tmp248
+	208: if tmp249 goto [pc, 7]
+	209: def tmp250, chat_
+	210: load tmp251, chas_, tmp250
+	211: def tmp252, 94
+	212: eq tmp253, tmp251, tmp252
+	213: not tmp255, tmp253
+	214: if tmp255 goto [pc, 8]
+	215: call tmp256, find()
+	216: def tmp257, 0
+	217: eq tmp258, tmp256, tmp257
+	218: not tmp260, tmp258
+	219: if tmp260 goto [pc, 2]
+	220: goto [pc, 2]
+	221: goto [pc, -27]
+	222: call tmp261, chapush(47)
+	223: def tmp262, i_
+	224: load tmp263, get_, tmp262
+	225: def tmp264, 37
+	226: eq tmp265, tmp263, tmp264
+	227: not tmp267, tmp265
+	228: if tmp267 goto [pc, 30]
+	229: def tmp268, chat_
+	230: load tmp269, chas_, tmp268
+	231: def tmp270, 42
+	232: eq tmp271, tmp269, tmp270
+	233: if tmp271 goto [pc, 17]
+	234: def tmp272, chat_
+	235: load tmp273, chas_, tmp272
+	236: def tmp274, 47
+	237: eq tmp275, tmp273, tmp274
+	238: if tmp275 goto [pc, 12]
+	239: def tmp276, chat_
+	240: load tmp277, chas_, tmp276
+	241: def tmp278, 37
+	242: eq tmp279, tmp277, tmp278
+	243: if tmp279 goto [pc, 7]
+	244: def tmp280, chat_
+	245: load tmp281, chas_, tmp280
+	246: def tmp282, 94
+	247: eq tmp283, tmp281, tmp282
+	248: not tmp285, tmp283
+	249: if tmp285 goto [pc, 8]
+	250: call tmp286, find()
+	251: def tmp287, 0
+	252: eq tmp288, tmp286, tmp287
+	253: not tmp290, tmp288
+	254: if tmp290 goto [pc, 2]
+	255: goto [pc, 2]
+	256: goto [pc, -27]
+	257: call tmp291, chapush(37)
+	258: def tmp292, ii_
+	259: def tmp294, 32
+	260: store tmp294, get2_, tmp292
+	261: def tmp295, 1
+	262: add tmp296, ii_, tmp295
+	263: mov ii_, tmp296
+	264: def tmp297, 1
+	265: add tmp298, i_, tmp297
+	266: mov i_, tmp298
+	267: goto [pc, -261]
+	268: def tmp299, 0
+	269: gtr tmp300, chat_, tmp299
+	270: not tmp302, tmp300
+	271: if tmp302 goto [pc, 15]
+	272: def c_1, 0
+	273: call tmp303, chapop()
+	274: mov c_1, tmp303
+	275: def tmp304, ii_
+	276: def tmp306, 32
+	277: store tmp306, get2_, tmp304
+	278: def tmp307, 1
+	279: add tmp308, ii_, tmp307
+	280: def tmp309, tmp308
+	281: store c_1, get2_, tmp309
+	282: def tmp311, 2
+	283: add tmp312, ii_, tmp311
+	284: mov ii_, tmp312
+	285: goto [pc, -17]
+	286: def tmp313, ii_
+	287: def tmp315, 64
+	288: store tmp315, get2_, tmp313
+	289: mov i_, 1
+	290: def tmp316, i_
+	291: load tmp317, get2_, tmp316
+	292: def tmp318, 64
+	293: neq tmp319, tmp317, tmp318
+	294: not tmp321, tmp319
+	295: if tmp321 goto [pc, 126]
+	296: def tmp322, i_
+	297: load tmp323, get2_, tmp322
+	298: def tmp324, 43
+	299: eq tmp325, tmp323, tmp324
+	300: if tmp325 goto [pc, 27]
+	301: def tmp326, i_
+	302: load tmp327, get2_, tmp326
+	303: def tmp328, 45
+	304: eq tmp329, tmp327, tmp328
+	305: if tmp329 goto [pc, 22]
+	306: def tmp330, i_
+	307: load tmp331, get2_, tmp330
+	308: def tmp332, 42
+	309: eq tmp333, tmp331, tmp332
+	310: if tmp333 goto [pc, 17]
+	311: def tmp334, i_
+	312: load tmp335, get2_, tmp334
+	313: def tmp336, 47
+	314: eq tmp337, tmp335, tmp336
+	315: if tmp337 goto [pc, 12]
+	316: def tmp338, i_
+	317: load tmp339, get2_, tmp338
+	318: def tmp340, 37
+	319: eq tmp341, tmp339, tmp340
+	320: if tmp341 goto [pc, 7]
+	321: def tmp342, i_
+	322: load tmp343, get2_, tmp342
+	323: def tmp344, 94
+	324: eq tmp345, tmp343, tmp344
+	325: not tmp347, tmp345
+	326: if tmp347 goto [pc, 58]
+	327: def a_2, 0
+	328: call tmp348, intpop()
+	329: mov a_2, tmp348
+	330: def b_2, 0
+	331: call tmp349, intpop()
+	332: mov b_2, tmp349
+	333: def c_2, 0
+	334: def tmp350, i_
+	335: load tmp351, get2_, tmp350
+	336: def tmp352, 43
+	337: eq tmp353, tmp351, tmp352
+	338: not tmp355, tmp353
+	339: if tmp355 goto [pc, 3]
+	340: add tmp356, a_2, b_2
+	341: mov c_2, tmp356
+	342: def tmp357, i_
+	343: load tmp358, get2_, tmp357
+	344: def tmp359, 45
+	345: eq tmp360, tmp358, tmp359
+	346: not tmp362, tmp360
+	347: if tmp362 goto [pc, 3]
+	348: sub tmp363, b_2, a_2
+	349: mov c_2, tmp363
+	350: def tmp364, i_
+	351: load tmp365, get2_, tmp364
+	352: def tmp366, 42
+	353: eq tmp367, tmp365, tmp366
+	354: not tmp369, tmp367
+	355: if tmp369 goto [pc, 3]
+	356: mul tmp370, a_2, b_2
+	357: mov c_2, tmp370
+	358: def tmp371, i_
+	359: load tmp372, get2_, tmp371
+	360: def tmp373, 47
+	361: eq tmp374, tmp372, tmp373
+	362: not tmp376, tmp374
+	363: if tmp376 goto [pc, 3]
+	364: div tmp377, b_2, a_2
+	365: mov c_2, tmp377
+	366: def tmp378, i_
+	367: load tmp379, get2_, tmp378
+	368: def tmp380, 37
+	369: eq tmp381, tmp379, tmp380
+	370: not tmp383, tmp381
+	371: if tmp383 goto [pc, 3]
+	372: mod tmp384, b_2, a_2
+	373: mov c_2, tmp384
+	374: def tmp385, i_
+	375: load tmp386, get2_, tmp385
+	376: def tmp387, 94
+	377: eq tmp388, tmp386, tmp387
+	378: not tmp390, tmp388
+	379: if tmp390 goto [pc, 3]
+	380: call tmp391, power(b_2, a_2)
+	381: mov c_2, tmp391
+	382: call tmp392, intpush(c_2)
+	383: goto [pc, 34]
+	384: def tmp393, i_
+	385: load tmp394, get2_, tmp393
+	386: def tmp395, 32
+	387: neq tmp396, tmp394, tmp395
+	388: not tmp398, tmp396
+	389: if tmp398 goto [pc, 28]
+	390: def tmp400, i_
+	391: load tmp401, get2_, tmp400
+	392: def tmp402, 48
+	393: sub tmp403, tmp401, tmp402
+	394: call tmp399, intpush(tmp403)
+	395: mov ii_, 1
+	396: add tmp404, i_, ii_
+	397: def tmp405, tmp404
+	398: load tmp406, get2_, tmp405
+	399: def tmp407, 32
+	400: neq tmp408, tmp406, tmp407
+	401: not tmp410, tmp408
+	402: if tmp410 goto [pc, 11]
+	403: add tmp412, i_, ii_
+	404: def tmp413, tmp412
+	405: load tmp414, get2_, tmp413
+	406: def tmp415, 48
+	407: sub tmp416, tmp414, tmp415
+	408: call tmp411, intadd(tmp416)
+	409: def tmp417, 1
+	410: add tmp418, ii_, tmp417
+	411: mov ii_, tmp418
+	412: goto [pc, -16]
+	413: add tmp419, i_, ii_
+	414: def tmp420, 1
+	415: sub tmp421, tmp419, tmp420
+	416: mov i_, tmp421
+	417: def tmp422, 1
+	418: add tmp423, i_, tmp422
+	419: mov i_, tmp423
+	420: goto [pc, -130]
+	421: load tmp425, ints_, 1
+	422: call tmp424, putint(tmp425)
+	423: return 0
+end
+
+GVT:
+	ints_ int* 10000
+	intt_ int 0
+	chas_ int* 10000
+	chat_ int 0
+	i_ int 0
+	ii_ int 0
+	c_ int 0
+	get_ int* 10000
+	get2_ int* 10000

@@ -1,0 +1,74 @@
+int inc_a()
+	0: def b_0, 0
+	1: mov b_0, a_
+	2: def tmp0, 1
+	3: add tmp1, b_0, tmp0
+	4: mov b_0, tmp1
+	5: mov a_, b_0
+	6: return a_
+end
+
+void global()
+	0: def a_, 0
+	1: mov a_, -1
+	2: def b_, 0
+	3: mov b_, 1
+	4: return null
+end
+
+int main()
+	0: call null, global()
+	1: def k_0, 0
+	2: mov k_0, 5
+	3: def tmp2, 0
+	4: geq tmp3, k_0, tmp2
+	5: not tmp5, tmp3
+	6: if tmp5 goto [pc, 39]
+	7: call tmp6, inc_a()
+	8: not tmp8, tmp6
+	9: if tmp8 goto [pc, 11]
+	10: call tmp9, inc_a()
+	11: not tmp11, tmp9
+	12: if tmp11 goto [pc, 8]
+	13: call tmp12, inc_a()
+	14: not tmp14, tmp12
+	15: if tmp14 goto [pc, 5]
+	16: call tmp15, putint(a_)
+	17: call tmp16, putch(32)
+	18: call tmp17, putint(b_)
+	19: call tmp18, putch(10)
+	20: call tmp19, inc_a()
+	21: def tmp20, 14
+	22: lss tmp21, tmp19, tmp20
+	23: if tmp21 goto [pc, 11]
+	24: call tmp22, inc_a()
+	25: not tmp24, tmp22
+	26: if tmp24 goto [pc, 14]
+	27: call tmp25, inc_a()
+	28: call tmp26, inc_a()
+	29: sub tmp27, tmp25, tmp26
+	30: def tmp28, 1
+	31: add tmp29, tmp27, tmp28
+	32: not tmp31, tmp29
+	33: if tmp31 goto [pc, 7]
+	34: call tmp32, putint(a_)
+	35: call tmp33, putch(10)
+	36: def tmp34, 2
+	37: mul tmp35, b_, tmp34
+	38: mov b_, tmp35
+	39: goto [pc, 2]
+	40: call tmp36, inc_a()
+	41: def tmp37, 1
+	42: sub tmp38, k_0, tmp37
+	43: mov k_0, tmp38
+	44: goto [pc, -41]
+	45: call tmp39, putint(a_)
+	46: call tmp40, putch(32)
+	47: call tmp41, putint(b_)
+	48: call tmp42, putch(10)
+	49: return a_
+end
+
+GVT:
+	a_ int 0
+	b_ int 0

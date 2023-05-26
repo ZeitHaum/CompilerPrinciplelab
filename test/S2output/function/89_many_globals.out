@@ -1,0 +1,204 @@
+int testParam8(int a0_0,int a1_0,int a2_0,int a3_0,int a4_0,int a5_0,int a6_0,int a7_0)
+	0: add tmp0, a0_0, a1_0
+	1: add tmp1, tmp0, a2_0
+	2: add tmp2, tmp1, a3_0
+	3: add tmp3, tmp2, a4_0
+	4: add tmp4, tmp3, a5_0
+	5: add tmp5, tmp4, a6_0
+	6: add tmp6, tmp5, a7_0
+	7: return tmp6
+end
+
+int testParam16(int a0_0,int a1_0,int a2_0,int a3_0,int a4_0,int a5_0,int a6_0,int a7_0,int a8_0,int a9_0,int a10_0,int a11_0,int a12_0,int a13_0,int a14_0,int a15_0)
+	0: add tmp7, a0_0, a1_0
+	1: add tmp8, tmp7, a2_0
+	2: sub tmp9, tmp8, a3_0
+	3: sub tmp10, tmp9, a4_0
+	4: sub tmp11, tmp10, a5_0
+	5: sub tmp12, tmp11, a6_0
+	6: sub tmp13, tmp12, a7_0
+	7: add tmp14, tmp13, a8_0
+	8: add tmp15, tmp14, a9_0
+	9: add tmp16, tmp15, a10_0
+	10: add tmp17, tmp16, a11_0
+	11: add tmp18, tmp17, a12_0
+	12: add tmp19, tmp18, a13_0
+	13: add tmp20, tmp19, a14_0
+	14: add tmp21, tmp20, a15_0
+	15: return tmp21
+end
+
+int testParam32(int a0_0,int a1_0,int a2_0,int a3_0,int a4_0,int a5_0,int a6_0,int a7_0,int a8_0,int a9_0,int a10_0,int a11_0,int a12_0,int a13_0,int a14_0,int a15_0,int a16_0,int a17_0,int a18_0,int a19_0,int a20_0,int a21_0,int a22_0,int a23_0,int a24_0,int a25_0,int a26_0,int a27_0,int a28_0,int a29_0,int a30_0,int a31_0)
+	0: add tmp22, a0_0, a1_0
+	1: add tmp23, tmp22, a2_0
+	2: add tmp24, tmp23, a3_0
+	3: add tmp25, tmp24, a4_0
+	4: add tmp26, tmp25, a5_0
+	5: add tmp27, tmp26, a6_0
+	6: add tmp28, tmp27, a7_0
+	7: add tmp29, tmp28, a8_0
+	8: add tmp30, tmp29, a9_0
+	9: add tmp31, tmp30, a10_0
+	10: add tmp32, tmp31, a11_0
+	11: add tmp33, tmp32, a12_0
+	12: add tmp34, tmp33, a13_0
+	13: add tmp35, tmp34, a14_0
+	14: add tmp36, tmp35, a15_0
+	15: add tmp37, tmp36, a16_0
+	16: add tmp38, tmp37, a17_0
+	17: sub tmp39, tmp38, a18_0
+	18: sub tmp40, tmp39, a19_0
+	19: sub tmp41, tmp40, a20_0
+	20: sub tmp42, tmp41, a21_0
+	21: sub tmp43, tmp42, a22_0
+	22: add tmp44, tmp43, a23_0
+	23: add tmp45, tmp44, a24_0
+	24: add tmp46, tmp45, a25_0
+	25: add tmp47, tmp46, a26_0
+	26: add tmp48, tmp47, a27_0
+	27: add tmp49, tmp48, a28_0
+	28: add tmp50, tmp49, a29_0
+	29: add tmp51, tmp50, a30_0
+	30: add tmp52, tmp51, a31_0
+	31: return tmp52
+end
+
+void global()
+	0: def a0_, 0
+	1: def a1_, 0
+	2: def a2_, 0
+	3: def a3_, 0
+	4: def a4_, 0
+	5: def a5_, 0
+	6: def a6_, 0
+	7: def a7_, 0
+	8: def a8_, 0
+	9: def a9_, 0
+	10: def a10_, 0
+	11: def a11_, 0
+	12: def a12_, 0
+	13: def a13_, 0
+	14: def a14_, 0
+	15: def a15_, 0
+	16: def a16_, 0
+	17: def a17_, 0
+	18: def a18_, 0
+	19: def a19_, 0
+	20: def a20_, 0
+	21: def a21_, 0
+	22: def a22_, 0
+	23: def a23_, 0
+	24: def a24_, 0
+	25: def a25_, 0
+	26: def a26_, 0
+	27: def a27_, 0
+	28: def a28_, 0
+	29: def a29_, 0
+	30: def a30_, 0
+	31: def a31_, 0
+	32: def a32_, 0
+	33: def a33_, 0
+	34: def a34_, 0
+	35: def a35_, 0
+	36: def a36_, 0
+	37: def a37_, 0
+	38: def a38_, 0
+	39: def a39_, 0
+	40: return null
+end
+
+int main()
+	0: call null, global()
+	1: mov a0_, 0
+	2: mov a1_, 1
+	3: mov a2_, 2
+	4: mov a3_, 3
+	5: mov a4_, 4
+	6: mov a5_, 5
+	7: mov a6_, 6
+	8: mov a7_, 7
+	9: mov a8_, 8
+	10: mov a9_, 9
+	11: mov a10_, 0
+	12: mov a11_, 1
+	13: mov a12_, 2
+	14: mov a13_, 3
+	15: mov a14_, 4
+	16: mov a15_, 5
+	17: mov a16_, 6
+	18: mov a17_, 7
+	19: mov a18_, 8
+	20: mov a19_, 9
+	21: mov a20_, 0
+	22: mov a21_, 1
+	23: mov a22_, 2
+	24: mov a23_, 3
+	25: mov a24_, 4
+	26: mov a25_, 5
+	27: mov a26_, 6
+	28: mov a27_, 7
+	29: mov a28_, 8
+	30: mov a29_, 9
+	31: mov a30_, 0
+	32: mov a31_, 1
+	33: mov a32_, 4
+	34: mov a33_, 5
+	35: mov a34_, 6
+	36: mov a35_, 7
+	37: mov a36_, 8
+	38: mov a37_, 9
+	39: mov a38_, 0
+	40: mov a39_, 1
+	41: call tmp53, testParam8(a0_, a1_, a2_, a3_, a4_, a5_, a6_, a7_)
+	42: mov a0_, tmp53
+	43: call tmp54, putint(a0_)
+	44: call tmp55, testParam16(a32_, a33_, a34_, a35_, a36_, a37_, a38_, a39_, a8_, a9_, a10_, a11_, a12_, a13_, a14_, a15_)
+	45: mov a0_, tmp55
+	46: call tmp56, putint(a0_)
+	47: call tmp57, testParam32(a0_, a1_, a2_, a3_, a4_, a5_, a6_, a7_, a8_, a9_, a10_, a11_, a12_, a13_, a14_, a15_, a16_, a17_, a18_, a19_, a20_, a21_, a22_, a23_, a24_, a25_, a26_, a27_, a28_, a29_, a30_, a31_)
+	48: mov a0_, tmp57
+	49: call tmp58, putint(a0_)
+	50: return 0
+end
+
+GVT:
+	a0_ int 0
+	a1_ int 0
+	a2_ int 0
+	a3_ int 0
+	a4_ int 0
+	a5_ int 0
+	a6_ int 0
+	a7_ int 0
+	a8_ int 0
+	a9_ int 0
+	a10_ int 0
+	a11_ int 0
+	a12_ int 0
+	a13_ int 0
+	a14_ int 0
+	a15_ int 0
+	a16_ int 0
+	a17_ int 0
+	a18_ int 0
+	a19_ int 0
+	a20_ int 0
+	a21_ int 0
+	a22_ int 0
+	a23_ int 0
+	a24_ int 0
+	a25_ int 0
+	a26_ int 0
+	a27_ int 0
+	a28_ int 0
+	a29_ int 0
+	a30_ int 0
+	a31_ int 0
+	a32_ int 0
+	a33_ int 0
+	a34_ int 0
+	a35_ int 0
+	a36_ int 0
+	a37_ int 0
+	a38_ int 0
+	a39_ int 0

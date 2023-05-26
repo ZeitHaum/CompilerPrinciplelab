@@ -1,0 +1,16 @@
+void global()
+	0: return null
+end
+
+int main()
+	0: call null, global()
+	1: def a_0, 0
+	2: mov a_0, 10
+	3: def tmp0, 2
+	4: mul tmp1, a_0, tmp0
+	5: def tmp2, 1
+	6: add tmp3, tmp1, tmp2
+	7: return tmp3
+end
+
+GVT:

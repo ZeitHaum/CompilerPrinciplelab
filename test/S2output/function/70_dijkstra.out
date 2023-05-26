@@ -1,0 +1,207 @@
+void Dijkstra()
+	0: def i_0, 0
+	1: def j_0, 0
+	2: mov i_0, 1
+	3: leq tmp0, i_0, n_
+	4: not tmp2, tmp0
+	5: if tmp2 goto [pc, 16]
+	6: def tmp3, i_0
+	7: def tmp5, i_0
+	8: def tmp7, 1
+	9: def tmp8, 16
+	10: mul tmp6, tmp7, tmp8
+	11: add tmp5, tmp5, tmp6
+	12: load tmp9, e_, tmp5
+	13: store tmp9, dis_, tmp3
+	14: def tmp10, i_0
+	15: def tmp12, 0
+	16: store tmp12, book_, tmp10
+	17: def tmp13, 1
+	18: add tmp14, i_0, tmp13
+	19: mov i_0, tmp14
+	20: goto [pc, -17]
+	21: def tmp16, 1
+	22: store tmp16, book_, 1
+	23: mov i_0, 1
+	24: def tmp17, 1
+	25: sub tmp18, n_, tmp17
+	26: leq tmp19, i_0, tmp18
+	27: not tmp21, tmp19
+	28: if tmp21 goto [pc, 77]
+	29: def min_num_1, 0
+	30: mov min_num_1, 65535
+	31: def min_index_1, 0
+	32: mov min_index_1, 0
+	33: def k_1, 0
+	34: mov k_1, 1
+	35: leq tmp22, k_1, n_
+	36: not tmp24, tmp22
+	37: if tmp24 goto [pc, 20]
+	38: def tmp25, k_1
+	39: load tmp26, dis_, tmp25
+	40: gtr tmp27, min_num_1, tmp26
+	41: not tmp29, tmp27
+	42: if tmp29 goto [pc, 11]
+	43: def tmp30, k_1
+	44: load tmp31, book_, tmp30
+	45: def tmp32, 0
+	46: eq tmp33, tmp31, tmp32
+	47: not tmp35, tmp33
+	48: if tmp35 goto [pc, 5]
+	49: def tmp36, k_1
+	50: load tmp37, dis_, tmp36
+	51: mov min_num_1, tmp37
+	52: mov min_index_1, k_1
+	53: def tmp38, 1
+	54: add tmp39, k_1, tmp38
+	55: mov k_1, tmp39
+	56: goto [pc, -21]
+	57: def tmp40, min_index_1
+	58: def tmp42, 1
+	59: store tmp42, book_, tmp40
+	60: def j_1, 0
+	61: mov j_1, 1
+	62: leq tmp43, j_1, n_
+	63: not tmp45, tmp43
+	64: if tmp45 goto [pc, 37]
+	65: def tmp46, j_1
+	66: def tmp48, 16
+	67: mul tmp47, min_index_1, tmp48
+	68: add tmp46, tmp46, tmp47
+	69: load tmp49, e_, tmp46
+	70: def tmp50, 65535
+	71: lss tmp51, tmp49, tmp50
+	72: not tmp53, tmp51
+	73: if tmp53 goto [pc, 24]
+	74: def tmp54, j_1
+	75: load tmp55, dis_, tmp54
+	76: def tmp56, min_index_1
+	77: load tmp57, dis_, tmp56
+	78: def tmp58, j_1
+	79: def tmp60, 16
+	80: mul tmp59, min_index_1, tmp60
+	81: add tmp58, tmp58, tmp59
+	82: load tmp61, e_, tmp58
+	83: add tmp62, tmp57, tmp61
+	84: gtr tmp63, tmp55, tmp62
+	85: not tmp65, tmp63
+	86: if tmp65 goto [pc, 11]
+	87: def tmp66, j_1
+	88: def tmp68, min_index_1
+	89: load tmp69, dis_, tmp68
+	90: def tmp70, j_1
+	91: def tmp72, 16
+	92: mul tmp71, min_index_1, tmp72
+	93: add tmp70, tmp70, tmp71
+	94: load tmp73, e_, tmp70
+	95: add tmp74, tmp69, tmp73
+	96: store tmp74, dis_, tmp66
+	97: def tmp75, 1
+	98: add tmp76, j_1, tmp75
+	99: mov j_1, tmp76
+	100: goto [pc, -38]
+	101: def tmp77, 1
+	102: add tmp78, i_0, tmp77
+	103: mov i_0, tmp78
+	104: goto [pc, -80]
+	105: return null
+end
+
+void global()
+	0: def INF_, 0
+	1: mov INF_, 65535
+	2: def n_, 0
+	3: def m_, 0
+	4: def v1_, 0
+	5: def v2_, 0
+	6: def w_, 0
+	7: return null
+end
+
+int main()
+	0: call null, global()
+	1: def i_0, 0
+	2: call tmp79, getint()
+	3: mov n_, tmp79
+	4: call tmp80, getint()
+	5: mov m_, tmp80
+	6: mov i_0, 1
+	7: leq tmp81, i_0, n_
+	8: not tmp83, tmp81
+	9: if tmp83 goto [pc, 30]
+	10: def j_1, 0
+	11: mov j_1, 1
+	12: leq tmp84, j_1, n_
+	13: not tmp86, tmp84
+	14: if tmp86 goto [pc, 21]
+	15: eq tmp87, i_0, j_1
+	16: not tmp89, tmp87
+	17: if tmp89 goto [pc, 8]
+	18: def tmp90, j_1
+	19: def tmp92, 16
+	20: mul tmp91, i_0, tmp92
+	21: add tmp90, tmp90, tmp91
+	22: def tmp94, 0
+	23: store tmp94, e_, tmp90
+	24: goto [pc, 7]
+	25: def tmp95, j_1
+	26: def tmp97, 16
+	27: mul tmp96, i_0, tmp97
+	28: add tmp95, tmp95, tmp96
+	29: def tmp99, 65535
+	30: store tmp99, e_, tmp95
+	31: def tmp100, 1
+	32: add tmp101, j_1, tmp100
+	33: mov j_1, tmp101
+	34: goto [pc, -22]
+	35: def tmp102, 1
+	36: add tmp103, i_0, tmp102
+	37: mov i_0, tmp103
+	38: goto [pc, -31]
+	39: mov i_0, 1
+	40: leq tmp104, i_0, m_
+	41: not tmp106, tmp104
+	42: if tmp106 goto [pc, 17]
+	43: def u_1, 0
+	44: call tmp107, getint()
+	45: mov u_1, tmp107
+	46: def v_1, 0
+	47: call tmp108, getint()
+	48: mov v_1, tmp108
+	49: def tmp109, v_1
+	50: def tmp111, 16
+	51: mul tmp110, u_1, tmp111
+	52: add tmp109, tmp109, tmp110
+	53: call tmp113, getint()
+	54: store tmp113, e_, tmp109
+	55: def tmp114, 1
+	56: add tmp115, i_0, tmp114
+	57: mov i_0, tmp115
+	58: goto [pc, -18]
+	59: call tmp116, Dijkstra()
+	60: mov i_0, 1
+	61: leq tmp117, i_0, n_
+	62: not tmp119, tmp117
+	63: if tmp119 goto [pc, 9]
+	64: def tmp121, i_0
+	65: load tmp122, dis_, tmp121
+	66: call tmp120, putint(tmp122)
+	67: call tmp123, putch(32)
+	68: def tmp124, 1
+	69: add tmp125, i_0, tmp124
+	70: mov i_0, tmp125
+	71: goto [pc, -10]
+	72: call tmp126, putch(10)
+	73: return 0
+end
+
+GVT:
+	INF_ int 0
+	e_ int* 256
+	book_ int* 16
+	dis_ int* 16
+	n_ int 0
+	m_ int 0
+	v1_ int 0
+	v2_ int 0
+	w_ int 0

@@ -1,0 +1,27 @@
+void global()
+	0: def tmp0, 0
+	1: store tmp0, a_, 0
+	2: def tmp1, 1
+	3: store tmp1, a_, 1
+	4: def tmp2, 2
+	5: store tmp2, a_, 2
+	6: def tmp3, 3
+	7: store tmp3, a_, 3
+	8: def tmp4, 4
+	9: store tmp4, a_, 4
+	10: return null
+end
+
+int main()
+	0: call null, global()
+	1: load tmp5, a_, 4
+	2: return tmp5
+end
+
+GVT:
+	a_ int* 5
+	tmp0 int 0
+	tmp1 int 0
+	tmp2 int 0
+	tmp3 int 0
+	tmp4 int 0

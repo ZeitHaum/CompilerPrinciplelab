@@ -1,0 +1,32 @@
+int ififElse()
+	0: def a_0, 0
+	1: mov a_0, 5
+	2: def b_0, 0
+	3: mov b_0, 10
+	4: def tmp0, 5
+	5: eq tmp1, a_0, tmp0
+	6: not tmp3, tmp1
+	7: if tmp3 goto [pc, 10]
+	8: def tmp4, 10
+	9: eq tmp5, b_0, tmp4
+	10: not tmp7, tmp5
+	11: if tmp7 goto [pc, 3]
+	12: mov a_0, 25
+	13: goto [pc, 4]
+	14: def tmp8, 15
+	15: add tmp9, a_0, tmp8
+	16: mov a_0, tmp9
+	17: return a_0
+end
+
+void global()
+	0: return null
+end
+
+int main()
+	0: call null, global()
+	1: call tmp10, ififElse()
+	2: return tmp10
+end
+
+GVT:

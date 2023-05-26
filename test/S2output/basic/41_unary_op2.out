@@ -1,0 +1,34 @@
+void global()
+	0: return null
+end
+
+int main()
+	0: call null, global()
+	1: def a_0, 0
+	2: def b_0, 0
+	3: mov a_0, 070
+	4: mov b_0, 0x4
+	5: def tmp0, -4
+	6: sub tmp1, a_0, tmp0
+	7: add tmp2, tmp1, b_0
+	8: mov a_0, tmp2
+	9: def tmp3, 0
+	10: not tmp4, a_0
+	11: def tmp5, 0
+	12: not tmp6, tmp4
+	13: def tmp7, 0
+	14: not tmp8, tmp6
+	15: def tmp9, -1
+	16: mul tmp10, tmp9, tmp8
+	17: not tmp12, tmp10
+	18: if tmp12 goto [pc, 3]
+	19: mov a_0, -1
+	20: goto [pc, 4]
+	21: def tmp13, 0
+	22: add tmp14, tmp13, b_0
+	23: mov a_0, tmp14
+	24: call tmp15, putint(a_0)
+	25: return 0
+end
+
+GVT:
