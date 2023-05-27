@@ -4,6 +4,7 @@
 #include "ir/ir.h"
 #include "backend/rv_def.h"
 #include "backend/rv_inst_impl.h"
+#include "front/semantic.h"
 
 #include<map>
 #include<string>
@@ -34,6 +35,7 @@ struct stackVarMap {
 struct Generator {
     const ir::Program& program;         // the program to gen
     std::ofstream& fout;                 // output file
+    frontend::Analyzer analyzer;    //use analyzer functions.
 
     Generator(ir::Program&, std::ofstream&);
 
@@ -48,7 +50,7 @@ struct Generator {
     // generate wrapper function
     void gen();
     void gen_func(const ir::Function&);
-    void gen_instr(const ir::Instruction&);
+    void gen_instr(ir::Instruction*, std::vector<rv::rv_inst>& rv_insts,int& stack_space);
 };
 
 

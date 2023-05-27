@@ -14,7 +14,7 @@ enum class rvREG {
     X3,         // gp
     X4,         // tp
     X5,         // t0
-    X6,         // .... FIX these comment by reading the risc-v ABI, and u should figure out the role of every register in function call, including its saver(caller/callee)
+    X6,         //
     X7,
     X8,
     X9,
@@ -40,6 +40,39 @@ enum class rvREG {
     X29,
     X30,
     X31,
+	zero = X0,
+	ra = X1,
+	sp = X2,
+	gp = X3,
+	tp = X4,
+	t0 = X5,
+	t1 = X6,
+	t2 = X7,
+	s0 = X8,
+	s1 = X9,
+	a0 = X10,
+	a1 = X11,
+	a2 = X12,
+	a3 = X13,
+	a4 = X14,
+	a5 = X15,
+	a6 = X16,
+	a7 = X17,
+	s2 = X18,
+	s3 = X19,
+	s4 = X20,
+	s5 = X21,
+	s6 = X22,
+	s7 = X23,
+	s8 = X24,
+	s9 = X25,
+	s10 = X26,
+	s11 = X27,
+	t3 = X28,
+	t4 = X29,
+	t5 = X30,
+	t6 = X31,
+    null,//不使用寄存器
 };
 std::string toString(rvREG r);  // implement this in ur own way
 
@@ -76,6 +109,7 @@ enum class rvFREG {
     F29,
     F30,
     F31,
+    null,
 };
 std::string toString(rvFREG r);  // implement this in ur own way
 
@@ -87,7 +121,7 @@ enum class rvOPCODE {
     ADDI, XORI, ORI, ANDI, SLLI, SRLI, SRAI, SLTI, SLTIU,   // immediate
     LW, SW,                                                 // load & store
     BEQ, BNE, BLT, BGE, BLTU, BGEU,                         // conditional branch
-    JAL, JALR,                                              // jump
+    JAL, JALR, JR,                                         // jump
 
     // RV32M Multiply Extension
 
@@ -95,6 +129,8 @@ enum class rvOPCODE {
 
     // Pseudo Instructions
     LA, LI, MOV, J,                                         // ...
+    //不使用
+    NOP,
 };
 std::string toString(rvOPCODE r);  // implement this in ur own way
 
