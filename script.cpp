@@ -1,33 +1,17 @@
-	zero = X0,
-	ra = X1,
-	sp = X2,
-	gp = X3,
-	tp = X4,
-	t0 = X5,
-	t1 = X6,
-	t2 = X7,
-	s0 = X8,
-	s1 = X9,
-	a0 = X10,
-	a1 = X11,
-	a2 = X12,
-	a3 = X13,
-	a4 = X14,
-	a5 = X15,
-	a6 = X16,
-	a7 = X17,
-	s2 = X18,
-	s3 = X19,
-	s4 = X20,
-	s5 = X21,
-	s6 = X22,
-	s7 = X23,
-	s8 = X24,
-	s9 = X25,
-	s10 = X26,
-	s11 = X27,
-	t3 = X28,
-	t4 = X29,
-	t5 = X30,
-	t6 = X31,
-	null = null,
+#define dgen_lw_ins(name, rs1_, rs2_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::LW; name.rs1 = rs1_; name.rs2 = rs2_; name.imm = imm_; rv_insts.push_back(name)
+#define dgen_sw_ins(name, rs1_, rs2_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::SW; name.rs1 = rs1_; name.rs2 = rs2_; name.imm = imm_; stack_space+=4; rv_insts.push_back(name)
+#define dgen_addi_ins(name, rd_, rs1_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::ADDI; name.rd = rd_; name.rs1 = rs1_; name.imm = imm_; rv_insts.push_back(name)
+#define dgen_li_ins(name, rd_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::LI; name.rd = rd_; name.imm = imm_; rv_insts.push_back(name)
+#define dgen_nop_ins(name) rv::rv_inst name; name.op = rv::rvOPCODE::NOP; rv_insts.push_back(name)
+#define dgen_jr_ins(name, rs1_) rv::rv_inst name; name.op = rv::rvOPCODE::JR; name.rs1 = rs1_; rv_insts.push_back(name)
+
+std::string rv::toString(rvOPCODE r){
+	if(r == rv::rvOPCODE::LW){return "lw";}
+	else if(r == rv::rvOPCODE::SW){return "sw";}
+	else if(r == rv::rvOPCODE::ADDI){return "addi";}
+	else if(r == rv::rvOPCODE::LI){return "li";}
+	else if(r == rv::rvOPCODE::NOP){return "nop";}
+	else if(r == rv::rvOPCODE::JR){return "jr";}
+	else{error();}
+}
+

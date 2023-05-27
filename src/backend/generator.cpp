@@ -14,18 +14,18 @@
 #define dgen_label(name) this->fout<<(std::string(name) + ":\n")
 #define dgen_ins_str(ins_str) this->fout<<"\t"<<std::string(ins_str)<<" \n" 
 #define literal_check(type_) (type_ == ir::Type::FloatLiteral || type_ == ir::Type::IntLiteral)
-#define dgen_lw_ins(name,rs2_,rs1_,imm_) rv::rv_inst name; name.op = rv::rvOPCODE::LW; name.rs2 = rs2_; name.rs1 = rs1_; name.imm = imm_; rv_insts.push_back(name)
-#define dgen_sw_ins(name,rs2_,rs1_,imm_) rv::rv_inst name; name.op = rv::rvOPCODE::SW; name.rs2 = rs2_; name.rs1 = rs1_; name.imm = imm_; stack_space+=4;rv_insts.push_back(name)
-#define dgen_addi_ins(name,rd_,rs1_,imm_) rv::rv_inst name;  name.op = rv::rvOPCODE::ADDI;  name.rd = rd_; name.rs1 = rs1_; name.imm = imm_; rv_insts.push_back(name)
-#define dgen_jr_ins(name,rs1_) rv::rv_inst name; name.op = rv::rvOPCODE::JR; name.rs1 = rs1_; rv_insts.push_back(name)
-#define dgen_li_ins(name,rd_,imm_) rv::rv_inst name;  name.rd = rd_; name.imm = imm_; rv_insts.push_back(name)
+#define dgen_lw_ins(name, rs1_, rs2_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::LW; name.rs1 = rs1_; name.rs2 = rs2_; name.imm = imm_; rv_insts.push_back(name)
+#define dgen_sw_ins(name, rs1_, rs2_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::SW; name.rs1 = rs1_; name.rs2 = rs2_; name.imm = imm_; stack_space+=4; rv_insts.push_back(name)
+#define dgen_addi_ins(name, rd_, rs1_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::ADDI; name.rd = rd_; name.rs1 = rs1_; name.imm = imm_; rv_insts.push_back(name)
+#define dgen_li_ins(name, rd_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::LI; name.rd = rd_; name.imm = imm_; rv_insts.push_back(name)
+#define dgen_nop_ins(name) rv::rv_inst name; name.op = rv::rvOPCODE::NOP; rv_insts.push_back(name)
+#define dgen_jr_ins(name, rs1_) rv::rv_inst name; name.op = rv::rvOPCODE::JR; name.rs1 = rs1_; rv_insts.push_back(name)
+
 
 backend::Generator::Generator(ir::Program& p, std::ofstream& f): program(p), fout(f) {}
 
 //实现draw函数
 std::string rv::rv_inst::draw() const{
-    //未考虑imm和label以及浮点数
-    // warning_todo();
     std::string ret = "\t";
     switch (this->op)
     {
@@ -47,11 +47,6 @@ std::string rv::rv_inst::draw() const{
         break;
     // op rs2, imm(rs1)
     case rv::rvOPCODE::SW:
-        ret+= rv::toString(this->op) + "\t";
-        ret+= rv::toString(this->rs2) + ", ";
-        ret+= std::to_string(this->imm) + "("; 
-        ret+= rv::toString(this->rs1) + ")\n";
-        break;
     case rv::rvOPCODE::LW:
         ret+= rv::toString(this->op) + "\t";
         ret+= rv::toString(this->rs2) + ", ";
@@ -108,7 +103,7 @@ void backend::Generator::gen_func(const ir::Function& func){
     warning_todo();
     dgen_addi_ins(add_sp,rv::rvREG::sp,rv::rvREG::sp,0);//imm先占位,走完整个函数修改
     //存入帧指针
-    dgen_sw_ins(sw_s0,rv::rvREG::s0,rv::rvREG::sp,0);//imm先占位,走完整个函数修改
+    dgen_sw_ins(sw_s0,rv::rvREG::sp,rv::rvREG::s0,0);//imm先占位,走完整个函数修改
     //偏移帧指针
     dgen_addi_ins(add_s0,rv::rvREG::s0,rv::rvREG::s0,0);//imm先占位,走完整个函数修改
     /*****进入函数指令*****/
@@ -116,7 +111,7 @@ void backend::Generator::gen_func(const ir::Function& func){
         gen_instr(ins,rv_insts,stack_space);
     }
     //取出s0
-    dgen_lw_ins(lw_s0,rv::rvREG::s0,rv::rvREG::sp,stack_space);
+    dgen_lw_ins(lw_s0,rv::rvREG::sp,rv::rvREG::s0,stack_space);
     //恢复sp
     dgen_addi_ins(recover_sp,rv::rvREG::sp,rv::rvREG::sp,stack_space);
     //填充占位
@@ -133,7 +128,7 @@ void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst
     if(ins->op==ir::Operator::_return){
         if(literal_check(ins->op1.type)){
             if(ins->op1.type==ir::Type::IntLiteral){
-                dgen_li_ins(li_literal,rv::rvREG::a0,his->analyzer.intstring_to_int(ins->op1.name));
+                dgen_li_ins(li_literal,rv::rvREG::a0,this->analyzer.intstring_to_int(ins->op1.name));
             }
             else{
                 todo();
@@ -159,43 +154,15 @@ std::string rv::toString(rvFREG r){
 }
 
 std::string rv::toString(rvOPCODE r){
-    if(r == rv::rvOPCODE::ADD){return "add";}
-    else if(r == rv::rvOPCODE::SUB){return "sub";}
-    else if(r == rv::rvOPCODE::XOR){return "xor";}
-    else if(r == rv::rvOPCODE::OR){return "or";}
-    else if(r == rv::rvOPCODE::AND){return "and";}
-    else if(r == rv::rvOPCODE::SLL){return "sll";}
-    else if(r == rv::rvOPCODE::SRL){return "srl";}
-    else if(r == rv::rvOPCODE::SRA){return "sra";}
-    else if(r == rv::rvOPCODE::SLT){return "slt";}
-    else if(r == rv::rvOPCODE::SLTU){return "sltu";}
-    else if(r == rv::rvOPCODE::ADDI){return "addi";}
-    else if(r == rv::rvOPCODE::XORI){return "xori";}
-    else if(r == rv::rvOPCODE::ORI){return "ori";}
-    else if(r == rv::rvOPCODE::ANDI){return "andi";}
-    else if(r == rv::rvOPCODE::SLLI){return "slli";}
-    else if(r == rv::rvOPCODE::SRLI){return "srli";}
-    else if(r == rv::rvOPCODE::SRAI){return "srai";}
-    else if(r == rv::rvOPCODE::SLTI){return "slti";}
-    else if(r == rv::rvOPCODE::SLTIU){return "sltiu";}
-    else if(r == rv::rvOPCODE::LW){return "lw";}
-    else if(r == rv::rvOPCODE::SW){return "sw";}
-    else if(r == rv::rvOPCODE::BEQ){return "beq";}
-    else if(r == rv::rvOPCODE::BNE){return "bne";}
-    else if(r == rv::rvOPCODE::BLT){return "blt";}
-    else if(r == rv::rvOPCODE::BGE){return "bge";}
-    else if(r == rv::rvOPCODE::BLTU){return "bltu";}
-    else if(r == rv::rvOPCODE::BGEU){return "bgeu";}
-    else if(r == rv::rvOPCODE::JAL){return "jal";}
-    else if(r == rv::rvOPCODE::JALR){return "jalr";}
-    else if(r == rv::rvOPCODE::LA){return "la";}
-    else if(r == rv::rvOPCODE::LI){return "li";}
-    else if(r == rv::rvOPCODE::MOV){return "mov";}
-    else if(r == rv::rvOPCODE::J){return "j";}
-    else if(r == rv::rvOPCODE::NOP){return "nop";}
-    else if(r == rv::rvOPCODE::JR){return "jr";}
-    else{{error();}}
+	if(r == rv::rvOPCODE::LW){return "lw";}
+	else if(r == rv::rvOPCODE::SW){return "sw";}
+	else if(r == rv::rvOPCODE::ADDI){return "addi";}
+	else if(r == rv::rvOPCODE::LI){return "li";}
+	else if(r == rv::rvOPCODE::NOP){return "nop";}
+	else if(r == rv::rvOPCODE::JR){return "jr";}
+	else{error();}
 }
+
 
 
 std::string rv::toString(rvREG r){
