@@ -14,17 +14,18 @@
 #define dgen_label(name) this->fout<<(std::string(name) + ":\n")
 #define dgen_ins_str(ins_str) this->fout<<"\t"<<std::string(ins_str)<<" \n" 
 #define literal_check(type_) (type_ == ir::Type::FloatLiteral || type_ == ir::Type::IntLiteral)
-#define dgen_lw_ins(name,rs2_,rs1_,imm_) rv::rv_inst name; name.op = rv::rvOPCODE::LW; name.rs2 = rs2_; name.rs1 = rs1_; name.imm = imm_; rv_insts.push_back(name);
-#define dgen_sw_ins(name,rs2_,rs1_,imm_) rv::rv_inst name; name.op = rv::rvOPCODE::SW; name.rs2 = rs2_; name.rs1 = rs1_; name.imm = imm_; stack_space+=4;rv_insts.push_back(name);
-
-
+#define dgen_lw_ins(name,rs2_,rs1_,imm_) rv::rv_inst name; name.op = rv::rvOPCODE::LW; name.rs2 = rs2_; name.rs1 = rs1_; name.imm = imm_; rv_insts.push_back(name)
+#define dgen_sw_ins(name,rs2_,rs1_,imm_) rv::rv_inst name; name.op = rv::rvOPCODE::SW; name.rs2 = rs2_; name.rs1 = rs1_; name.imm = imm_; stack_space+=4;rv_insts.push_back(name)
+#define dgen_addi_ins(name,rd_,rs1_,imm_) rv::rv_inst name;  name.op = rv::rvOPCODE::ADDI;  name.rd = rd_; name.rs1 = rs1_; name.imm = imm_; rv_insts.push_back(name)
+#define dgen_jr_ins(name,rs1_) rv::rv_inst name; name.op = rv::rvOPCODE::JR; name.rs1 = rs1_; rv_insts.push_back(name)
+#define dgen_li_ins(name,rd_,imm_) rv::rv_inst name;  name.rd = rd_; name.imm = imm_; rv_insts.push_back(name)
 
 backend::Generator::Generator(ir::Program& p, std::ofstream& f): program(p), fout(f) {}
 
 //实现draw函数
 std::string rv::rv_inst::draw() const{
     //未考虑imm和label以及浮点数
-    warning_todo();
+    // warning_todo();
     std::string ret = "\t";
     switch (this->op)
     {
@@ -46,6 +47,11 @@ std::string rv::rv_inst::draw() const{
         break;
     // op rs2, imm(rs1)
     case rv::rvOPCODE::SW:
+        ret+= rv::toString(this->op) + "\t";
+        ret+= rv::toString(this->rs2) + ", ";
+        ret+= std::to_string(this->imm) + "("; 
+        ret+= rv::toString(this->rs1) + ")\n";
+        break;
     case rv::rvOPCODE::LW:
         ret+= rv::toString(this->op) + "\t";
         ret+= rv::toString(this->rs2) + ", ";
@@ -100,11 +106,11 @@ void backend::Generator::gen_func(const ir::Function& func){
     //偏移栈指针
     //考虑数组过大....
     warning_todo();
-    rv_insts.push_back({rv::rvOPCODE::ADDI,rv::rvREG::sp,rv::rvREG::sp,0});//imm先占位,走完整个函数修改
+    dgen_addi_ins(add_sp,rv::rvREG::sp,rv::rvREG::sp,0);//imm先占位,走完整个函数修改
     //存入帧指针
     dgen_sw_ins(sw_s0,rv::rvREG::s0,rv::rvREG::sp,0);//imm先占位,走完整个函数修改
     //偏移帧指针
-    rv_insts.push_back({rv::rvOPCODE::ADDI,rv::rvREG::s0,rv::rvREG::s0,0});//imm先占位,走完整个函数修改
+    dgen_addi_ins(add_s0,rv::rvREG::s0,rv::rvREG::s0,0);//imm先占位,走完整个函数修改
     /*****进入函数指令*****/
     for(auto ins:func.InstVec){
         gen_instr(ins,rv_insts,stack_space);
@@ -112,11 +118,11 @@ void backend::Generator::gen_func(const ir::Function& func){
     //取出s0
     dgen_lw_ins(lw_s0,rv::rvREG::s0,rv::rvREG::sp,stack_space);
     //恢复sp
-    rv_insts.push_back({rv::rvOPCODE::ADDI,rv::rvREG::sp,rv::rvREG::sp,stack_space});
+    dgen_addi_ins(recover_sp,rv::rvREG::sp,rv::rvREG::sp,stack_space);
     //填充占位
     rv_insts[0].imm = -stack_space;
     rv_insts[1].imm = stack_space;
-    rv_insts.push_back({rv::rvOPCODE::JR,{},rv::rvREG::ra,{}});
+    dgen_jr_ins(jr_ra,rv::rvREG::ra);
     //写入文件
     for(auto ri : rv_insts){
         fout<<ri.draw();
@@ -127,11 +133,7 @@ void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst
     if(ins->op==ir::Operator::_return){
         if(literal_check(ins->op1.type)){
             if(ins->op1.type==ir::Type::IntLiteral){
-                rv::rv_inst li_ins = rv::rv_inst();
-                li_ins.op = rv::rvOPCODE::LI;
-                li_ins.imm = this->analyzer.intstring_to_int(ins->op1.name);
-                li_ins.rd = rv::rvREG::a0;//存储返回值
-                rv_insts.push_back(li_ins);
+                dgen_li_ins(li_literal,rv::rvREG::a0,his->analyzer.intstring_to_int(ins->op1.name));
             }
             else{
                 todo();
