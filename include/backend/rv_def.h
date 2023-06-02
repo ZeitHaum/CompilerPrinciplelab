@@ -132,7 +132,7 @@ enum class rvOPCODE {
     // //不使用
     // NOP,
     //未添加浮点数
-    LW, SW, ADDI, LI, NOP, JR, CALL, MV, JAL 
+    LW, SW, ADDI, LI, NOP, JR, CALL, MV, JAL,ADD, SUB, MUL, DIV
 };
 std::string toString(rvOPCODE r);  // implement this in ur own way
 

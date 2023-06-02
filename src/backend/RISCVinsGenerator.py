@@ -1,4 +1,4 @@
-instr_str = "LW, SW, ADDI, LI, NOP, JR, CALL, MV, JAL"
+instr_str = "LW, SW, ADDI, LI, NOP, JR, CALL, MV, JAL, ADD, SUB, MUL, DIV"
 
 instrs = instr_str.split(", ")
 # print(instrs)
@@ -12,6 +12,7 @@ instrs = instr_str.split(", ")
 "CALL" #op rd,label
 "MV" #op rd, rs2
 "JAL", #op label
+"ADD" #op, rd, rs1,rs2
 """
 family_mask_map = dict()
 #rd,rs1,rs2,imm,label
@@ -23,6 +24,7 @@ family_mask_map["JR"] = [0,1,0,0,0]
 family_mask_map["CALL"] = [1,0,0,0,1]
 family_mask_map["MV"] = [1,0,1,0,0]
 family_mask_map["JAL"] = [0,0,0,0,1]
+family_mask_map["ADD"] = [1,1,1,0,0]
 
 instrs_familiy = [
     "LW", 
@@ -34,6 +36,10 @@ instrs_familiy = [
     "CALL",
     "MV",
     "JAL",
+    "ADD",
+    "ADD",
+    "ADD",
+    "ADD",
 ]
 
 assert(len(instrs)==len(instrs_familiy))

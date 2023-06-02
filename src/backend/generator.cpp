@@ -18,15 +18,20 @@
 #define literal_check(type_) (type_ == ir::Type::FloatLiteral || type_ == ir::Type::IntLiteral)
 #define dgen_lw_ins(name, rs1_, rs2_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::LW; name.rs1 = rs1_; name.rs2 = rs2_; name.imm = imm_; rv_insts.push_back(name)
 #define dgen_lwlable_ins(name,rd_,label_) rv::rv_inst name;  name.op = rv::rvOPCODE::LW; name.rd = rd_; name.label = label_; rv_insts.push_back(name)
-#define dgen_sw_ins(name, rs1_, rs2_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::SW; name.rs1 = rs1_; name.rs2 = rs2_; name.imm = imm_; stack_space+=4; rv_insts.push_back(name)
+#define dgen_sw_ins(name, rs1_, rs2_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::SW; name.rs1 = rs1_; name.rs2 = rs2_; name.imm = imm_; rv_insts.push_back(name)
 #define dgen_swlable_ins(name,rd_,label_,rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::SW; name.rd = rd_; name.label = label_; name.rs2 = rs2_; rv_insts.push_back(name)
 #define dgen_addi_ins(name, rd_, rs1_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::ADDI; name.rd = rd_; name.rs1 = rs1_; name.imm = imm_; rv_insts.push_back(name)
 #define dgen_li_ins(name, rd_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::LI; name.rd = rd_; name.imm = imm_; rv_insts.push_back(name)
 #define dgen_nop_ins(name) rv::rv_inst name; name.op = rv::rvOPCODE::NOP; rv_insts.push_back(name)
 #define dgen_jr_ins(name, rs1_) rv::rv_inst name; name.op = rv::rvOPCODE::JR; name.rs1 = rs1_; rv_insts.push_back(name)
 #define dgen_call_ins(name,label_) rv::rv_inst name; name.op = rv::rvOPCODE::CALL; name.label = label_; rv_insts.push_back(name)
-#define dgen_mv_ins(name, rd_, rs1_) rv::rv_inst name; name.op = rv::rvOPCODE::MV; name.rd = rd_; name.rs1 = rs1_; rv_insts.push_back(name)
+#define dgen_mv_ins(name, rd_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::MV; name.rd = rd_; name.rs2 = rs2_; rv_insts.push_back(name)
 #define dgen_jal_ins(name, label_) rv::rv_inst name; name.op = rv::rvOPCODE::JAL; name.label = label_; rv_insts.push_back(name)
+#define dgen_add_ins(name, rd_, rs1_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::ADD; name.rd = rd_; name.rs1 = rs1_; name.rs2 = rs2_; rv_insts.push_back(name)
+#define dgen_sub_ins(name, rd_, rs1_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::SUB; name.rd = rd_; name.rs1 = rs1_; name.rs2 = rs2_; rv_insts.push_back(name)
+#define dgen_mul_ins(name, rd_, rs1_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::MUL; name.rd = rd_; name.rs1 = rs1_; name.rs2 = rs2_; rv_insts.push_back(name)
+#define dgen_div_ins(name, rd_, rs1_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::DIV; name.rd = rd_; name.rs1 = rs1_; name.rs2 = rs2_; rv_insts.push_back(name)
+#define standard_load_op(reg_name,op) load_op(op,stvm,reg_name,rv_insts);
 
 backend::Generator::Generator(ir::Program& p, std::ofstream& f): program(p), fout(f) {}
 
@@ -96,11 +101,21 @@ std::string rv::rv_inst::draw() const{
         ret+= this->label + "\n";
         break;
 
-    //op rd,rs1
+    //op rd,rs2
     case rv::rvOPCODE::MV:
         ret+= rv::toString(this->op) + "\t";
         ret+= rv::toString(this->rd) + ", ";
-        ret+= rv::toString(this->rs1) + "\n";
+        ret+= rv::toString(this->rs2) + "\n";
+        break;
+    //op rd,rs1,rs2
+    case rv::rvOPCODE::ADD:
+    case rv::rvOPCODE::SUB:
+    case rv::rvOPCODE::MUL:
+    case rv::rvOPCODE::DIV:
+        ret+= rv::toString(this->op) + "\t";
+        ret+= rv::toString(this->rd) + ", ";
+        ret+= rv::toString(this->rs1) + ", ";
+        ret+= rv::toString(this->rs2)+ "\n";
         break;
     
     default:
@@ -156,6 +171,7 @@ void backend::Generator::gen_func(ir::Function& func){
     dgen_addi_ins(add_sp,rv::rvREG::sp,rv::rvREG::sp,0);//imm先占位,走完整个函数修改
     //存入帧指针
     dgen_sw_ins(sw_s0,rv::rvREG::sp,rv::rvREG::s0,0);//imm先占位,走完整个函数修改
+    stack_space+=4;
     //偏移帧指针
     dgen_addi_ins(add_s0,rv::rvREG::s0,rv::rvREG::sp,0);//imm先占位,走完整个函数修改
     stackVarMap stvm;
@@ -175,6 +191,25 @@ void backend::Generator::gen_func(ir::Function& func){
     //写入文件
     for(auto ri : rv_insts){
         fout<<ri.draw();
+    }
+}
+
+void backend::Generator::load_op(ir::Operand op, backend::stackVarMap& stvm, rv::rvREG reg, std::vector<rv::rv_inst>& rv_insts){
+    if(op.type==ir::Type::IntLiteral){
+        dgen_li_ins(li_op1,reg,this->analyzer.intstring_to_int(op.name));
+    }
+    else if(op.type==ir::Type::Int){
+        //判断全局变量
+        if(this->is_global.count(op.name)!=0){
+            dgen_lwlable_ins(lw_gv,reg,op.name);
+        }
+        else{
+            int off = stvm._table[op.name];
+            dgen_lw_ins(lw_lv,rv::rvREG::s0,reg,off);
+        }
+    }
+    else{
+        todo();
     }
 }
 
@@ -203,6 +238,7 @@ void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst
             //存入ra
             int tmp = -stack_space;
             dgen_sw_ins(sw_ra,rv::rvREG::s0,rv::rvREG::ra,tmp);
+            stack_space+=4;
             //call
             dgen_call_ins(call_func,cins->op1.name);
             //取回ra
@@ -215,22 +251,7 @@ void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst
     else if(ins->op==ir::Operator::def || ins->op==ir::Operator::mov){
         //加载def.op1
         rv::rvREG tmp_op1 = rv::rvREG::t3;
-        if(ins->op1.type==ir::Type::IntLiteral){
-            dgen_li_ins(li_op1,tmp_op1,this->analyzer.intstring_to_int(ins->op1.name));
-        }
-        else if(ins->op1.type==ir::Type::Int){
-            //判断全局变量
-            if(this->is_global.count(ins->op1.name)!=0){
-                dgen_lwlable_ins(lw_gv,tmp_op1,ins->op1.name);
-            }
-            else{
-                int off = stvm._table[ins->op1.name];
-                dgen_lw_ins(lw_lv,rv::rvREG::s0,tmp_op1,off);
-            }
-        }
-        else{
-            todo();
-        }
+        standard_load_op(tmp_op1,ins->op1);
         //写入值
         //判断是否为全局变量
         if(this->is_global.count(ins->des.name)!=0){
@@ -241,6 +262,7 @@ void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst
             if(stvm._table.count(ins->des.name)==0){
                 if(ins->des.type==ir::Type::Int){
                     stvm._table[ins->des.name] = stack_space;
+                    stack_space+=4;
                 }
                 else if(ins->des.type==ir::Type::Float){
                     todo();
@@ -252,6 +274,15 @@ void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst
             int off = stvm._table[ins->des.name];
             dgen_sw_ins(sw_def_des,rv::rvREG::s0,tmp_op1,-off);
         }
+    }
+    else if(ins->op==ir::Operator::add){
+        rv::rvREG tmp_op1 =rv::rvREG::t3;
+        rv::rvREG tmp_op2 = rv::rvREG::t4;
+        standard_load_op(tmp_op1,ins->op1);
+        standard_load_op(tmp_op2,ins->op2);
+        rv::rvREG tmp_des = rv::rvREG::t5;
+        dgen_add_ins(add_ins,tmp_des,tmp_op1,tmp_op2);
+        todo();
     }
     else{
         todo();
@@ -272,6 +303,10 @@ std::string rv::toString(rvOPCODE r){
     else if(r == rv::rvOPCODE::CALL){return "call";}
     else if(r == rv::rvOPCODE::MV){return "mv";}
     else if(r == rv::rvOPCODE::JAL){return "jal";}
+    else if(r == rv::rvOPCODE::ADD){return "add";}
+	else if(r == rv::rvOPCODE::SUB){return "sub";}
+	else if(r == rv::rvOPCODE::MUL){return "mul";}
+	else if(r == rv::rvOPCODE::DIV){return "div";}
 	else{error();}
 }
 

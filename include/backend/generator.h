@@ -54,6 +54,7 @@ struct Generator {
     void gen_func(ir::Function&);
     void gen_instr(ir::Instruction*, std::vector<rv::rv_inst>& rv_insts,int& stack_space,stackVarMap& stvm);
     rv::rvREG get_op_val(ir::Operand op);
+    void load_op(ir::Operand op, backend::stackVarMap& stvm, rv::rvREG reg, std::vector<rv::rv_inst>& rv_insts);
 };
 
 

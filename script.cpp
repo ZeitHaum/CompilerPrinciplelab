@@ -7,6 +7,10 @@
 #define dgen_call_ins(name, rd_, label_) rv::rv_inst name; name.op = rv::rvOPCODE::CALL; name.rd = rd_; name.label = label_; rv_insts.push_back(name)
 #define dgen_mv_ins(name, rd_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::MV; name.rd = rd_; name.rs2 = rs2_; rv_insts.push_back(name)
 #define dgen_jal_ins(name, label_) rv::rv_inst name; name.op = rv::rvOPCODE::JAL; name.label = label_; rv_insts.push_back(name)
+#define dgen_add_ins(name, rd_, rs1_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::ADD; name.rd = rd_; name.rs1 = rs1_; name.rs2 = rs2_; rv_insts.push_back(name)
+#define dgen_sub_ins(name, rd_, rs1_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::SUB; name.rd = rd_; name.rs1 = rs1_; name.rs2 = rs2_; rv_insts.push_back(name)
+#define dgen_mul_ins(name, rd_, rs1_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::MUL; name.rd = rd_; name.rs1 = rs1_; name.rs2 = rs2_; rv_insts.push_back(name)
+#define dgen_div_ins(name, rd_, rs1_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::DIV; name.rd = rd_; name.rs1 = rs1_; name.rs2 = rs2_; rv_insts.push_back(name)
 
 std::string rv::toString(rvOPCODE r){
 	if(r == rv::rvOPCODE::LW){return "lw";}
@@ -18,6 +22,10 @@ std::string rv::toString(rvOPCODE r){
 	else if(r == rv::rvOPCODE::CALL){return "call";}
 	else if(r == rv::rvOPCODE::MV){return "mv";}
 	else if(r == rv::rvOPCODE::JAL){return "jal";}
+	else if(r == rv::rvOPCODE::ADD){return "add";}
+	else if(r == rv::rvOPCODE::SUB){return "sub";}
+	else if(r == rv::rvOPCODE::MUL){return "mul";}
+	else if(r == rv::rvOPCODE::DIV){return "div";}
 	else{error();}
 }
 
