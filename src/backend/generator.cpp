@@ -32,6 +32,7 @@
 #define dgen_mul_ins(name, rd_, rs1_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::MUL; name.rd = rd_; name.rs1 = rs1_; name.rs2 = rs2_; rv_insts.push_back(name)
 #define dgen_div_ins(name, rd_, rs1_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::DIV; name.rd = rd_; name.rs1 = rs1_; name.rs2 = rs2_; rv_insts.push_back(name)
 #define standard_load_op(reg_name,op) load_op(op,stvm,reg_name,rv_insts);
+#define standard_store_op(reg_name,op) store_op(op,stvm,reg_name,rv_insts,stack_space);
 
 backend::Generator::Generator(ir::Program& p, std::ofstream& f): program(p), fout(f) {}
 
@@ -205,11 +206,35 @@ void backend::Generator::load_op(ir::Operand op, backend::stackVarMap& stvm, rv:
         }
         else{
             int off = stvm._table[op.name];
-            dgen_lw_ins(lw_lv,rv::rvREG::s0,reg,off);
+            dgen_lw_ins(lw_lv,rv::rvREG::s0,reg,-off);
         }
     }
     else{
         todo();
+    }
+}
+
+void backend::Generator::store_op(ir::Operand op,  backend::stackVarMap& stvm, rv::rvREG reg, std::vector<rv::rv_inst>& rv_insts, int& stack_space){
+    //判断是否为全局变量
+    if(this->is_global.count(op.name)!=0){
+        dgen_swlable_ins(sw_gv,reg,op.name,getRs2({}));//Operand为空表示临时变量
+    }
+    else{
+        //内存管理映射
+        if(stvm._table.count(op.name)==0){
+            if(op.type==ir::Type::Int){
+                stvm._table[op.name] = stack_space;
+                stack_space+=4;
+            }
+            else if(op.type==ir::Type::Float){
+                todo();
+            }
+            else{
+                error();
+            }
+        }
+        int off = stvm._table[op.name];
+        dgen_sw_ins(sw_def_des,rv::rvREG::s0,reg,-off);
     }
 }
 
@@ -226,6 +251,9 @@ void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst
         else if(ins->op1.type==ir::Type::null){
             //do Nothing.
             dgen_nop_ins(nop_ret);
+        }
+        else if(ins->op1.type==ir::Type::Int){
+            standard_load_op(rv::rvREG::a0,ins->op1);
         }
         else{
             todo();
@@ -253,27 +281,7 @@ void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst
         rv::rvREG tmp_op1 = rv::rvREG::t3;
         standard_load_op(tmp_op1,ins->op1);
         //写入值
-        //判断是否为全局变量
-        if(this->is_global.count(ins->des.name)!=0){
-            dgen_swlable_ins(sw_gv,tmp_op1,ins->des.name,getRs2({}));//Operand为空表示临时变量
-        }
-        else{
-            //内存管理映射
-            if(stvm._table.count(ins->des.name)==0){
-                if(ins->des.type==ir::Type::Int){
-                    stvm._table[ins->des.name] = stack_space;
-                    stack_space+=4;
-                }
-                else if(ins->des.type==ir::Type::Float){
-                    todo();
-                }
-                else{
-                    error();
-                }
-            }
-            int off = stvm._table[ins->des.name];
-            dgen_sw_ins(sw_def_des,rv::rvREG::s0,tmp_op1,-off);
-        }
+        standard_store_op(tmp_op1,ins->des);
     }
     else if(ins->op==ir::Operator::add){
         rv::rvREG tmp_op1 =rv::rvREG::t3;
@@ -282,7 +290,7 @@ void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst
         standard_load_op(tmp_op2,ins->op2);
         rv::rvREG tmp_des = rv::rvREG::t5;
         dgen_add_ins(add_ins,tmp_des,tmp_op1,tmp_op2);
-        todo();
+        standard_store_op(tmp_des,ins->des);
     }
     else{
         todo();
