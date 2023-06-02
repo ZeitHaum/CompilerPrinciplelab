@@ -8,6 +8,6 @@
 
 int main(){
     std::string s = "main";
-    std::cout<<gen_global(s);
+    std::cout<<"\%";
     return 0;
 }

@@ -11,6 +11,7 @@
 #define dgen_sub_ins(name, rd_, rs1_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::SUB; name.rd = rd_; name.rs1 = rs1_; name.rs2 = rs2_; rv_insts.push_back(name)
 #define dgen_mul_ins(name, rd_, rs1_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::MUL; name.rd = rd_; name.rs1 = rs1_; name.rs2 = rs2_; rv_insts.push_back(name)
 #define dgen_div_ins(name, rd_, rs1_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::DIV; name.rd = rd_; name.rs1 = rs1_; name.rs2 = rs2_; rv_insts.push_back(name)
+#define dgen_slli_ins(name, rd_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::SLLI; name.rd = rd_; name.imm = imm_; rv_insts.push_back(name)
 
 std::string rv::toString(rvOPCODE r){
 	if(r == rv::rvOPCODE::LW){return "lw";}
@@ -26,6 +27,7 @@ std::string rv::toString(rvOPCODE r){
 	else if(r == rv::rvOPCODE::SUB){return "sub";}
 	else if(r == rv::rvOPCODE::MUL){return "mul";}
 	else if(r == rv::rvOPCODE::DIV){return "div";}
+	else if(r == rv::rvOPCODE::SLLI){return "slli";}
 	else{error();}
 }
 

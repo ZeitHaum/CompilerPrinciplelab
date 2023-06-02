@@ -21,6 +21,7 @@
 #define dgen_sw_ins(name, rs1_, rs2_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::SW; name.rs1 = rs1_; name.rs2 = rs2_; name.imm = imm_; rv_insts.push_back(name)
 #define dgen_swlable_ins(name,rd_,label_,rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::SW; name.rd = rd_; name.label = label_; name.rs2 = rs2_; rv_insts.push_back(name)
 #define dgen_addi_ins(name, rd_, rs1_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::ADDI; name.rd = rd_; name.rs1 = rs1_; name.imm = imm_; rv_insts.push_back(name)
+#define dgen_addilabel_ins(name, rd_, rs1_, label_) rv::rv_inst name; name.op = rv::rvOPCODE::ADDI; name.rd = rd_; name.rs1 = rs1_; name.label = label_; rv_insts.push_back(name)
 #define dgen_li_ins(name, rd_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::LI; name.rd = rd_; name.imm = imm_; rv_insts.push_back(name)
 #define dgen_nop_ins(name) rv::rv_inst name; name.op = rv::rvOPCODE::NOP; rv_insts.push_back(name)
 #define dgen_jr_ins(name, rs1_) rv::rv_inst name; name.op = rv::rvOPCODE::JR; name.rs1 = rs1_; rv_insts.push_back(name)
@@ -33,6 +34,8 @@
 #define dgen_div_ins(name, rd_, rs1_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::DIV; name.rd = rd_; name.rs1 = rs1_; name.rs2 = rs2_; rv_insts.push_back(name)
 #define standard_load_op(reg_name,op) load_op(op,stvm,reg_name,rv_insts);
 #define standard_store_op(reg_name,op) store_op(op,stvm,reg_name,rv_insts,stack_space);
+#define dgen_slli_ins(name, rd_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::SLLI; name.rd = rd_; name.imm = imm_; rv_insts.push_back(name)
+#define dgen_luilabel_ins(name,rd_,label_)  rv::rv_inst name; name.op = rv::rvOPCODE::LUI; name.rd = rd_; name.label = label_; rv_insts.push_back(name)
 
 backend::Generator::Generator(ir::Program& p, std::ofstream& f): program(p), fout(f) {}
 
@@ -47,6 +50,7 @@ std::string rv::rv_inst::draw() const{
         break;
 
     //op rd, imm
+    case rv::rvOPCODE::SLLI:
     case rv::rvOPCODE::LI:
         ret+= rv::toString(this->op) + "\t";
         ret+= rv::toString(this->rd) + ", ";
@@ -92,7 +96,11 @@ std::string rv::rv_inst::draw() const{
         ret+= rv::toString(this->op) + "\t";
         ret+= rv::toString(this->rd) + ", ";
         ret+= rv::toString(this->rs1) + ", ";
-        ret+= std::to_string(this->imm)+ "\n";
+        if(this->label!=""){
+            ret+= "\%lo(" + this->label+ ")\n";
+        }else{
+            ret+= std::to_string(this->imm)+ "\n";
+        }
         break;
 
     //op label
@@ -118,7 +126,12 @@ std::string rv::rv_inst::draw() const{
         ret+= rv::toString(this->rs1) + ", ";
         ret+= rv::toString(this->rs2)+ "\n";
         break;
-    
+    //op rd, %hi(label)
+    case rv::rvOPCODE::LUI:
+        ret+= rv::toString(this->op) + "\t";
+        ret+= rv::toString(this->rd) + ", ";
+        ret+=  "\%hi(" + this->label+ ")\n";
+        break;
     default:
         error();
         break;
@@ -142,6 +155,7 @@ void backend::Generator::gen() {
         }
         else if(op.type==ir::Type::IntPtr){
             dgen_global(op.name);
+            dgen_type(op.name,"object");
             dgen_label(op.name);
             dgen_zero(std::to_string(g.maxlen*4));
         }
@@ -167,8 +181,6 @@ void backend::Generator::gen_func(ir::Function& func){
     std::vector<rv::rv_inst> rv_insts;
     /***函数开始工作**/
     //偏移栈指针
-    //考虑数组过大....
-    warning_todo();
     dgen_addi_ins(add_sp,rv::rvREG::sp,rv::rvREG::sp,0);//imm先占位,走完整个函数修改
     //存入帧指针
     dgen_sw_ins(sw_s0,rv::rvREG::sp,rv::rvREG::s0,0);//imm先占位,走完整个函数修改
@@ -261,20 +273,23 @@ void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst
     }
     else if(ins->op==ir::Operator::call){
         ir::CallInst* cins = ((ir::CallInst*)ins);
-        if(cins->argumentList.empty()){
-            //add call;
-            //存入ra
-            int tmp = -stack_space;
-            dgen_sw_ins(sw_ra,rv::rvREG::s0,rv::rvREG::ra,tmp);
-            stack_space+=4;
-            //call
-            dgen_call_ins(call_func,cins->op1.name);
-            //取回ra
-            dgen_lw_ins(lw_ra,rv::rvREG::s0,rv::rvREG::ra,tmp);
-        }
-        else{
+        //add call;
+        //存入ra
+        int tmp = -stack_space;
+        dgen_sw_ins(sw_ra,rv::rvREG::s0,rv::rvREG::ra,tmp);
+        stack_space+=4;
+        if(!cins->argumentList.empty()){
+            //存入参数值
             todo();
         }
+        //call
+        dgen_call_ins(call_func,cins->op1.name);
+        //取出返回值
+        if(ins->des.type!=ir::Type::null){
+            standard_store_op(rv::rvREG::a0,ins->des);
+        }
+        //取回ra
+        dgen_lw_ins(lw_ra,rv::rvREG::s0,rv::rvREG::ra,tmp);
     }
     else if(ins->op==ir::Operator::def || ins->op==ir::Operator::mov){
         //加载def.op1
@@ -302,6 +317,79 @@ void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst
         }
         standard_store_op(tmp_des,ins->des);
     }
+    else if(ins->op == ir::Operator::store){
+        rv::rvREG off_reg = rv::rvREG::t3;
+        if(this->is_global.count(ins->op1.name)!=0){
+            dgen_luilabel_ins(lui_ga,off_reg,ins->op1.name);
+            dgen_addilabel_ins(addi_ga,off_reg,off_reg,ins->op1.name);
+            rv::rvREG tmp_mul4 = rv::rvREG::t4;
+            if(literal_check(ins->op2.type)){
+                dgen_li_ins(li_mul4,tmp_mul4,this->analyzer.intstring_to_int(ins->op2.name) * 4);
+            }else{
+                standard_load_op(tmp_mul4,ins->op2);
+                dgen_slli_ins(slli_mul4,tmp_mul4,2);
+            }
+            dgen_add_ins(add_addr,off_reg,off_reg,tmp_mul4);
+        }
+        else{
+            //考虑数组过大
+            int off = stvm._table[ins->op1.name];
+            dgen_li_ins(li_off,off_reg,off);
+            rv::rvREG tmp_mul4 = rv::rvREG::t4;
+            if(literal_check(ins->op2.type)){
+                dgen_li_ins(li_mul4,tmp_mul4,this->analyzer.intstring_to_int(ins->op2.name) * 4);
+            }else{
+                standard_load_op(tmp_mul4,ins->op2);
+                dgen_slli_ins(slli_mul4,tmp_mul4,2);
+            }
+            dgen_add_ins(add_off,off_reg,off_reg,tmp_mul4);
+            dgen_sub_ins(sub_addr,off_reg,rv::rvREG::s0,off_reg);
+        }
+        //存值
+        rv::rvREG sw_val_reg = rv::rvREG::t5;
+        standard_load_op(sw_val_reg,ins->des);
+        dgen_sw_ins(sw_arr,off_reg,sw_val_reg,0);
+    }
+    else if(ins->op == ir::Operator::alloc){
+        //只需要移动栈指针即可
+        stvm._table[ins->des.name] = stack_space;
+        int len = this->analyzer.intstring_to_int(ins->op1.name) * 4;
+        stack_space += len;
+    }
+    else if(ins->op == ir::Operator::load){
+        rv::rvREG off_reg = rv::rvREG::t3;
+        if(this->is_global.count(ins->op1.name)!=0){
+            dgen_luilabel_ins(lui_ga,off_reg,ins->op1.name);
+            dgen_addilabel_ins(addi_ga,off_reg,off_reg,ins->op1.name);
+            rv::rvREG tmp_mul4 = rv::rvREG::t4;
+            if(literal_check(ins->op2.type)){
+                dgen_li_ins(li_mul4,tmp_mul4,this->analyzer.intstring_to_int(ins->op2.name) * 4);
+            }else{
+                standard_load_op(tmp_mul4,ins->op2);
+                dgen_slli_ins(slli_mul4,tmp_mul4,2);
+            }
+            dgen_add_ins(add_addr,off_reg,off_reg,tmp_mul4);
+        }
+        else{
+            //考虑数组过大....
+            int off = stvm._table[ins->op1.name];
+            dgen_li_ins(li_off,off_reg,off);
+            rv::rvREG tmp_mul4 = rv::rvREG::t4;
+            if(literal_check(ins->op2.type)){
+                dgen_li_ins(li_mul4,tmp_mul4,this->analyzer.intstring_to_int(ins->op2.name) * 4);
+            }else{
+                standard_load_op(tmp_mul4,ins->op2);
+                dgen_slli_ins(slli_mul4,tmp_mul4,2);
+            }
+            dgen_add_ins(add_off,off_reg,off_reg,tmp_mul4);
+            dgen_sub_ins(sub_addr,off_reg,rv::rvREG::s0,off_reg);
+        }
+        
+        //写入值
+        rv::rvREG lw_val = rv::rvREG::t5;
+        dgen_lw_ins(lw_arr,off_reg,lw_val,0);
+        standard_store_op(lw_val,ins->des);
+    }
     else{
         todo();
     }
@@ -325,6 +413,8 @@ std::string rv::toString(rvOPCODE r){
 	else if(r == rv::rvOPCODE::SUB){return "sub";}
 	else if(r == rv::rvOPCODE::MUL){return "mul";}
 	else if(r == rv::rvOPCODE::DIV){return "div";}
+    else if(r == rv::rvOPCODE::SLLI){return "slli";}
+    else if(r == rv::rvOPCODE::LUI){return "lui";}
 	else{error();}
 }
 
