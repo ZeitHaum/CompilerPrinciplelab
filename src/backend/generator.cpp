@@ -33,7 +33,7 @@
 #define dgen_mul_ins(name, rd_, rs1_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::MUL; name.rd = rd_; name.rs1 = rs1_; name.rs2 = rs2_; rv_insts.push_back(name)
 #define dgen_div_ins(name, rd_, rs1_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::DIV; name.rd = rd_; name.rs1 = rs1_; name.rs2 = rs2_; rv_insts.push_back(name)
 #define standard_load_op(reg_name,op) load_op(op,stvm,reg_name,rv_insts);
-#define standard_store_op(reg_name,op) store_op(op,stvm,reg_name,rv_insts,stack_space);
+#define standard_store_op(reg_name,op) store_op(op,stvm,reg_name,rv_insts,stack_ptr);
 #define dgen_slli_ins(name, rd_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::SLLI; name.rd = rd_; name.imm = imm_; rv_insts.push_back(name)
 #define dgen_luilabel_ins(name,rd_,label_)  rv::rv_inst name; name.op = rv::rvOPCODE::LUI; name.rd = rd_; name.label = label_; rv_insts.push_back(name)
 
@@ -177,22 +177,30 @@ void backend::Generator::gen() {
 void backend::Generator::gen_func(ir::Function& func){
     //进入函数声明
     dgen_label(func.name);
-    int stack_space = 0;
+    int stack_space = 4;
+    int stack_ptr = 0;//相对于s0
+    int reverse_ptr = 0;//相对于sp
     std::vector<rv::rv_inst> rv_insts;
     /***函数开始工作**/
     //偏移栈指针
     dgen_addi_ins(add_sp,rv::rvREG::sp,rv::rvREG::sp,0);//imm先占位,走完整个函数修改
     //存入帧指针
     dgen_sw_ins(sw_s0,rv::rvREG::sp,rv::rvREG::s0,0);//imm先占位,走完整个函数修改
-    stack_space+=4;
+    stack_ptr+=4;
     //偏移帧指针
     dgen_addi_ins(add_s0,rv::rvREG::s0,rv::rvREG::sp,0);//imm先占位,走完整个函数修改
     stackVarMap stvm;
+    /****存储参数偏移量****/
+    for(int i = func.ParameterList.size()-1;i>=0;i--){
+        int off = -(func.ParameterList.size()-1-i) * 4;
+        stvm._table[func.ParameterList[i].name] = off;
+    }
     /*****进入函数指令*****/
     for(auto ins:func.InstVec){
-        gen_instr(ins,rv_insts,stack_space,stvm);
+        gen_instr(ins,rv_insts,stack_ptr,reverse_ptr,stvm);
     }
     //填充占位
+    stack_space = stack_ptr  + reverse_ptr;
     rv_insts[0].imm = -stack_space;//add_sp
     rv_insts[1].imm = stack_space-4;//sw_s0
     rv_insts[2].imm = stack_space;
@@ -235,8 +243,8 @@ void backend::Generator::store_op(ir::Operand op,  backend::stackVarMap& stvm, r
         //内存管理映射
         if(stvm._table.count(op.name)==0){
             if(op.type==ir::Type::Int){
-                stvm._table[op.name] = stack_space;
                 stack_space+=4;
+                stvm._table[op.name] = stack_space;
             }
             else if(op.type==ir::Type::Float){
                 todo();
@@ -250,7 +258,7 @@ void backend::Generator::store_op(ir::Operand op,  backend::stackVarMap& stvm, r
     }
 }
 
-void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst>& rv_insts,int& stack_space,stackVarMap& stvm){
+void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst>& rv_insts,int& stack_ptr,int&  reverse_ptr,stackVarMap& stvm){
     if(ins->op==ir::Operator::_return){
         if(literal_check(ins->op1.type)){
             if(ins->op1.type==ir::Type::IntLiteral){
@@ -275,12 +283,34 @@ void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst
         ir::CallInst* cins = ((ir::CallInst*)ins);
         //add call;
         //存入ra
-        int tmp = -stack_space;
+        stack_ptr+=4;
+        int tmp = -stack_ptr;
         dgen_sw_ins(sw_ra,rv::rvREG::s0,rv::rvREG::ra,tmp);
-        stack_space+=4;
         if(!cins->argumentList.empty()){
             //存入参数值
-            todo();
+            rv::rvREG tmp_reg = rv::rvREG::t3;
+            for(int i = 0;i<cins->argumentList.size();i++){
+                ir::Operand op = cins->argumentList[i];
+                if(literal_check(op.type)){
+                    if(op.type==ir::Type::IntLiteral){
+                        dgen_li_ins(li_val,tmp_reg,this->analyzer.intstring_to_int(op.name));
+                    }
+                    else{
+                        todo();
+                    }
+                }
+                else{
+                    if(op.type==ir::Type::Int){
+                        standard_load_op(tmp_reg,op);
+                    }
+                    else{
+                        todo();
+                    }
+                }
+                //写入
+                dgen_sw_ins(sw_param,rv::rvREG::sp,tmp_reg,reverse_ptr);
+                reverse_ptr+=4;
+            }
         }
         //call
         dgen_call_ins(call_func,cins->op1.name);
@@ -352,9 +382,9 @@ void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst
     }
     else if(ins->op == ir::Operator::alloc){
         //只需要移动栈指针即可
-        stvm._table[ins->des.name] = stack_space;
+        stvm._table[ins->des.name] = stack_ptr+4;
         int len = this->analyzer.intstring_to_int(ins->op1.name) * 4;
-        stack_space += len;
+        stack_ptr += len;
     }
     else if(ins->op == ir::Operator::load){
         rv::rvREG off_reg = rv::rvREG::t3;
