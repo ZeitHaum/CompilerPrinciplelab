@@ -1,4 +1,4 @@
-instr_str = "LW, SW, ADDI, LI, NOP, JR, CALL, MV, JAL, ADD, SUB, MUL, DIV, SLLI"
+instr_str = "LW, SW, ADDI, LI, NOP, JR, CALL, MV, JAL, ADD, SUB, MUL, DIV, SLLI, REM"
 
 instrs = instr_str.split(", ")
 # print(instrs)
@@ -41,6 +41,7 @@ instrs_familiy = [
     "ADD",
     "ADD",
     "LI",
+    "ADD",
 ]
 
 assert(len(instrs)==len(instrs_familiy))

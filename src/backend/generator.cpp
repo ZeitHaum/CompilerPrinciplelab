@@ -36,6 +36,8 @@
 #define standard_store_op(reg_name,op) store_op(op,stvm,reg_name,rv_insts,stack_ptr);
 #define dgen_slli_ins(name, rd_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::SLLI; name.rd = rd_; name.imm = imm_; rv_insts.push_back(name)
 #define dgen_luilabel_ins(name,rd_,label_)  rv::rv_inst name; name.op = rv::rvOPCODE::LUI; name.rd = rd_; name.label = label_; rv_insts.push_back(name)
+#define dgen_rem_ins(name, rd_, rs1_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::REM; name.rd = rd_; name.rs1 = rs1_; name.rs2 = rs2_; rv_insts.push_back(name)
+
 
 backend::Generator::Generator(ir::Program& p, std::ofstream& f): program(p), fout(f) {}
 
@@ -121,6 +123,7 @@ std::string rv::rv_inst::draw() const{
     case rv::rvOPCODE::SUB:
     case rv::rvOPCODE::MUL:
     case rv::rvOPCODE::DIV:
+    case rv::rvOPCODE::REM:
         ret+= rv::toString(this->op) + "\t";
         ret+= rv::toString(this->rd) + ", ";
         ret+= rv::toString(this->rs1) + ", ";
@@ -328,7 +331,7 @@ void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst
         //写入值
         standard_store_op(tmp_op1,ins->des);
     }
-    else if(ins->op==ir::Operator::add ||ins->op==ir::Operator::sub || ins->op==ir::Operator::mul || ins->op==ir::Operator::div ){
+    else if(ins->op==ir::Operator::add ||ins->op==ir::Operator::sub || ins->op==ir::Operator::mul || ins->op==ir::Operator::div || ins->op==ir::Operator::mod){
         rv::rvREG tmp_op1 =rv::rvREG::t3;
         rv::rvREG tmp_op2 = rv::rvREG::t4;
         standard_load_op(tmp_op1,ins->op1);
@@ -342,6 +345,8 @@ void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst
             dgen_mul_ins(mul_ins,tmp_des,tmp_op1,tmp_op2);
         }else if(ins->op==ir::Operator::div){
             dgen_div_ins(div_ins,tmp_des,tmp_op1,tmp_op2);
+        }else if(ins->op==ir::Operator::mod){
+            dgen_rem_ins(rem_ins,tmp_des,tmp_op1,tmp_op2);
         }else{
             error();
         }
@@ -445,6 +450,7 @@ std::string rv::toString(rvOPCODE r){
 	else if(r == rv::rvOPCODE::DIV){return "div";}
     else if(r == rv::rvOPCODE::SLLI){return "slli";}
     else if(r == rv::rvOPCODE::LUI){return "lui";}
+    else if(r == rv::rvOPCODE::REM){return "rem";}
 	else{error();}
 }
 
