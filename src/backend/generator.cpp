@@ -283,13 +283,23 @@ void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst
         //写入值
         standard_store_op(tmp_op1,ins->des);
     }
-    else if(ins->op==ir::Operator::add){
+    else if(ins->op==ir::Operator::add ||ins->op==ir::Operator::sub || ins->op==ir::Operator::mul || ins->op==ir::Operator::div ){
         rv::rvREG tmp_op1 =rv::rvREG::t3;
         rv::rvREG tmp_op2 = rv::rvREG::t4;
         standard_load_op(tmp_op1,ins->op1);
         standard_load_op(tmp_op2,ins->op2);
         rv::rvREG tmp_des = rv::rvREG::t5;
-        dgen_add_ins(add_ins,tmp_des,tmp_op1,tmp_op2);
+        if(ins->op==ir::Operator::add){
+            dgen_add_ins(add_ins,tmp_des,tmp_op1,tmp_op2);
+        }else if(ins->op==ir::Operator::sub){
+            dgen_sub_ins(sub_ins,tmp_des,tmp_op1,tmp_op2);
+        }else if(ins->op==ir::Operator::mul){
+            dgen_mul_ins(mul_ins,tmp_des,tmp_op1,tmp_op2);
+        }else if(ins->op==ir::Operator::div){
+            dgen_div_ins(div_ins,tmp_des,tmp_op1,tmp_op2);
+        }else{
+            error();
+        }
         standard_store_op(tmp_des,ins->des);
     }
     else{
