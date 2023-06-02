@@ -13,6 +13,11 @@
 #define dgen_div_ins(name, rd_, rs1_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::DIV; name.rd = rd_; name.rs1 = rs1_; name.rs2 = rs2_; rv_insts.push_back(name)
 #define dgen_slli_ins(name, rd_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::SLLI; name.rd = rd_; name.imm = imm_; rv_insts.push_back(name)
 #define dgen_rem_ins(name, rd_, rs1_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::REM; name.rd = rd_; name.rs1 = rs1_; name.rs2 = rs2_; rv_insts.push_back(name)
+#define dgen_not_ins(name, rd_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::NOT; name.rd = rd_; name.rs2 = rs2_; rv_insts.push_back(name)
+#define dgen_slt_ins(name, rd_, rs1_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::SLT; name.rd = rd_; name.rs1 = rs1_; name.rs2 = rs2_; rv_insts.push_back(name)
+#define dgen_ble_ins(name, rd_, rs1_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::BLE; name.rd = rd_; name.rs1 = rs1_; name.imm = imm_; rv_insts.push_back(name)
+#define dgen_beq_ins(name, rd_, rs1_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::BEQ; name.rd = rd_; name.rs1 = rs1_; name.imm = imm_; rv_insts.push_back(name)
+#define dgen_j_ins(name, label_) rv::rv_inst name; name.op = rv::rvOPCODE::J; name.label = label_; rv_insts.push_back(name)
 
 std::string rv::toString(rvOPCODE r){
 	if(r == rv::rvOPCODE::LW){return "lw";}
@@ -30,6 +35,11 @@ std::string rv::toString(rvOPCODE r){
 	else if(r == rv::rvOPCODE::DIV){return "div";}
 	else if(r == rv::rvOPCODE::SLLI){return "slli";}
 	else if(r == rv::rvOPCODE::REM){return "rem";}
+	else if(r == rv::rvOPCODE::NOT){return "not";}
+	else if(r == rv::rvOPCODE::SLT){return "slt";}
+	else if(r == rv::rvOPCODE::BLE){return "ble";}
+	else if(r == rv::rvOPCODE::BEQ){return "beq";}
+	else if(r == rv::rvOPCODE::J){return "j";}
 	else{error();}
 }
 

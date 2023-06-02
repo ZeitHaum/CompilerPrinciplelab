@@ -13,7 +13,6 @@ struct Function {
     ir::Type returnType;
     std::vector<Operand> ParameterList;
     std::vector<Instruction*> InstVec;
-    std::map<std::string,int>var_position;//lab3
     Function();
     Function(const std::string&, const ir::Type&);
     Function(const std::string&, const std::vector<Operand>&, const ir::Type&);
