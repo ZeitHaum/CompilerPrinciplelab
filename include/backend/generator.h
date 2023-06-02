@@ -34,6 +34,7 @@ struct stackVarMap {
 
 struct Generator {
     const ir::Program& program;         // the program to gen
+    std::map<string,bool>is_global;
     std::ofstream& fout;                 // output file
     frontend::Analyzer analyzer;    //use analyzer functions.
 
@@ -49,7 +50,7 @@ struct Generator {
 
     // generate wrapper function
     void gen();
-    void gen_func(const ir::Function&);
+    void gen_func(ir::Function&);
     void gen_instr(ir::Instruction*, std::vector<rv::rv_inst>& rv_insts,int& stack_space);
 };
 

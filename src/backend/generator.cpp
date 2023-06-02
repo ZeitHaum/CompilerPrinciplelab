@@ -11,16 +11,22 @@
 #define error() assert(0 && "RISCV generator error!")
 #define dgen_global(name) this->fout<<("\t.global " + std::string(name) + " \n") //name必须是string 类型
 #define dgen_type(name,type) this->fout<<("\t.type " + std::string(name) + ", @" + std::string(type) + " \n")
+#define dgen_word(name) this->fout<<("\t.word " + std::string(name) + " \n") //name必须是string 类型
+#define dgen_zero(name) this->fout<<("\t.zero " + std::string(name) + " \n") //name必须是string 类型
 #define dgen_label(name) this->fout<<(std::string(name) + ":\n")
 #define dgen_ins_str(ins_str) this->fout<<"\t"<<std::string(ins_str)<<" \n" 
 #define literal_check(type_) (type_ == ir::Type::FloatLiteral || type_ == ir::Type::IntLiteral)
 #define dgen_lw_ins(name, rs1_, rs2_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::LW; name.rs1 = rs1_; name.rs2 = rs2_; name.imm = imm_; rv_insts.push_back(name)
+#define dgen_lwlable_ins(name,rd_,label_) rv::rv_inst name;  name.op = rv::rvOPCODE::LW; name.rd = rd_; name.label = label_; rv_insts.push_back(name)
 #define dgen_sw_ins(name, rs1_, rs2_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::SW; name.rs1 = rs1_; name.rs2 = rs2_; name.imm = imm_; stack_space+=4; rv_insts.push_back(name)
+#define dgen_swlable_ins(name,rd_,label_,rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::SW; name.rd = rd_; name.label = label_; name.rs2 = rs2_; rv_insts.push_back(name)
 #define dgen_addi_ins(name, rd_, rs1_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::ADDI; name.rd = rd_; name.rs1 = rs1_; name.imm = imm_; rv_insts.push_back(name)
 #define dgen_li_ins(name, rd_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::LI; name.rd = rd_; name.imm = imm_; rv_insts.push_back(name)
 #define dgen_nop_ins(name) rv::rv_inst name; name.op = rv::rvOPCODE::NOP; rv_insts.push_back(name)
 #define dgen_jr_ins(name, rs1_) rv::rv_inst name; name.op = rv::rvOPCODE::JR; name.rs1 = rs1_; rv_insts.push_back(name)
-
+#define dgen_call_ins(name,label_) rv::rv_inst name; name.op = rv::rvOPCODE::CALL; name.label = label_; rv_insts.push_back(name)
+#define dgen_mv_ins(name, rd_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::MV; name.rd = rd_; name.rs2 = rs2_; rv_insts.push_back(name)
+#define dgen_jal_ins(name, label_) rv::rv_inst name; name.op = rv::rvOPCODE::JAL; name.label = label_; rv_insts.push_back(name)
 
 backend::Generator::Generator(ir::Program& p, std::ofstream& f): program(p), fout(f) {}
 
@@ -47,11 +53,32 @@ std::string rv::rv_inst::draw() const{
         break;
     // op rs2, imm(rs1)
     case rv::rvOPCODE::SW:
+        if(this->label==""){
+            ret+= rv::toString(this->op) + "\t";
+            ret+= rv::toString(this->rs2) + ", ";
+            ret+= std::to_string(this->imm) + "("; 
+            ret+= rv::toString(this->rs1) + ")\n";
+        }
+        else{
+            ret+= rv::toString(this->op) + "\t";
+            ret+= rv::toString(this->rd) + ", ";
+            ret+= this->label + ", ";
+            ret+= rv::toString(this->rs2) + "\n";
+        }
+        break;
+    // op rs2, imm(rs1)
     case rv::rvOPCODE::LW:
-        ret+= rv::toString(this->op) + "\t";
-        ret+= rv::toString(this->rs2) + ", ";
-        ret+= std::to_string(this->imm) + "("; 
-        ret+= rv::toString(this->rs1) + ")\n";
+        if(this->label==""){
+            ret+= rv::toString(this->op) + "\t";
+            ret+= rv::toString(this->rs2) + ", ";
+            ret+= std::to_string(this->imm) + "("; 
+            ret+= rv::toString(this->rs1) + ")\n";
+        }
+        else{
+            ret+= rv::toString(this->op) + "\t";
+            ret+= rv::toString(this->rd) + ", ";
+            ret+= this->label + "\n ";
+        }
         break;
 
     // op rd,rs1,imm
@@ -60,6 +87,17 @@ std::string rv::rv_inst::draw() const{
         ret+= rv::toString(this->rd) + ", ";
         ret+= rv::toString(this->rs1) + ", ";
         ret+= std::to_string(this->imm)+ "\n";
+        break;
+
+    //JAL label
+    case rv::rvOPCODE::JAL:
+        ret+= rv::toString(this->op) + "\t";
+        ret+= this->label + "\n";
+        break;
+    //call label
+    case rv::rvOPCODE::CALL:
+        ret+= rv::toString(this->op) + "\t";
+        ret+= this->label + "\n";
         break;
     default:
         error();
@@ -72,27 +110,39 @@ std::string rv::rv_inst::draw() const{
 
 void backend::Generator::gen() {
     /***声明全局变量****/
-    //声明所有函数(除了global)
-    for(ir::Function func:this->program.functions){
-        if(func.name=="global"){
-            continue;
+    //处理全局变量,分配值
+    fout<<"\t.section .sdata\n";
+    for(auto g : this->program.globalVal){
+        ir::Operand op = g.val;
+        this->is_global[op.name] = true;
+        if(op.type==ir::Type::Int){
+            dgen_global(op.name);
+            dgen_label(op.name);
+            dgen_word("0");
         }
+        else if(op.type==ir::Type::IntPtr){
+            dgen_global(op.name);
+            dgen_label(op.name);
+            dgen_zero(std::to_string(g.maxlen*4));
+        }
+        else{
+            //浮点数
+            todo();
+        }
+    }
+
+    //处理函数
+    fout<<"\t.text\n";
+    for(ir::Function func:this->program.functions){
         dgen_global(func.name);
         dgen_type(func.name,"function");
-    }
-    //处理全局变量
-    warning_todo();
-    //处理函数
-    for(ir::Function func:this->program.functions){
-        if(func.name!="global"){
-            gen_func(func);
-        }
+        gen_func(func);
     }
 }
 
 
 
-void backend::Generator::gen_func(const ir::Function& func){
+void backend::Generator::gen_func(ir::Function& func){
     //进入函数声明
     dgen_label(func.name);
     int stack_space = 0;
@@ -105,18 +155,19 @@ void backend::Generator::gen_func(const ir::Function& func){
     //存入帧指针
     dgen_sw_ins(sw_s0,rv::rvREG::sp,rv::rvREG::s0,0);//imm先占位,走完整个函数修改
     //偏移帧指针
-    dgen_addi_ins(add_s0,rv::rvREG::s0,rv::rvREG::s0,0);//imm先占位,走完整个函数修改
+    dgen_addi_ins(add_s0,rv::rvREG::s0,rv::rvREG::sp,0);//imm先占位,走完整个函数修改
     /*****进入函数指令*****/
     for(auto ins:func.InstVec){
         gen_instr(ins,rv_insts,stack_space);
     }
-    //取出s0
-    dgen_lw_ins(lw_s0,rv::rvREG::sp,rv::rvREG::s0,stack_space);
-    //恢复sp
-    dgen_addi_ins(recover_sp,rv::rvREG::sp,rv::rvREG::sp,stack_space);
     //填充占位
-    rv_insts[0].imm = -stack_space;
-    rv_insts[1].imm = stack_space;
+    rv_insts[0].imm = -stack_space;//add_sp
+    rv_insts[1].imm = stack_space-4;//sw_s0
+    rv_insts[2].imm = stack_space;
+    //取出s0
+    dgen_lw_ins(lw_s0,rv::rvREG::sp,rv::rvREG::s0,rv_insts[1].imm);
+    //恢复sp
+    dgen_addi_ins(recover_sp,rv::rvREG::sp,rv::rvREG::sp,-rv_insts[0].imm);
     dgen_jr_ins(jr_ra,rv::rvREG::ra);
     //写入文件
     for(auto ri : rv_insts){
@@ -134,14 +185,46 @@ void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst
                 todo();
             }
         }
+        else if(ins->op1.type==ir::Type::null){
+            //do Nothing.
+            dgen_nop_ins(nop_ret);
+        }
         else{
             todo();
         }
     }
     else if(ins->op==ir::Operator::call){
-        if(((ir::CallInst*)ins)->op1.name=="global"){
-            //call global无效
-            return;
+        ir::CallInst* cins = ((ir::CallInst*)ins);
+        if(cins->argumentList.empty()){
+            //add call;
+            //存入ra
+            int tmp = -stack_space;
+            dgen_sw_ins(sw_ra,rv::rvREG::s0,rv::rvREG::ra,tmp);
+            //call
+            dgen_call_ins(call_func,cins->op1.name);
+            //取回ra
+            dgen_lw_ins(lw_ra,rv::rvREG::s0,rv::rvREG::ra,tmp);
+        }
+        else{
+            todo();
+        }
+    }
+    else if(ins->op==ir::Operator::def){
+        //判断是否为全局变量
+        //加载def.op1
+        rv::rvREG tmp_rd;
+        if(ins->op1.type==ir::Type::IntLiteral){
+            tmp_rd = this->getRd(ins->op1);
+            dgen_li_ins(li_op1,tmp_rd,this->analyzer.intstring_to_int(ins->op1.name));
+        }
+        else{
+            todo();
+        }
+        if(this->is_global.count(ins->des.name)!=0){
+            dgen_swlable_ins(sw_gv,tmp_rd,ins->des.name,getRs2({}));//Operand为空表示临时变量
+        }
+        else{
+            todo();
         }
     }
     else{
@@ -160,6 +243,9 @@ std::string rv::toString(rvOPCODE r){
 	else if(r == rv::rvOPCODE::LI){return "li";}
 	else if(r == rv::rvOPCODE::NOP){return "nop";}
 	else if(r == rv::rvOPCODE::JR){return "jr";}
+    else if(r == rv::rvOPCODE::CALL){return "call";}
+    else if(r == rv::rvOPCODE::MV){return "mv";}
+    else if(r == rv::rvOPCODE::JAL){return "jal";}
 	else{error();}
 }
 
@@ -200,6 +286,25 @@ std::string rv::toString(rvREG r){
     else if(r == rv::rvREG::X31){return "t6";}
     else if(r == rv::rvREG::null){return "null";}
     else{error();}
+}
+
+rv::rvREG backend::Generator::getRd(ir::Operand){
+    return rv::rvREG::t0;
+}
+rv::rvFREG backend::Generator::fgetRd(ir::Operand){
+    todo();
+}
+rv::rvREG backend::Generator::getRs1(ir::Operand){
+    return rv::rvREG::t1;
+}
+rv::rvREG backend::Generator::getRs2(ir::Operand){
+    return rv::rvREG::t2;
+}
+rv::rvFREG backend::Generator::fgetRs1(ir::Operand){
+    todo();
+}
+rv::rvFREG backend::Generator::fgetRs2(ir::Operand){
+    todo();
 }
 
 

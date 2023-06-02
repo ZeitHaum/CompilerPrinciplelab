@@ -14,7 +14,7 @@ struct rv_inst {
 
     std::string draw() const;
     // rv_inst(rvOPCODE op,rvREG rd,rvREG rs1, int imm):op(op),rd(rd),rs1(rs1),imm(imm){}
-    rv_inst(){}
+    rv_inst():label(""){}
 };
 
 //TODO rv_finst

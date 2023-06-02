@@ -4,6 +4,9 @@
 #define dgen_li_ins(name, rd_, imm_) rv::rv_inst name; name.op = rv::rvOPCODE::LI; name.rd = rd_; name.imm = imm_; rv_insts.push_back(name)
 #define dgen_nop_ins(name) rv::rv_inst name; name.op = rv::rvOPCODE::NOP; rv_insts.push_back(name)
 #define dgen_jr_ins(name, rs1_) rv::rv_inst name; name.op = rv::rvOPCODE::JR; name.rs1 = rs1_; rv_insts.push_back(name)
+#define dgen_call_ins(name, rd_, label_) rv::rv_inst name; name.op = rv::rvOPCODE::CALL; name.rd = rd_; name.label = label_; rv_insts.push_back(name)
+#define dgen_mv_ins(name, rd_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::MV; name.rd = rd_; name.rs2 = rs2_; rv_insts.push_back(name)
+#define dgen_jal_ins(name, label_) rv::rv_inst name; name.op = rv::rvOPCODE::JAL; name.label = label_; rv_insts.push_back(name)
 
 std::string rv::toString(rvOPCODE r){
 	if(r == rv::rvOPCODE::LW){return "lw";}
@@ -12,6 +15,9 @@ std::string rv::toString(rvOPCODE r){
 	else if(r == rv::rvOPCODE::LI){return "li";}
 	else if(r == rv::rvOPCODE::NOP){return "nop";}
 	else if(r == rv::rvOPCODE::JR){return "jr";}
+	else if(r == rv::rvOPCODE::CALL){return "call";}
+	else if(r == rv::rvOPCODE::MV){return "mv";}
+	else if(r == rv::rvOPCODE::JAL){return "jal";}
 	else{error();}
 }
 

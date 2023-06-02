@@ -1,0 +1,1 @@
+riscv32-unknown-linux-gnu-gcc test.s sylib-riscv-linux.a -o test.exe
