@@ -25,7 +25,7 @@
 #define dgen_nop_ins(name) rv::rv_inst name; name.op = rv::rvOPCODE::NOP; rv_insts.push_back(name)
 #define dgen_jr_ins(name, rs1_) rv::rv_inst name; name.op = rv::rvOPCODE::JR; name.rs1 = rs1_; rv_insts.push_back(name)
 #define dgen_call_ins(name,label_) rv::rv_inst name; name.op = rv::rvOPCODE::CALL; name.label = label_; rv_insts.push_back(name)
-#define dgen_mv_ins(name, rd_, rs2_) rv::rv_inst name; name.op = rv::rvOPCODE::MV; name.rd = rd_; name.rs2 = rs2_; rv_insts.push_back(name)
+#define dgen_mv_ins(name, rd_, rs1_) rv::rv_inst name; name.op = rv::rvOPCODE::MV; name.rd = rd_; name.rs1 = rs1_; rv_insts.push_back(name)
 #define dgen_jal_ins(name, label_) rv::rv_inst name; name.op = rv::rvOPCODE::JAL; name.label = label_; rv_insts.push_back(name)
 
 backend::Generator::Generator(ir::Program& p, std::ofstream& f): program(p), fout(f) {}
@@ -89,16 +89,20 @@ std::string rv::rv_inst::draw() const{
         ret+= std::to_string(this->imm)+ "\n";
         break;
 
-    //JAL label
+    //op label
     case rv::rvOPCODE::JAL:
-        ret+= rv::toString(this->op) + "\t";
-        ret+= this->label + "\n";
-        break;
-    //call label
     case rv::rvOPCODE::CALL:
         ret+= rv::toString(this->op) + "\t";
         ret+= this->label + "\n";
         break;
+
+    //op rd,rs1
+    case rv::rvOPCODE::MV:
+        ret+= rv::toString(this->op) + "\t";
+        ret+= rv::toString(this->rd) + ", ";
+        ret+= rv::toString(this->rs1) + "\n";
+        break;
+    
     default:
         error();
         break;
@@ -140,8 +144,6 @@ void backend::Generator::gen() {
     }
 }
 
-
-
 void backend::Generator::gen_func(ir::Function& func){
     //进入函数声明
     dgen_label(func.name);
@@ -156,9 +158,10 @@ void backend::Generator::gen_func(ir::Function& func){
     dgen_sw_ins(sw_s0,rv::rvREG::sp,rv::rvREG::s0,0);//imm先占位,走完整个函数修改
     //偏移帧指针
     dgen_addi_ins(add_s0,rv::rvREG::s0,rv::rvREG::sp,0);//imm先占位,走完整个函数修改
+    stackVarMap stvm;
     /*****进入函数指令*****/
     for(auto ins:func.InstVec){
-        gen_instr(ins,rv_insts,stack_space);
+        gen_instr(ins,rv_insts,stack_space,stvm);
     }
     //填充占位
     rv_insts[0].imm = -stack_space;//add_sp
@@ -175,7 +178,7 @@ void backend::Generator::gen_func(ir::Function& func){
     }
 }
 
-void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst>& rv_insts,int& stack_space){
+void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst>& rv_insts,int& stack_space,stackVarMap& stvm){
     if(ins->op==ir::Operator::_return){
         if(literal_check(ins->op1.type)){
             if(ins->op1.type==ir::Type::IntLiteral){
@@ -209,22 +212,45 @@ void backend::Generator::gen_instr(ir::Instruction* ins, std::vector<rv::rv_inst
             todo();
         }
     }
-    else if(ins->op==ir::Operator::def){
-        //判断是否为全局变量
+    else if(ins->op==ir::Operator::def || ins->op==ir::Operator::mov){
         //加载def.op1
-        rv::rvREG tmp_rd;
+        rv::rvREG tmp_op1 = rv::rvREG::t3;
         if(ins->op1.type==ir::Type::IntLiteral){
-            tmp_rd = this->getRd(ins->op1);
-            dgen_li_ins(li_op1,tmp_rd,this->analyzer.intstring_to_int(ins->op1.name));
+            dgen_li_ins(li_op1,tmp_op1,this->analyzer.intstring_to_int(ins->op1.name));
+        }
+        else if(ins->op1.type==ir::Type::Int){
+            //判断全局变量
+            if(this->is_global.count(ins->op1.name)!=0){
+                dgen_lwlable_ins(lw_gv,tmp_op1,ins->op1.name);
+            }
+            else{
+                int off = stvm._table[ins->op1.name];
+                dgen_lw_ins(lw_lv,rv::rvREG::s0,tmp_op1,off);
+            }
         }
         else{
             todo();
         }
+        //写入值
+        //判断是否为全局变量
         if(this->is_global.count(ins->des.name)!=0){
-            dgen_swlable_ins(sw_gv,tmp_rd,ins->des.name,getRs2({}));//Operand为空表示临时变量
+            dgen_swlable_ins(sw_gv,tmp_op1,ins->des.name,getRs2({}));//Operand为空表示临时变量
         }
         else{
-            todo();
+            //内存管理映射
+            if(stvm._table.count(ins->des.name)==0){
+                if(ins->des.type==ir::Type::Int){
+                    stvm._table[ins->des.name] = stack_space;
+                }
+                else if(ins->des.type==ir::Type::Float){
+                    todo();
+                }
+                else{
+                    error();
+                }
+            }
+            int off = stvm._table[ins->des.name];
+            dgen_sw_ins(sw_def_des,rv::rvREG::s0,tmp_op1,-off);
         }
     }
     else{

@@ -15,7 +15,8 @@ namespace backend {
 
 // it is a map bewteen variable and its mem addr, the mem addr of a local variable can be identified by ($sp + off)
 struct stackVarMap {
-    std::map<ir::Operand, int> _table;
+    std::map<std::string, int> _table;
+    //s0 - off
 
     /**
      * @brief find the addr of a ir::Operand
@@ -51,7 +52,8 @@ struct Generator {
     // generate wrapper function
     void gen();
     void gen_func(ir::Function&);
-    void gen_instr(ir::Instruction*, std::vector<rv::rv_inst>& rv_insts,int& stack_space);
+    void gen_instr(ir::Instruction*, std::vector<rv::rv_inst>& rv_insts,int& stack_space,stackVarMap& stvm);
+    rv::rvREG get_op_val(ir::Operand op);
 };
 
 
